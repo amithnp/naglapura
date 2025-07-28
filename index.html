@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amith Naglapura - Portfolio</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Google Fonts: Poppins & Lato -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Custom Styles -->
+<style>
+body {
+font-family: 'Lato', sans-serif;
+background-color: #0d1117; /* Deep navy background */
+color: #c9d1d9; /* Softer white text */
+overflow-x: hidden;
+}
+#galaxy-canvas {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: -1;
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: 'Poppins', sans-serif;
+color: #f0f6fc; /* Brighter white for headings */
+}
+.glassmorphism {
+background: rgba(13, 17, 23, 0.5);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.highlight-text {
+color: #f0f6fc;
+}
+/* New scroll-triggered slide-in animation */
+.slide-in-section {
+opacity: 0;
+transform: translateY(50px);
+transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.slide-in-section.is-visible {
+opacity: 1;
+transform: translateY(0);
+}
+.card-hover {
+background-color: rgba(31, 41, 55, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.1);
+transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+transform: translateY(-8px);
+background-color: rgba(31, 41, 55, 0.4);
+box-shadow: 0 0 20px rgba(200, 220, 255, 0.1);
+}
+.btn-primary {
+background-color: #c9d1d9; /* Light grey button */
+color: #0d1117; /* Dark text */
+font-weight: bold;
+transition: all 0.3s ease;
+}
+.btn-primary:hover {
+background-color: #f0f6fc; /* Brighter white on hover */
+transform: scale(1.05);
+box-shadow: 0 0 20px rgba(240, 246, 252, 0.3); /* White glow */
+}
+.btn-secondary {
+background-color: transparent;
+border: 1px solid #30363d;
+color: #c9d1d9;
+transition: all 0.3s ease;
+}
+.btn-secondary:hover {
+background-color: #161b22;
+border-color: #8b949e;
+}
+/* Spinner for loading state */
+.spinner {
+border: 4px solid rgba(255, 255, 255, 0.2);
+border-left-color: #c9d1d9; /* Updated spinner color */
+border-radius: 50%;
+width: 36px;
+height: 36px;
+animation: spin 1s linear infinite;
+}
+@keyframes spin {
+to { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body class="antialiased">
+<canvas id="galaxy-canvas"></canvas>
+
+<!-- Header & Navigation -->
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+<div class="container mx-auto px-4 py-4">
+<div class="flex justify-between items-center glassmorphism rounded-full px-6 py-3 shadow-sm">
+<a href="#" class="text-xl font-bold tracking-wider highlight-text">AN</a>
+<nav class="hidden md:flex space-x-8 text-gray-400">
+<a href="#home" class="hover:text-cyan-400 transition-colors">Home</a>
+<a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+<a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
+<a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
+<a href="#ai-assistant" class="hover:text-cyan-400 transition-colors">AI Assistant</a>
+<a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+</nav>
+<a href="mailto:amithnaglapura@gmail.com" class="hidden md:block btn-primary font-medium py-2 px-4 rounded-full">
+Hire Me
+</a>
+<button id="mobile-menu-button" class="md:hidden text-2xl text-gray-300">
+☰
+</button>
+</div>
+</div>
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden md:hidden glassmorphism mx-4 rounded-lg shadow-lg">
+<a href="#home" class="block text-center py-3 hover:bg-gray-800 rounded-t-lg">Home</a>
+<a href="#about" class="block text-center py-3 hover:bg-gray-800">About</a>
+<a href="#skills" class="block text-center py-3 hover:bg-gray-800">Skills</a>
+<a href="#projects" class="block text-center py-3 hover:bg-gray-800">Projects</a>
+<a href="#ai-assistant" class="block text-center py-3 hover:bg-gray-800">AI Assistant</a>
+<a href="#contact" class="block text-center py-3 hover:bg-gray-800 rounded-b-lg">Contact</a>
+</div>
+</header>
+
+<!-- Main Content -->
+<main class="container mx-auto px-4 pt-24 relative z-10">
+
+<!-- Hero Section -->
+<section id="home" class="min-h-screen flex items-center justify-center text-center">
+<div class="max-w-4xl">
+<span class="text-cyan-400 font-semibold">Hi, my name is</span>
+<h1 class="text-4xl md:text-6xl lg:text-7xl font-bold my-4 highlight-text">Amith Naglapura</h1>
+<h2 class="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-500">I build data-driven solutions.</h2>
+<p class="mt-6 max-w-2xl mx-auto text-lg text-gray-400">
+As a passionate technologist, I specialize in data analysis and creating data-driven applications. My expertise lies in transforming complex data into actionable insights and engineering solutions that bridge the gap between hardware and software.
+</p>
+<div class="mt-8 flex flex-wrap justify-center gap-4">
+<a href="#projects" class="btn-primary font-bold py-3 px-6 rounded-full">
+View My Work
+</a>
+<a href="https://github.com/AmithNaglapura" target="_blank" class="btn-secondary font-bold py-3 px-6 rounded-full">
+GitHub Profile
+</a>
+<a href="https://public.tableau.com/app/profile/amith.naglapura/vizzes" target="_blank" class="btn-secondary font-bold py-3 px-6 rounded-full">
+Tableau Profile
+</a>
+</div>
+</div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-20 md:py-32 slide-in-section">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-12 highlight-text">
+About Me
+</h2>
+<div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+<div class="md:w-1/2 lg:w-2/5">
+<img src="Amith.jpeg"
+onerror="this.onerror=null;this.src='https://placehold.co/600x600/0d1117/c9d1d9?text=Amith+Naglapura';"
+alt="A portrait of Amith Naglapura"
+class="rounded-full shadow-2xl w-full h-auto object-cover aspect-square transform hover:scale-105 transition-transform duration-500 shadow-cyan-900/40">
+</div>
+<div class="md:w-1/2 lg:w-3/5">
+<p class="text-lg mb-4 text-gray-400">
+Hello! I'm Amith, a tech enthusiast from Mysore, India. My academic background provided a solid foundation in hardware systems, which sparked a deeper curiosity about the data these systems generate, leading me to the world of data analysis and machine learning.
+</p>
+<p class="text-lg text-gray-400">
+My goal is to apply my problem-solving skills to help businesses make smarter, data-informed decisions. Whether it's developing a machine learning model or analyzing electrical systems for a company like Schneider Electric, I am driven by the challenge of turning technical possibilities into real-world value.
+</p>
+</div>
+</div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="py-20 md:py-32 slide-in-section">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 highlight-text">
+Professional Skillset
+</h2>
+<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="rounded-lg p-6 card-hover">
+<h3 class="text-xl font-bold mb-4 highlight-text">Technical Skills</h3>
+<ul class="space-y-2 text-gray-400 grid grid-cols-2 gap-2">
+<li class="flex items-center"><i class="fas fa-chart-line text-cyan-400 mr-3"></i>Data Analysis</li>
+<li class="flex items-center"><i class="fas fa-brain text-cyan-400 mr-3"></i>Machine Learning</li>
+<li class="flex items-center"><i class="fas fa-chart-pie text-cyan-400 mr-3"></i>Tableau</li>
+<li class="flex items-center"><i class="fas fa-database text-cyan-400 mr-3"></i>SQL</li>
+<li class="flex items-center"><i class="fab fa-python text-cyan-400 mr-3"></i>Python</li>
+<li class="flex items-center"><i class="fas fa-microchip text-cyan-400 mr-3"></i>Embedded C, C++</li>
+<li class="flex items-center"><i class="fab fa-r-project text-cyan-400 mr-3"></i>R</li>
+<li class="flex items-center"><i class="fab fa-html5 text-cyan-400 mr-3"></i>HTML & CSS</li>
+</ul>
+</div>
+<div class="rounded-lg p-6 card-hover">
+<h3 class="text-xl font-bold mb-4 highlight-text">Professional Skills</h3>
+<ul class="space-y-2 text-gray-400 grid grid-cols-2 gap-2">
+<li class="flex items-center"><i class="fas fa-lightbulb text-cyan-400 mr-3"></i>Problem Solving</li>
+<li class="flex items-center"><i class="fas fa-tasks text-cyan-400 mr-3"></i>Project Management</li>
+<li class="flex items-center"><i class="fas fa-briefcase text-cyan-400 mr-3"></i>Business Analysis</li>
+<li class="flex items-center"><i class="fas fa-users text-cyan-400 mr-3"></i>Leadership</li>
+</ul>
+</div>
+</div>
+</section>
+
+
+<!-- Projects Section -->
+<section id="projects" class="py-20 md:py-32 slide-in-section">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 highlight-text">
+My Projects & Experience
+</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Project Card 1 -->
+<div class="rounded-lg p-6 flex flex-col card-hover">
+<div class="flex-grow">
+<h3 class="text-xl font-bold mb-2 highlight-text">Current Leakage Detection System</h3>
+<p class="text-sm text-gray-500 mb-2">Internship @ Schneider Electric</p>
+<p class="text-gray-400 mb-4">Developed algorithms to analyze real-time data from electrical circuits, enhancing detection accuracy to ensure electrical safety and prevent potential hazards.</p>
+</div>
+<div class="mt-4 flex flex-wrap gap-2">
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">IoT</span>
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Data Analysis</span>
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="rounded-lg p-6 flex flex-col card-hover">
+<div class="flex-grow">
+<h3 class="text-xl font-bold mb-2 highlight-text">Early Crop Disease Detection</h3>
+<p class="text-sm text-gray-500 mb-2">Published Research Paper (IJFMR)</p>
+<p class="text-gray-400 mb-4">Designed a machine learning framework to identify crop diseases at an early stage, minimizing crop damage and optimizing yield for better agricultural productivity.</p>
+</div>
+<div class="mt-4 flex flex-wrap gap-2">
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Automation</span>
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
+</div>
+</div>
+<!-- Project Card 3 -->
+<div class="rounded-lg p-6 flex flex-col card-hover">
+<div class="flex-grow">
+<h3 class="text-xl font-bold mb-2 highlight-text">Tableau Data Visualizations</h3>
+<p class="text-sm text-gray-500 mb-2">Public Portfolio</p>
+<p class="text-gray-400 mb-4">A collection of interactive dashboards and visualizations showcasing my ability to communicate complex data stories effectively. Click below to explore.</p>
+</div>
+<div class="mt-4">
+<a href="https://public.tableau.com/app/profile/amith.naglapura/vizzes" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold">View Profile &rarr;</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- AI Assistant Section -->
+<section id="ai-assistant" class="py-20 md:py-32 text-center slide-in-section">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 highlight-text">
+✨ AI Assistant
+</h2>
+<p class="max-w-2xl mx-auto text-lg mb-8 text-gray-400">
+This is an experimental AI assistant trained on my professional profile. Ask it questions about my skills, projects, or experience.
+<strong class="text-gray-300 block mt-2">Please note: The AI will only answer questions related to my profile.</strong>
+</p>
+<div class="max-w-2xl mx-auto">
+<textarea id="question-input" rows="3" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-cyan-500 focus:outline-none text-white placeholder-gray-500" placeholder="e.g., 'What was Amith's role at Schneider Electric?' or 'Summarize his project on crop disease detection.'"></textarea>
+<button id="ask-ai-btn" class="mt-4 btn-primary font-bold py-3 px-8 rounded-full">
+Ask AI Assistant
+</button>
+</div>
+<!-- AI Response Output -->
+<div id="ai-response-output" class="mt-12 text-left max-w-3xl mx-auto hidden">
+<div id="spinner-container" class="flex justify-center items-center h-40">
+<div class="spinner"></div>
+</div>
+<div id="response-content" class="hidden glassmorphism rounded-lg p-8">
+<!-- Content will be injected here by JavaScript -->
+</div>
+</div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 md:py-32 text-center slide-in-section">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 highlight-text">
+Get In Touch
+</h2>
+<p class="max-w-xl mx-auto text-lg mb-8 text-gray-400">
+I'm actively seeking roles where I can leverage my data analysis skills and am open to new opportunities and collaborations. If you're looking for a data-driven problem solver, I'd love to connect.
+</p>
+<a href="mailto:amithnaglapura@gmail.com?subject=Connecting from your Portfolio" class="btn-primary font-bold py-4 px-8 rounded-full">
+Say Hello
+</a>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="py-8 text-center text-gray-500 relative z-10">
+<div class="flex justify-center items-center space-x-6 mb-4">
+<a href="https://www.linkedin.com/in/amithnaglaupra" target="_blank" class="text-2xl hover:text-cyan-400 transition-colors">
+<i class="fab fa-linkedin"></i>
+</a>
+<a href="https://github.com/AmithNaglapura" target="_blank" class="text-2xl hover:text-cyan-400 transition-colors">
+<i class="fab fa-github"></i>
+</a>
+<a href="https://public.tableau.com/app/profile/amith.naglapura/vizzes" target="_blank" class="text-2xl hover:text-cyan-400 transition-colors">
+<i class="fas fa-chart-bar"></i>
+</a>
+</div>
+<p>Designed & Built by Amith Naglapura</p>
+<p>&copy; 2025. All rights reserved.</p>
+</footer>
+
+<!-- JavaScript for interactivity -->
+<script>
+// --- Galaxy Animation ---
+const canvas = document.getElementById('galaxy-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+const numParticles = 400;
+
+function setCanvasSize() {
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+}
+
+function createParticles() {
+particles = [];
+for (let i = 0; i < numParticles; i++) {
+const distanceFromCenter = Math.random() * Math.random() * (Math.min(canvas.width, canvas.height) * 0.4);
+const angle = Math.random() * 2 * Math.PI;
+particles.push({
+x: canvas.width / 2 + distanceFromCenter * Math.cos(angle),
+y: canvas.height / 2 + distanceFromCenter * Math.sin(angle),
+radius: Math.random() * 1.2 + 0.1,
+angle: angle,
+speed: 0.005 + Math.random() * 0.005,
+distance: distanceFromCenter,
+color: `rgba(200, 220, 255, ${0.5 + Math.random() * 0.5})`
+});
+}
+}
+
+function animate() {
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+particles.forEach(p => {
+p.angle += p.speed;
+p.x = canvas.width / 2 + p.distance * Math.cos(p.angle);
+p.y = canvas.height / 2 + p.distance * Math.sin(p.angle);
+
+ctx.beginPath();
+ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+ctx.fillStyle = p.color;
+ctx.fill();
+});
+requestAnimationFrame(animate);
+}
+
+window.addEventListener('resize', () => {
+setCanvasSize();
+createParticles();
+});
+
+setCanvasSize();
+createParticles();
+animate();
+
+
+// --- Mobile menu toggle ---
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuButton.addEventListener('click', () => {
+mobileMenu.classList.toggle('hidden');
+});
+
+// Close mobile menu when a link is clicked
+const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
+for (let link of mobileMenuLinks) {
+link.addEventListener('click', () => {
+mobileMenu.classList.add('hidden');
+});
+}
+
+// --- Navbar background on scroll ---
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+if (window.scrollY > 50) {
+navbar.classList.add('bg-black/50');
+} else {
+navbar.classList.remove('bg-black/50');
+}
+});
+
+// --- Scroll-triggered fade-in animation ---
+const sections = document.querySelectorAll('.slide-in-section');
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('is-visible');
+}
+});
+}, {
+threshold: 0.1
+});
+
+sections.forEach(section => {
+observer.observe(section);
+});
+
+// --- Gemini AI Assistant ---
+const askBtn = document.getElementById('ask-ai-btn');
+const questionInput = document.getElementById('question-input');
+const aiResponseOutput = document.getElementById('ai-response-output');
+const spinnerContainer = document.getElementById('spinner-container');
+const responseContent = document.getElementById('response-content');
+
+askBtn.addEventListener('click', askAiAssistant);
+
+async function askAiAssistant() {
+const userQuestion = questionInput.value;
+if (!userQuestion.trim()) {
+alert('Please ask a question first.');
+return;
+}
+
+// Show loading spinner
+aiResponseOutput.classList.remove('hidden');
+spinnerContainer.classList.remove('hidden');
+responseContent.classList.add('hidden');
+askBtn.disabled = true;
+askBtn.textContent = 'Thinking...';
+
+const context = `
+Amith Naglapura's Professional Profile:
+- Summary: A technologist specializing in data analysis, transforming complex data into actionable insights and engineering solutions that bridge hardware and software.
+- Experience:
+- Schneider Electric (Intern): Worked on a 'Detecting Current Leakage' system. Developed algorithms to analyze real-time electrical circuit data to enhance safety and detection accuracy.
+- Unified Mentor (Data Analysis Intern): Utilized Python, Excel, and SQL for data manipulation, visualization, and interpretation. Analyzed datasets to identify trends and present actionable insights.
+- Key Projects:
+- Crack Detection In Pipeline: Used advanced sensors (EMAT/UT) and machine learning for accurate crack detection in pipelines.
+- Early Stage Crop Disease Detection: Published a research paper on this topic. The project involved using drones/satellite imagery and machine learning to detect crop diseases early.
+- Skills:
+- Technical: Data Analysis, Machine Learning, Tableau, SQL, Python, Embedded C, C++, R, HTML, CSS.
+- Professional: Problem Solving, Project Management, Business Analysis, Leadership.
+`;
+
+const prompt = `You are a professional AI assistant for Amith Naglapura's portfolio. Your ONLY task is to answer questions based on the provided context about Amith. Do not answer any questions that are not related to this context. If a question is outside the context or is conversational (like 'hello' or 'how are you'), you must politely decline and state that you can only answer questions about Amith's professional profile.
+
+Context about Amith:
+---
+${context}
+---
+
+Question: "${userQuestion}"
+
+Based only on the context provided, answer the question.`;
+const payload = {
+contents: [{ role: "user", parts: [{ text: prompt }] }]
+};
+
+const apiKey = "AIzaSyCmXt4_sh9o2Rxqg_56jPH0YThK5JCnhn4"; // API key will be provided by the environment
+const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+try {
+const response = await fetch(apiUrl, {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify(payload)
+});
+
+if (!response.ok) {
+throw new Error(`API error: ${response.statusText}`);
+}
+
+const result = await response.json();
+
+if (result.candidates && result.candidates.length > 0 &&
+result.candidates[0].content && result.candidates[0].content.parts &&
+result.candidates[0].content.parts.length > 0) {
+const text = result.candidates[0].content.parts[0].text;
+displayResponse(text);
+
+} else {
+displayError('The AI could not generate a response. Please try a different question.');
+}
+
+} catch (error) {
+console.error('Error calling Gemini API:', error);
+displayError('An error occurred while generating the response. Please check the console for details.');
+} finally {
+// Hide spinner and restore button
+spinnerContainer.classList.add('hidden');
+askBtn.disabled = false;
+askBtn.textContent = 'Ask AI Assistant';
+}
+}
+
+function displayResponse(text) {
+responseContent.innerHTML = `<p class="text-gray-300">${text}</p>`;
+responseContent.classList.remove('hidden');
+}
+
+function displayError(message) {
+responseContent.innerHTML = `<p class="text-red-400 text-center">${message}</p>`;
+responseContent.classList.remove('hidden');
+}
+
+</script>
+</body>
+</html>
