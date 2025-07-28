@@ -171,7 +171,7 @@ class="rounded-full shadow-2xl w-full h-auto object-cover aspect-square transfor
 </div>
 <div class="md:w-1/2 lg:w-3/5">
 <p class="text-lg mb-4 text-gray-400">
-Hello! I'm Amith, a tech enthusiast from Mysore, India. My academic background provided a solid foundation in hardware systems, which sparked a deeper curiosity about the data these systems generate, leading me to the world of data analysis and machine learning.
+Hello! I'm Amith, a tech enthusiast from Mysore, India, born on December 7, 2001. I hold a Bachelor of Engineering from Vidyavardhaka College of Engineering, Mysore. My academic background provided a solid foundation in hardware systems, which sparked a deeper curiosity about the data these systems generate, leading me to the world of data analysis and machine learning.
 </p>
 <p class="text-lg text-gray-400">
 My goal is to apply my problem-solving skills to help businesses make smarter, data-informed decisions. Whether it's developing a machine learning model or analyzing electrical systems for a company like Schneider Electric, I am driven by the challenge of turning technical possibilities into real-world value.
@@ -318,52 +318,53 @@ Say Hello
 
 <!-- JavaScript for interactivity -->
 <script>
-// --- Galaxy Animation ---
+// --- Galaxy Animation (Corrected for full-screen coverage) ---
 const canvas = document.getElementById('galaxy-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
-const numParticles = 400;
+const numParticles = 400; // Increased for a fuller effect
 
 function setCanvasSize() {
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
 
 function createParticles() {
-particles = [];
-for (let i = 0; i < numParticles; i++) {
-const distanceFromCenter = Math.random() * Math.random() * (Math.min(canvas.width, canvas.height) * 0.4);
-const angle = Math.random() * 2 * Math.PI;
-particles.push({
-x: canvas.width / 2 + distanceFromCenter * Math.cos(angle),
-y: canvas.height / 2 + distanceFromCenter * Math.sin(angle),
-radius: Math.random() * 1.2 + 0.1,
-angle: angle,
-speed: 0.005 + Math.random() * 0.005,
-distance: distanceFromCenter,
-color: `rgba(200, 220, 255, ${0.5 + Math.random() * 0.5})`
-});
-}
+    particles = [];
+    for (let i = 0; i < numParticles; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 1.2 + 0.1,
+            speedX: (Math.random() - 0.5) * 0.1,
+            speedY: (Math.random() - 0.5) * 0.1,
+            color: `rgba(200, 220, 255, ${0.5 + Math.random() * 0.5})`
+        });
+    }
 }
 
 function animate() {
-ctx.clearRect(0, 0, canvas.width, canvas.height);
-particles.forEach(p => {
-p.angle += p.speed;
-p.x = canvas.width / 2 + p.distance * Math.cos(p.angle);
-p.y = canvas.height / 2 + p.distance * Math.sin(p.angle);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
 
-ctx.beginPath();
-ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-ctx.fillStyle = p.color;
-ctx.fill();
-});
-requestAnimationFrame(animate);
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+    });
+    requestAnimationFrame(animate);
 }
 
 window.addEventListener('resize', () => {
-setCanvasSize();
-createParticles();
+    setCanvasSize();
+    createParticles();
 });
 
 setCanvasSize();
@@ -375,41 +376,41 @@ animate();
 const mobileMenuButton = document.getElementById('mobile-menu-button');
 const mobileMenu = document.getElementById('mobile-menu');
 mobileMenuButton.addEventListener('click', () => {
-mobileMenu.classList.toggle('hidden');
+    mobileMenu.classList.toggle('hidden');
 });
 
 // Close mobile menu when a link is clicked
 const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
 for (let link of mobileMenuLinks) {
-link.addEventListener('click', () => {
-mobileMenu.classList.add('hidden');
-});
+    link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+    });
 }
 
 // --- Navbar background on scroll ---
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
-if (window.scrollY > 50) {
-navbar.classList.add('bg-black/50');
-} else {
-navbar.classList.remove('bg-black/50');
-}
+    if (window.scrollY > 50) {
+        navbar.classList.add('bg-black/50');
+    } else {
+        navbar.classList.remove('bg-black/50');
+    }
 });
 
 // --- Scroll-triggered fade-in animation ---
 const sections = document.querySelectorAll('.slide-in-section');
 const observer = new IntersectionObserver((entries) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('is-visible');
-}
-});
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+        }
+    });
 }, {
-threshold: 0.1
+    threshold: 0.1
 });
 
 sections.forEach(section => {
-observer.observe(section);
+    observer.observe(section);
 });
 
 // --- Gemini AI Assistant ---
@@ -422,92 +423,94 @@ const responseContent = document.getElementById('response-content');
 askBtn.addEventListener('click', askAiAssistant);
 
 async function askAiAssistant() {
-const userQuestion = questionInput.value;
-if (!userQuestion.trim()) {
-alert('Please ask a question first.');
-return;
-}
+    const userQuestion = questionInput.value;
+    if (!userQuestion.trim()) {
+        alert('Please ask a question first.');
+        return;
+    }
 
-// Show loading spinner
-aiResponseOutput.classList.remove('hidden');
-spinnerContainer.classList.remove('hidden');
-responseContent.classList.add('hidden');
-askBtn.disabled = true;
-askBtn.textContent = 'Thinking...';
+    // Show loading spinner
+    aiResponseOutput.classList.remove('hidden');
+    spinnerContainer.classList.remove('hidden');
+    responseContent.classList.add('hidden');
+    askBtn.disabled = true;
+    askBtn.textContent = 'Thinking...';
 
-const context = `
-Amith Naglapura's Professional Profile:
-- Summary: A technologist specializing in data analysis, transforming complex data into actionable insights and engineering solutions that bridge hardware and software.
-- Experience:
-- Schneider Electric (Intern): Worked on a 'Detecting Current Leakage' system. Developed algorithms to analyze real-time electrical circuit data to enhance safety and detection accuracy.
-- Unified Mentor (Data Analysis Intern): Utilized Python, Excel, and SQL for data manipulation, visualization, and interpretation. Analyzed datasets to identify trends and present actionable insights.
-- Key Projects:
-- Crack Detection In Pipeline: Used advanced sensors (EMAT/UT) and machine learning for accurate crack detection in pipelines.
-- Early Stage Crop Disease Detection: Published a research paper on this topic. The project involved using drones/satellite imagery and machine learning to detect crop diseases early.
-- Skills:
-- Technical: Data Analysis, Machine Learning, Tableau, SQL, Python, Embedded C, C++, R, HTML, CSS.
-- Professional: Problem Solving, Project Management, Business Analysis, Leadership.
-`;
+    const context = `
+    Amith Naglapura's Professional Profile:
+    - Personal: Born on December 7, 2001.
+    - Education: Bachelor of Engineering from Vidyavardhaka College of Engineering, Mysore.
+    - Summary: A technologist specializing in data analysis, transforming complex data into actionable insights and engineering solutions that bridge hardware and software.
+    - Experience:
+    - Schneider Electric (Intern): Worked on a 'Detecting Current Leakage' system. Developed algorithms to analyze real-time electrical circuit data to enhance safety and detection accuracy.
+    - Unified Mentor (Data Analysis Intern): Utilized Python, Excel, and SQL for data manipulation, visualization, and interpretation. Analyzed datasets to identify trends and present actionable insights.
+    - Key Projects:
+    - Crack Detection In Pipeline: Used advanced sensors (EMAT/UT) and machine learning for accurate crack detection in pipelines.
+    - Early Stage Crop Disease Detection: Published a research paper on this topic. The project involved using drones/satellite imagery and machine learning to detect crop diseases early.
+    - Skills:
+    - Technical: Data Analysis, Machine Learning, Tableau, SQL, Python, Embedded C, C++, R, HTML, CSS.
+    - Professional: Problem Solving, Project Management, Business Analysis, Leadership.
+    `;
 
-const prompt = `You are a professional AI assistant for Amith Naglapura's portfolio. Your ONLY task is to answer questions based on the provided context about Amith. Do not answer any questions that are not related to this context. If a question is outside the context or is conversational (like 'hello' or 'how are you'), you must politely decline and state that you can only answer questions about Amith's professional profile.
+    const prompt = `You are a professional AI assistant for Amith Naglapura's portfolio. Your ONLY task is to answer questions based on the provided context about Amith. Do not answer any questions that are not related to this context. If a question is outside the context or is conversational (like 'hello' or 'how are you'), you must politely decline and state that you can only answer questions about Amith's professional profile.
 
-Context about Amith:
----
-${context}
----
+    Context about Amith:
+    ---
+    ${context}
+    ---
 
-Question: "${userQuestion}"
+    Question: "${userQuestion}"
 
-Based only on the context provided, answer the question.`;
-const payload = {
-contents: [{ role: "user", parts: [{ text: prompt }] }]
-};
+    Based only on the context provided, answer the question.`;
+    const payload = {
+        contents: [{ role: "user", parts: [{ text: prompt }] }]
+    };
 
-const apiKey = "AIzaSyCmXt4_sh9o2Rxqg_56jPH0YThK5JCnhn4"; // API key will be provided by the environment
-const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    const apiKey = ""; // API key will be provided by the environment
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
-try {
-const response = await fetch(apiUrl, {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify(payload)
-});
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
 
-if (!response.ok) {
-throw new Error(`API error: ${response.statusText}`);
-}
+        if (!response.ok) {
+            throw new Error(`API error: ${response.statusText}`);
+        }
 
-const result = await response.json();
+        const result = await response.json();
 
-if (result.candidates && result.candidates.length > 0 &&
-result.candidates[0].content && result.candidates[0].content.parts &&
-result.candidates[0].content.parts.length > 0) {
-const text = result.candidates[0].content.parts[0].text;
-displayResponse(text);
+        if (result.candidates && result.candidates.length > 0 &&
+            result.candidates[0].content && result.candidates[0].content.parts &&
+            result.candidates[0].content.parts.length > 0) {
+            const text = result.candidates[0].content.parts[0].text;
+            displayResponse(text);
 
-} else {
-displayError('The AI could not generate a response. Please try a different question.');
-}
+        } else {
+            displayError('The AI could not generate a response. Please try a different question.');
+        }
 
-} catch (error) {
-console.error('Error calling Gemini API:', error);
-displayError('An error occurred while generating the response. Please check the console for details.');
-} finally {
-// Hide spinner and restore button
-spinnerContainer.classList.add('hidden');
-askBtn.disabled = false;
-askBtn.textContent = 'Ask AI Assistant';
-}
+    } catch (error) {
+        console.error('Error calling Gemini API:', error);
+        displayError('An error occurred while generating the response. Please check the console for details.');
+    } finally {
+        // Hide spinner and restore button
+        spinnerContainer.classList.add('hidden');
+        askBtn.disabled = false;
+        askBtn.textContent = 'Ask AI Assistant';
+    }
 }
 
 function displayResponse(text) {
-responseContent.innerHTML = `<p class="text-gray-300">${text}</p>`;
-responseContent.classList.remove('hidden');
+    responseContent.innerHTML = `<p class="text-gray-300">${text}</p>`;
+    responseContent.classList.remove('hidden');
 }
 
 function displayError(message) {
-responseContent.innerHTML = `<p class="text-red-400 text-center">${message}</p>`;
-responseContent.classList.remove('hidden');
+    responseContent.innerHTML = `<p class="text-red-400 text-center">${message}</p>`;
+    responseContent.classList.remove('hidden');
 }
 
 </script>
