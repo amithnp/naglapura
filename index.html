@@ -1,19 +1,30 @@
+Of course. I've updated the project in your portfolio to reflect that it was a freelance project and that you used Firebase for the database.
+
+Here are the specific changes:
+
+  * The project title is now **"Client Portfolio Website"** and is listed as a **"Freelance Project"**.
+  * The description has been updated to mention the freelance client and the **integration of Firebase** for the back-end.
+  * A **"Firebase"** skill tag has been added to the project card.
+
+-----
+
+### Updated Portfolio Code
+
+Here is the complete HTML code with the requested modifications. You can copy this and use it to update your website.
+
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Amith Naglapura - Portfolio</title>
-<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
-<!-- Google Fonts: Poppins & Lato -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 
-<!-- Font Awesome for Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- Custom Styles -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 body {
 font-family: 'Lato', sans-serif;
@@ -99,7 +110,6 @@ to { transform: rotate(360deg); }
 <body class="antialiased">
 <canvas id="galaxy-canvas"></canvas>
 
-<!-- Header & Navigation -->
 <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
 <div class="container mx-auto px-4 py-4">
 <div class="flex justify-between items-center glassmorphism rounded-full px-6 py-3 shadow-sm">
@@ -120,7 +130,6 @@ Hire Me
 </button>
 </div>
 </div>
-<!-- Mobile Menu -->
 <div id="mobile-menu" class="hidden md:hidden glassmorphism mx-4 rounded-lg shadow-lg">
 <a href="#home" class="block text-center py-3 hover:bg-gray-800 rounded-t-lg">Home</a>
 <a href="#about" class="block text-center py-3 hover:bg-gray-800">About</a>
@@ -131,10 +140,8 @@ Hire Me
 </div>
 </header>
 
-<!-- Main Content -->
 <main class="container mx-auto px-4 pt-24 relative z-10">
 
-<!-- Hero Section -->
 <section id="home" class="min-h-screen flex items-center justify-center text-center">
 <div class="max-w-4xl">
 <span class="text-cyan-400 font-semibold">Hi, my name is</span>
@@ -157,7 +164,6 @@ Tableau Profile
 </div>
 </section>
 
-<!-- About Section -->
 <section id="about" class="py-20 md:py-32 slide-in-section">
 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 highlight-text">
 About Me
@@ -180,7 +186,6 @@ My goal is to apply my problem-solving skills to help businesses make smarter, d
 </div>
 </section>
 
-<!-- Skills Section -->
 <section id="skills" class="py-20 md:py-32 slide-in-section">
 <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 highlight-text">
 Professional Skillset
@@ -212,13 +217,11 @@ Professional Skillset
 </section>
 
 
-<!-- Projects Section -->
 <section id="projects" class="py-20 md:py-32 slide-in-section">
 <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 highlight-text">
 My Projects & Experience
 </h2>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<!-- Project Card 1 -->
 <div class="rounded-lg p-6 flex flex-col card-hover">
 <div class="flex-grow">
 <h3 class="text-xl font-bold mb-2 highlight-text">Current Leakage Detection System</h3>
@@ -231,7 +234,6 @@ My Projects & Experience
 <span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
 </div>
 </div>
-<!-- Project Card 2 -->
 <div class="rounded-lg p-6 flex flex-col card-hover">
 <div class="flex-grow">
 <h3 class="text-xl font-bold mb-2 highlight-text">Early Crop Disease Detection</h3>
@@ -244,7 +246,6 @@ My Projects & Experience
 <span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
 </div>
 </div>
-<!-- Project Card 3 -->
 <div class="rounded-lg p-6 flex flex-col card-hover">
 <div class="flex-grow">
 <h3 class="text-xl font-bold mb-2 highlight-text">Tableau Data Visualizations</h3>
@@ -255,10 +256,24 @@ My Projects & Experience
 <a href="https://public.tableau.com/app/profile/amith.naglapura/vizzes" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold">View Profile &rarr;</a>
 </div>
 </div>
+<div class="rounded-lg p-6 flex flex-col card-hover">
+<div class="flex-grow">
+<h3 class="text-xl font-bold mb-2 highlight-text">Client Portfolio Website</h3>
+<p class="text-sm text-gray-500 mb-2">Freelance Project</p>
+<p class="text-gray-400 mb-4">Developed a custom portfolio website for a freelance client, focusing on a clean UI/UX design. Integrated Firebase for database management and back-end functionality.</p>
+</div>
+<div class="flex-grow mt-4 flex flex-wrap gap-2">
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">UI/UX Design</span>
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">HTML & CSS</span>
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Firebase</span>
+</div>
+<div class="mt-4">
+<a href="https://akshaym000.github.io/AkshayM/" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold">View Live Site &rarr;</a>
+</div>
+</div>
 </div>
 </section>
 
-<!-- AI Assistant Section -->
 <section id="ai-assistant" class="py-20 md:py-32 text-center slide-in-section">
 <h2 class="text-3xl md:text-4xl font-bold mb-4 highlight-text">
 ✨ AI Assistant
@@ -273,18 +288,15 @@ This is an experimental AI assistant trained on my professional profile. Ask it 
 Ask AI Assistant
 </button>
 </div>
-<!-- AI Response Output -->
 <div id="ai-response-output" class="mt-12 text-left max-w-3xl mx-auto hidden">
 <div id="spinner-container" class="flex justify-center items-center h-40">
 <div class="spinner"></div>
 </div>
 <div id="response-content" class="hidden glassmorphism rounded-lg p-8">
-<!-- Content will be injected here by JavaScript -->
 </div>
 </div>
 </section>
 
-<!-- Contact Section -->
 <section id="contact" class="py-20 md:py-32 text-center slide-in-section">
 <h2 class="text-3xl md:text-4xl font-bold mb-4 highlight-text">
 Get In Touch
@@ -299,7 +311,6 @@ Say Hello
 
 </main>
 
-<!-- Footer -->
 <footer class="py-8 text-center text-gray-500 relative z-10">
 <div class="flex justify-center items-center space-x-6 mb-4">
 <a href="https://www.linkedin.com/in/amithnaglaupra" target="_blank" class="text-2xl hover:text-cyan-400 transition-colors">
@@ -316,7 +327,6 @@ Say Hello
 <p>&copy; 2025. All rights reserved.</p>
 </footer>
 
-<!-- JavaScript for interactivity -->
 <script>
 // --- Galaxy Animation (Corrected for full-screen coverage) ---
 const canvas = document.getElementById('galaxy-canvas');
@@ -325,46 +335,46 @@ let particles = [];
 const numParticles = 400; // Increased for a fuller effect
 
 function setCanvasSize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
 
 function createParticles() {
-    particles = [];
-    for (let i = 0; i < numParticles; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 1.2 + 0.1,
-            speedX: (Math.random() - 0.5) * 0.1,
-            speedY: (Math.random() - 0.5) * 0.1,
-            color: `rgba(200, 220, 255, ${0.5 + Math.random() * 0.5})`
-        });
-    }
+    particles = [];
+    for (let i = 0; i < numParticles; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 1.2 + 0.1,
+            speedX: (Math.random() - 0.5) * 0.1,
+            speedY: (Math.random() - 0.5) * 0.1,
+            color: `rgba(200, 220, 255, ${0.5 + Math.random() * 0.5})`
+        });
+    }
 }
 
 function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-        p.x += p.speedX;
-        p.y += p.speedY;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
 
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
 
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.fill();
-    });
-    requestAnimationFrame(animate);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+    });
+    requestAnimationFrame(animate);
 }
 
 window.addEventListener('resize', () => {
-    setCanvasSize();
-    createParticles();
+    setCanvasSize();
+    createParticles();
 });
 
 setCanvasSize();
@@ -376,41 +386,41 @@ animate();
 const mobileMenuButton = document.getElementById('mobile-menu-button');
 const mobileMenu = document.getElementById('mobile-menu');
 mobileMenuButton.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
+    mobileMenu.classList.toggle('hidden');
 });
 
 // Close mobile menu when a link is clicked
 const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
 for (let link of mobileMenuLinks) {
-    link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-    });
+    link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+    });
 }
 
 // --- Navbar background on scroll ---
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('bg-black/50');
-    } else {
-        navbar.classList.remove('bg-black/50');
-    }
+    if (window.scrollY > 50) {
+        navbar.classList.add('bg-black/50');
+    } else {
+        navbar.classList.remove('bg-black/50');
+    }
 });
 
 // --- Scroll-triggered fade-in animation ---
 const sections = document.querySelectorAll('.slide-in-section');
 const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-        }
-    });
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+        }
+    });
 }, {
-    threshold: 0.1
+    threshold: 0.1
 });
 
 sections.forEach(section => {
-    observer.observe(section);
+    observer.observe(section);
 });
 
 // --- Gemini AI Assistant ---
@@ -423,96 +433,98 @@ const responseContent = document.getElementById('response-content');
 askBtn.addEventListener('click', askAiAssistant);
 
 async function askAiAssistant() {
-    const userQuestion = questionInput.value;
-    if (!userQuestion.trim()) {
-        alert('Please ask a question first.');
-        return;
-    }
+    const userQuestion = questionInput.value;
+    if (!userQuestion.trim()) {
+        alert('Please ask a question first.');
+        return;
+    }
 
-    // Show loading spinner
-    aiResponseOutput.classList.remove('hidden');
-    spinnerContainer.classList.remove('hidden');
-    responseContent.classList.add('hidden');
-    askBtn.disabled = true;
-    askBtn.textContent = 'Thinking...';
+    // Show loading spinner
+    aiResponseOutput.classList.remove('hidden');
+    spinnerContainer.classList.remove('hidden');
+    responseContent.classList.add('hidden');
+    askBtn.disabled = true;
+    askBtn.textContent = 'Thinking...';
 
-    const context = `
-    Amith Naglapura's Professional Profile:
-    - Personal: Born on December 7, 2001.
-    - Education: Bachelor of Engineering from Vidyavardhaka College of Engineering, Mysore.
-    - Summary: A technologist specializing in data analysis, transforming complex data into actionable insights and engineering solutions that bridge hardware and software.
-    - Experience:
-    - Schneider Electric (Intern): Worked on a 'Detecting Current Leakage' system. Developed algorithms to analyze real-time electrical circuit data to enhance safety and detection accuracy.
-    - Unified Mentor (Data Analysis Intern): Utilized Python, Excel, and SQL for data manipulation, visualization, and interpretation. Analyzed datasets to identify trends and present actionable insights.
-    - Key Projects:
-    - Crack Detection In Pipeline: Used advanced sensors (EMAT/UT) and machine learning for accurate crack detection in pipelines.
-    - Early Stage Crop Disease Detection: Published a research paper on this topic. The project involved using drones/satellite imagery and machine learning to detect crop diseases early.
-    - Skills:
-    - Technical: Data Analysis, Machine Learning, Tableau, SQL, Python, Embedded C, C++, R, HTML, CSS.
-    - Professional: Problem Solving, Project Management, Business Analysis, Leadership.
-    `;
+    const context = `
+    Amith Naglapura's Professional Profile:
+    - Personal: Born on December 7, 2001.
+    - Education: Bachelor of Engineering from Vidyavardhaka College of Engineering, Mysore.
+    - Summary: A technologist specializing in data analysis, transforming complex data into actionable insights and engineering solutions that bridge hardware and software.
+    - Experience:
+    - Schneider Electric (Intern): Worked on a 'Detecting Current Leakage' system. Developed algorithms to analyze real-time electrical circuit data to enhance safety and detection accuracy.
+    - Unified Mentor (Data Analysis Intern): Utilized Python, Excel, and SQL for data manipulation, visualization, and interpretation. Analyzed datasets to identify trends and present actionable insights.
+    - Key Projects:
+    - Client Portfolio Website (Freelance): Developed a custom portfolio for a client using HTML, CSS, and Firebase for the database.
+    - Crack Detection In Pipeline: Used advanced sensors (EMAT/UT) and machine learning for accurate crack detection in pipelines.
+    - Early Stage Crop Disease Detection: Published a research paper on this topic. The project involved using drones/satellite imagery and machine learning to detect crop diseases early.
+    - Skills:
+    - Technical: Data Analysis, Machine Learning, Tableau, SQL, Python, Embedded C, C++, R, HTML, CSS, Firebase.
+    - Professional: Problem Solving, Project Management, Business Analysis, Leadership.
+    `;
 
-    const prompt = `You are a professional AI assistant for Amith Naglapura's portfolio. Your ONLY task is to answer questions based on the provided context about Amith. Do not answer any questions that are not related to this context. If a question is outside the context or is conversational (like 'hello' or 'how are you'), you must politely decline and state that you can only answer questions about Amith's professional profile.
+    const prompt = `You are a professional AI assistant for Amith Naglapura's portfolio. Your ONLY task is to answer questions based on the provided context about Amith. Do not answer any questions that are not related to this context. If a question is outside the context or is conversational (like 'hello' or 'how are you'), you must politely decline and state that you can only answer questions about Amith's professional profile.
 
-    Context about Amith:
-    ---
-    ${context}
-    ---
+    Context about Amith:
+    ---
+    ${context}
+    ---
 
-    Question: "${userQuestion}"
+    Question: "${userQuestion}"
 
-    Based only on the context provided, answer the question.`;
-    const payload = {
-        contents: [{ role: "user", parts: [{ text: prompt }] }]
-    };
+    Based only on the context provided, answer the question.`;
+    const payload = {
+        contents: [{ role: "user", parts: [{ text: prompt }] }]
+    };
 
-    const apiKey = "AIzaSyCmXt4_sh9o2Rxqg_56jPH0YThK5JCnhn4"; // API key will be provided by the environment
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    const apiKey = "AIzaSyCmXt4_sh9o2Rxqg_56jPH0YThK5JCnhn4"; // API key will be provided by the environment
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
 
-        if (!response.ok) {
-            throw new Error(`API error: ${response.statusText}`);
-        }
+        if (!response.ok) {
+            throw new Error(`API error: ${response.statusText}`);
+        }
 
-        const result = await response.json();
+        const result = await response.json();
 
-        if (result.candidates && result.candidates.length > 0 &&
-            result.candidates[0].content && result.candidates[0].content.parts &&
-            result.candidates[0].content.parts.length > 0) {
-            const text = result.candidates[0].content.parts[0].text;
-            displayResponse(text);
+        if (result.candidates && result.candidates.length > 0 &&
+            result.candidates[0].content && result.candidates[0].content.parts &&
+            result.candidates[0].content.parts.length > 0) {
+            const text = result.candidates[0].content.parts[0].text;
+            displayResponse(text);
 
-        } else {
-            displayError('The AI could not generate a response. Please try a different question.');
-        }
+        } else {
+            displayError('The AI could not generate a response. Please try a different question.');
+        }
 
-    } catch (error) {
-        console.error('Error calling Gemini API:', error);
-        displayError('An error occurred while generating the response. Please check the console for details.');
-    } finally {
-        // Hide spinner and restore button
-        spinnerContainer.classList.add('hidden');
-        askBtn.disabled = false;
-        askBtn.textContent = 'Ask AI Assistant';
-    }
+    } catch (error) {
+        console.error('Error calling Gemini API:', error);
+        displayError('An error occurred while generating the response. Please check the console for details.');
+    } finally {
+        // Hide spinner and restore button
+        spinnerContainer.classList.add('hidden');
+        askBtn.disabled = false;
+        askBtn.textContent = 'Ask AI Assistant';
+    }
 }
 
 function displayResponse(text) {
-    responseContent.innerHTML = `<p class="text-gray-300">${text}</p>`;
-    responseContent.classList.remove('hidden');
+    responseContent.innerHTML = `<p class="text-gray-300">${text}</p>`;
+    responseContent.classList.remove('hidden');
 }
 
 function displayError(message) {
-    responseContent.innerHTML = `<p class="text-red-400 text-center">${message}</p>`;
-    responseContent.classList.remove('hidden');
+    responseContent.innerHTML = `<p class="text-red-400 text-center">${message}</p>`;
+    responseContent.classList.remove('hidden');
 }
 
 </script>
 </body>
 </html>
+```
