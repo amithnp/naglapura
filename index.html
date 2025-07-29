@@ -101,10 +101,10 @@ to { transform: rotate(360deg); }
 <a href="#" class="text-xl font-bold tracking-wider highlight-text">AN</a>
 <nav class="hidden md:flex space-x-8 text-gray-400">
 <a href="#home" class="hover:text-cyan-400 transition-colors">Home</a>
+<a href="#ai-assistant" class="hover:text-cyan-400 transition-colors">AI Assistant</a>
 <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
 <a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
 <a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
-<a href="#ai-assistant" class="hover:text-cyan-400 transition-colors">AI Assistant</a>
 <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
 </nav>
 <a href="mailto:amithnaglapura@gmail.com" class="hidden md:block btn-primary font-medium py-2 px-4 rounded-full">
@@ -117,10 +117,10 @@ Hire Me
 </div>
 <div id="mobile-menu" class="hidden md:hidden glassmorphism mx-4 rounded-lg shadow-lg">
 <a href="#home" class="block text-center py-3 hover:bg-gray-800 rounded-t-lg">Home</a>
+<a href="#ai-assistant" class="block text-center py-3 hover:bg-gray-800">AI Assistant</a>
 <a href="#about" class="block text-center py-3 hover:bg-gray-800">About</a>
 <a href="#skills" class="block text-center py-3 hover:bg-gray-800">Skills</a>
 <a href="#projects" class="block text-center py-3 hover:bg-gray-800">Projects</a>
-<a href="#ai-assistant" class="block text-center py-3 hover:bg-gray-800">AI Assistant</a>
 <a href="#contact" class="block text-center py-3 hover:bg-gray-800 rounded-b-lg">Contact</a>
 </div>
 </header>
@@ -145,6 +145,29 @@ GitHub Profile
 <a href="https://public.tableau.com/app/profile/amith.naglapura/vizzes" target="_blank" class="btn-secondary font-bold py-3 px-6 rounded-full">
 Tableau Profile
 </a>
+</div>
+</div>
+</section>
+
+<section id="ai-assistant" class="py-20 md:py-32 text-center slide-in-section">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 highlight-text">
+✨ AI Assistant
+</h2>
+<p class="max-w-2xl mx-auto text-lg mb-8 text-gray-400">
+Want the highlights fast? Instead of reading through my entire profile, you can ask my AI assistant directly. It's trained on my skills, projects, and experience to answer your questions instantly.
+<strong class="text-gray-300 block mt-2">Please note: The AI will only answer questions related to my professional profile.</strong>
+</p>
+<div class="max-w-2xl mx-auto">
+<textarea id="question-input" rows="3" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-cyan-500 focus:outline-none text-white placeholder-gray-500" placeholder="e.g., 'What was Amith's role at Schneider Electric?' or 'Summarize his project on crop disease detection.'"></textarea>
+<button id="ask-ai-btn" class="mt-4 btn-primary font-bold py-3 px-8 rounded-full">
+Ask AI Assistant
+</button>
+</div>
+<div id="ai-response-output" class="mt-12 text-left max-w-3xl mx-auto hidden">
+<div id="spinner-container" class="flex justify-center items-center h-40">
+<div class="spinner"></div>
+</div>
+<div id="response-content" class="hidden glassmorphism rounded-lg p-8">
 </div>
 </div>
 </section>
@@ -243,41 +266,18 @@ My Projects & Experience
 </div>
 <div class="rounded-lg p-6 flex flex-col card-hover">
 <div class="flex-grow">
-<h3 class="text-xl font-bold mb-2 highlight-text">Client Portfolio Website</h3>
-<p class="text-sm text-gray-500 mb-2">Freelance Project</p>
-<p class="text-gray-400 mb-4">Developed a custom portfolio website for a freelance client, focusing on a clean UI/UX design. Integrated Firebase for database management and back-end functionality.</p>
+<h3 class="text-xl font-bold mb-2 highlight-text">Personal Portfolio Website</h3>
+<p class="text-sm text-gray-500 mb-2">UI/UX & Web Development</p>
+<p class="text-gray-400 mb-4">Designed and developed a responsive portfolio website focusing on clean UI/UX to showcase professional skills and data-driven projects effectively.</p>
 </div>
 <div class="flex-grow mt-4 flex flex-wrap gap-2">
 <span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">UI/UX Design</span>
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">HTML & CSS</span>
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Firebase</span>
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">HTML</span>
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">CSS</span>
 </div>
 <div class="mt-4">
 <a href="https://akshaym000.github.io/AkshayM/" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold">View Live Site &rarr;</a>
 </div>
-</div>
-</div>
-</section>
-
-<section id="ai-assistant" class="py-20 md:py-32 text-center slide-in-section">
-<h2 class="text-3xl md:text-4xl font-bold mb-4 highlight-text">
-✨ AI Assistant
-</h2>
-<p class="max-w-2xl mx-auto text-lg mb-8 text-gray-400">
-This is an experimental AI assistant trained on my professional profile. Ask it questions about my skills, projects, or experience.
-<strong class="text-gray-300 block mt-2">Please note: The AI will only answer questions related to my profile.</strong>
-</p>
-<div class="max-w-2xl mx-auto">
-<textarea id="question-input" rows="3" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-cyan-500 focus:outline-none text-white placeholder-gray-500" placeholder="e.g., 'What was Amith's role at Schneider Electric?' or 'Summarize his project on crop disease detection.'"></textarea>
-<button id="ask-ai-btn" class="mt-4 btn-primary font-bold py-3 px-8 rounded-full">
-Ask AI Assistant
-</button>
-</div>
-<div id="ai-response-output" class="mt-12 text-left max-w-3xl mx-auto hidden">
-<div id="spinner-container" class="flex justify-center items-center h-40">
-<div class="spinner"></div>
-</div>
-<div id="response-content" class="hidden glassmorphism rounded-lg p-8">
 </div>
 </div>
 </section>
@@ -320,46 +320,46 @@ let particles = [];
 const numParticles = 400; // Increased for a fuller effect
 
 function setCanvasSize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
 
 function createParticles() {
-    particles = [];
-    for (let i = 0; i < numParticles; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 1.2 + 0.1,
-            speedX: (Math.random() - 0.5) * 0.1,
-            speedY: (Math.random() - 0.5) * 0.1,
-            color: `rgba(200, 220, 255, ${0.5 + Math.random() * 0.5})`
-        });
-    }
+    particles = [];
+    for (let i = 0; i < numParticles; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 1.2 + 0.1,
+            speedX: (Math.random() - 0.5) * 0.1,
+            speedY: (Math.random() - 0.5) * 0.1,
+            color: `rgba(200, 220, 255, ${0.5 + Math.random() * 0.5})`
+        });
+    }
 }
 
 function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-        p.x += p.speedX;
-        p.y += p.speedY;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
 
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
 
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.fill();
-    });
-    requestAnimationFrame(animate);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+    });
+    requestAnimationFrame(animate);
 }
 
 window.addEventListener('resize', () => {
-    setCanvasSize();
-    createParticles();
+    setCanvasSize();
+    createParticles();
 });
 
 setCanvasSize();
@@ -371,41 +371,41 @@ animate();
 const mobileMenuButton = document.getElementById('mobile-menu-button');
 const mobileMenu = document.getElementById('mobile-menu');
 mobileMenuButton.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
+    mobileMenu.classList.toggle('hidden');
 });
 
 // Close mobile menu when a link is clicked
 const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
 for (let link of mobileMenuLinks) {
-    link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-    });
+    link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+    });
 }
 
 // --- Navbar background on scroll ---
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('bg-black/50');
-    } else {
-        navbar.classList.remove('bg-black/50');
-    }
+    if (window.scrollY > 50) {
+        navbar.classList.add('bg-black/50');
+    } else {
+        navbar.classList.remove('bg-black/50');
+    }
 });
 
 // --- Scroll-triggered fade-in animation ---
 const sections = document.querySelectorAll('.slide-in-section');
 const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-        }
-    });
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+        }
+    });
 }, {
-    threshold: 0.1
+    threshold: 0.1
 });
 
 sections.forEach(section => {
-    observer.observe(section);
+    observer.observe(section);
 });
 
 // --- Gemini AI Assistant ---
@@ -417,99 +417,123 @@ const responseContent = document.getElementById('response-content');
 
 askBtn.addEventListener('click', askAiAssistant);
 
+// --- Handle Enter Key Press ---
+questionInput.addEventListener('keydown', function(event) {
+    // Check if the Enter key is pressed without the Shift key
+    if (event.key === 'Enter' && !event.shiftKey) {
+        // Prevent the default action of adding a new line
+        event.preventDefault();
+        // Trigger the ask AI function
+        askAiAssistant();
+    }
+});
+
 async function askAiAssistant() {
-    const userQuestion = questionInput.value;
-    if (!userQuestion.trim()) {
-        alert('Please ask a question first.');
-        return;
-    }
+    const userQuestion = questionInput.value;
+    if (!userQuestion.trim()) {
+        alert('Please ask a question first.');
+        return;
+    }
 
-    // Show loading spinner
-    aiResponseOutput.classList.remove('hidden');
-    spinnerContainer.classList.remove('hidden');
-    responseContent.classList.add('hidden');
-    askBtn.disabled = true;
-    askBtn.textContent = 'Thinking...';
+    // Show loading spinner
+    aiResponseOutput.classList.remove('hidden');
+    spinnerContainer.classList.remove('hidden');
+    responseContent.classList.add('hidden');
+    askBtn.disabled = true;
+    askBtn.textContent = 'Thinking...';
 
-    const context = `
-    Amith Naglapura's Professional Profile:
-    - Personal: Born on December 7, 2001.
-    - Education: Bachelor of Engineering from Vidyavardhaka College of Engineering, Mysore.
-    - Summary: A technologist specializing in data analysis, transforming complex data into actionable insights and engineering solutions that bridge hardware and software.
-    - Experience:
-    - Schneider Electric (Intern): Worked on a 'Detecting Current Leakage' system. Developed algorithms to analyze real-time electrical circuit data to enhance safety and detection accuracy.
-    - Unified Mentor (Data Analysis Intern): Utilized Python, Excel, and SQL for data manipulation, visualization, and interpretation. Analyzed datasets to identify trends and present actionable insights.
-    - Key Projects:
-    - Client Portfolio Website (Freelance): Developed a custom portfolio for a client using HTML, CSS, and Firebase for the database.
-    - Crack Detection In Pipeline: Used advanced sensors (EMAT/UT) and machine learning for accurate crack detection in pipelines.
-    - Early Stage Crop Disease Detection: Published a research paper on this topic. The project involved using drones/satellite imagery and machine learning to detect crop diseases early.
-    - Skills:
-    - Technical: Data Analysis, Machine Learning, Tableau, SQL, Python, Embedded C, C++, R, HTML, CSS, Firebase.
-    - Professional: Problem Solving, Project Management, Business Analysis, Leadership.
-    `;
+    const context = `
+    Amith Naglapura's Professional Profile:
+    - Personal: Born on December 7, 2001.
+    - Education: Bachelor of Engineering from Vidyavardhaka College of Engineering, Mysore.
+    - Summary: A technologist specializing in data analysis, transforming complex data into actionable insights and engineering solutions that bridge hardware and software.
+    - Experience:
+    - Schneider Electric (Intern): Worked on a 'Detecting Current Leakage' system. Developed algorithms to analyze real-time electrical circuit data to enhance safety and detection accuracy.
+    - Unified Mentor (Data Analysis Intern): Utilized Python, Excel, and SQL for data manipulation, visualization, and interpretation. Analyzed datasets to identify trends and present actionable insights.
+    - Key Projects:
+    - Crack Detection In Pipeline: Used advanced sensors (EMAT/UT) and machine learning for accurate crack detection in pipelines.
+    - Early Stage Crop Disease Detection: Published a research paper on this topic. The project involved using drones/satellite imagery and machine learning to detect crop diseases early.
+    - Personal Portfolio Website: Designed and developed a responsive website with a focus on clean UI/UX and front-end technologies like HTML and CSS.
+    - Skills:
+    - Technical: Data Analysis, Machine Learning, Tableau, SQL, Python, Embedded C, C++, R, HTML, CSS.
+    - Professional: Problem Solving, Project Management, Business Analysis, Leadership.
+    `;
 
-    const prompt = `You are a professional AI assistant for Amith Naglapura's portfolio. Your ONLY task is to answer questions based on the provided context about Amith. Do not answer any questions that are not related to this context. If a question is outside the context or is conversational (like 'hello' or 'how are you'), you must politely decline and state that you can only answer questions about Amith's professional profile.
+    const prompt = `You are a specialized AI assistant for Amith Naglapura's portfolio. Your answers must be based *only* on the context provided below.
 
-    Context about Amith:
-    ---
-    ${context}
-    ---
+    **Your Personality and Behavior:**
+    - You are friendly, professional, and helpful. Your goal is to inform users about Amith Naglapura.
+    - **If a user asks a conversational question (like 'hi', 'how are you?') or an off-topic question (like 'what is the capital of France?'):**
+        1. Respond warmly and politely (e.g., "Hello there!", "Thanks for asking!").
+        2. Gently state your purpose, explaining that your knowledge is focused on Amith's professional profile.
+        3. **Crucially, suggest one or two specific example questions** to guide the user, such as, "You could ask me, 'What are his main technical skills?' or 'Tell me about his internship project.'"
+    - For all other relevant questions, answer them directly based on the provided context.
 
-    Question: "${userQuestion}"
+    **Context about Amith:**
+    ---
+    ${context}
+    ---
 
-    Based only on the context provided, answer the question.`;
-    const payload = {
-        contents: [{ role: "user", parts: [{ text: prompt }] }]
-    };
+    **User's Question:** "${userQuestion}"
 
-    const apiKey = "AIzaSyCmXt4_sh9o2Rxqg_56jPH0YThK5JCnhn4"; // API key will be provided by the environment
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    Based only on the context provided, answer the user's question according to your defined personality and behavior.`;
+    
+    const payload = {
+        contents: [{ role: "user", parts: [{ text: prompt }] }]
+    };
 
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
+    const apiKey = "AIzaSyCmXt4_sh9o2Rxqg_56jPH0YThK5JCnhn4"; // API key will be provided by the environment
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
-        if (!response.ok) {
-            throw new Error(`API error: ${response.statusText}`);
-        }
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
 
-        const result = await response.json();
+        if (!response.ok) {
+            throw new Error(`API error: ${response.statusText}`);
+        }
 
-        if (result.candidates && result.candidates.length > 0 &&
-            result.candidates[0].content && result.candidates[0].content.parts &&
-            result.candidates[0].content.parts.length > 0) {
-            const text = result.candidates[0].content.parts[0].text;
-            displayResponse(text);
+        const result = await response.json();
 
-        } else {
-            displayError('The AI could not generate a response. Please try a different question.');
-        }
+        if (result.candidates && result.candidates.length > 0 &&
+            result.candidates[0].content && result.candidates[0].content.parts &&
+            result.candidates[0].content.parts.length > 0) {
+            const text = result.candidates[0].content.parts[0].text;
+            displayResponse(text);
 
-    } catch (error) {
-        console.error('Error calling Gemini API:', error);
-        displayError('An error occurred while generating the response. Please check the console for details.');
-    } finally {
-        // Hide spinner and restore button
-        spinnerContainer.classList.add('hidden');
-        askBtn.disabled = false;
-        askBtn.textContent = 'Ask AI Assistant';
-    }
+        } else {
+            displayError('The AI could not generate a response. Please try a different question.');
+        }
+
+    } catch (error) {
+        console.error('Error calling Gemini API:', error);
+        displayError('An error occurred while generating the response. Please check the console for details.');
+    } finally {
+        // Hide spinner and restore button
+        spinnerContainer.classList.add('hidden');
+        askBtn.disabled = false;
+        askBtn.textContent = 'Ask AI Assistant';
+    }
 }
 
 function displayResponse(text) {
-    responseContent.innerHTML = `<p class="text-gray-300">${text}</p>`;
-    responseContent.classList.remove('hidden');
+    // A simple way to format potential markdown lists
+    let formattedText = text.replace(/- /g, '<br>- ').replace(/\* /g, '<br>• ');
+    if(formattedText.startsWith('<br>')) {
+        formattedText = formattedText.substring(4);
+    }
+    responseContent.innerHTML = `<p class="text-gray-300">${formattedText}</p>`;
+    responseContent.classList.remove('hidden');
 }
 
 function displayError(message) {
-    responseContent.innerHTML = `<p class="text-red-400 text-center">${message}</p>`;
-    responseContent.classList.remove('hidden');
+    responseContent.innerHTML = `<p class="text-red-400 text-center">${message}</p>`;
+    responseContent.classList.remove('hidden');
 }
 
 </script>
 </body>
 </html>
-```
