@@ -9,12 +9,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 body {
 font-family: 'Lato', sans-serif;
-background-color: #0d1117; /* Deep navy background */
-color: #c9d1d9; /* Softer white text */
+background-color: #0d1117;
+color: #c9d1d9;
 overflow-x: hidden;
 }
 #galaxy-canvas {
@@ -27,17 +27,16 @@ z-index: -1;
 }
 h1, h2, h3, h4, h5, h6 {
 font-family: 'Poppins', sans-serif;
-color: #f0f6fc; /* Brighter white for headings */
+color: #f0f6fc;
 }
 .glassmorphism {
-background: rgba(13, 17, 23, 0.5);
-backdrop-filter: blur(10px);
+background: rgba(13, 17, 23, 0.6);
+backdrop-filter: blur(12px);
 border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .highlight-text {
 color: #f0f6fc;
 }
-/* New scroll-triggered slide-in animation */
 .slide-in-section {
 opacity: 0;
 transform: translateY(50px);
@@ -58,15 +57,15 @@ background-color: rgba(31, 41, 55, 0.4);
 box-shadow: 0 0 20px rgba(200, 220, 255, 0.1);
 }
 .btn-primary {
-background-color: #c9d1d9; /* Light grey button */
-color: #0d1117; /* Dark text */
+background-color: #c9d1d9;
+color: #0d1117;
 font-weight: bold;
 transition: all 0.3s ease;
 }
 .btn-primary:hover {
-background-color: #f0f6fc; /* Brighter white on hover */
+background-color: #f0f6fc;
 transform: scale(1.05);
-box-shadow: 0 0 20px rgba(240, 246, 252, 0.3); /* White glow */
+box-shadow: 0 0 20px rgba(240, 246, 252, 0.3);
 }
 .btn-secondary {
 background-color: transparent;
@@ -78,10 +77,9 @@ transition: all 0.3s ease;
 background-color: #161b22;
 border-color: #8b949e;
 }
-/* Spinner for loading state */
 .spinner {
 border: 4px solid rgba(255, 255, 255, 0.2);
-border-left-color: #c9d1d9; /* Updated spinner color */
+border-left-color: #c9d1d9;
 border-radius: 50%;
 width: 36px;
 height: 36px;
@@ -90,11 +88,94 @@ animation: spin 1s linear infinite;
 @keyframes spin {
 to { transform: rotate(360deg); }
 }
+/* Modal Styles */
+.modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: rgba(0, 0, 0, 0.7);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 1000;
+transition: opacity 0.3s ease;
+}
+.modal-content {
+position: relative;
+padding: 2rem;
+width: 90%;
+max-width: 650px;
+max-height: 90vh;
+overflow-y: auto;
+transition: transform 0.3s ease;
+}
+.modal-overlay.hidden {
+opacity: 0;
+pointer-events: none;
+}
+.modal-overlay.hidden .modal-content {
+transform: scale(0.95);
+}
+.modal-close {
+position: absolute;
+top: 1rem;
+right: 1rem;
+font-size: 1.5rem;
+color: #9ca3af;
+cursor: pointer;
+transition: color 0.2s;
+}
+.modal-close:hover {
+color: #f0f6fc;
+}
+/* Drag and Drop Area */
+.drop-zone {
+border: 2px dashed #30363d;
+border-radius: 0.5rem;
+padding: 2rem;
+text-align: center;
+cursor: pointer;
+transition: border-color 0.3s, background-color 0.3s;
+}
+.drop-zone.dragover {
+border-color: #58a6ff;
+background-color: rgba(88, 166, 255, 0.1);
+}
+.drop-zone-preview {
+max-width: 200px;
+max-height: 125px;
+margin: 1rem auto 0;
+border-radius: 0.5rem;
+}
+.delete-project-btn {
+position: absolute;
+top: -0.5rem;
+right: -0.5rem;
+background: #4b0b0b;
+color: #f87171;
+border-radius: 50%;
+width: 2rem;
+height: 2rem;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 0.9rem;
+transition: all 0.2s ease;
+border: 1px solid #f87171;
+}
+.delete-project-btn:hover {
+background: #7f1d1d;
+color: #fca5a5;
+transform: scale(1.1);
+}
 </style>
 </head>
 <body class="antialiased">
 <canvas id="galaxy-canvas"></canvas>
 
+<!-- Header and Navigation -->
 <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
 <div class="container mx-auto px-4 py-4">
 <div class="flex justify-between items-center glassmorphism rounded-full px-6 py-3 shadow-sm">
@@ -104,6 +185,7 @@ to { transform: rotate(360deg); }
 <a href="#ai-assistant" class="hover:text-cyan-400 transition-colors">AI Assistant</a>
 <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
 <a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
+<a href="#experience" class="hover:text-cyan-400 transition-colors">Experience</a>
 <a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
 <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
 </nav>
@@ -120,6 +202,7 @@ Hire Me
 <a href="#ai-assistant" class="block text-center py-3 hover:bg-gray-800">AI Assistant</a>
 <a href="#about" class="block text-center py-3 hover:bg-gray-800">About</a>
 <a href="#skills" class="block text-center py-3 hover:bg-gray-800">Skills</a>
+<a href="#experience" class="block text-center py-3 hover:bg-gray-800">Experience</a>
 <a href="#projects" class="block text-center py-3 hover:bg-gray-800">Projects</a>
 <a href="#contact" class="block text-center py-3 hover:bg-gray-800 rounded-b-lg">Contact</a>
 </div>
@@ -127,6 +210,7 @@ Hire Me
 
 <main class="container mx-auto px-4 pt-24 relative z-10">
 
+<!-- Home Section -->
 <section id="home" class="min-h-screen flex items-center justify-center text-center">
 <div class="max-w-4xl">
 <span class="text-cyan-400 font-semibold">Hi, my name is</span>
@@ -142,23 +226,21 @@ View My Work
 <a href="https://github.com/AmithNaglapura" target="_blank" class="btn-secondary font-bold py-3 px-6 rounded-full">
 GitHub Profile
 </a>
-<a href="https://public.tableau.com/app/profile/amith.naglapura/vizzes" target="_blank" class="btn-secondary font-bold py-3 px-6 rounded-full">
-Tableau Profile
-</a>
 </div>
 </div>
 </section>
 
+<!-- AI Assistant Section -->
 <section id="ai-assistant" class="py-20 md:py-32 text-center slide-in-section">
 <h2 class="text-3xl md:text-4xl font-bold mb-4 highlight-text">
 ✨ AI Assistant
 </h2>
 <p class="max-w-2xl mx-auto text-lg mb-8 text-gray-400">
-Want the highlights fast? Instead of reading through my entire profile, you can ask my AI assistant directly. It's trained on my skills, projects, and experience to answer your questions instantly.
+Want the highlights fast? Ask my AI assistant. It's trained on my skills, projects, and experience to answer your questions instantly.
 <strong class="text-gray-300 block mt-2">Please note: The AI will only answer questions related to my professional profile.</strong>
 </p>
 <div class="max-w-2xl mx-auto">
-<textarea id="question-input" rows="3" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-cyan-500 focus:outline-none text-white placeholder-gray-500" placeholder="e.g., 'What was Amith's role at Schneider Electric?' or 'Summarize his project on crop disease detection.'"></textarea>
+<textarea id="question-input" rows="3" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-cyan-500 focus:outline-none text-white placeholder-gray-500" placeholder="e.g., 'What was Amith's role at Schneider Electric?'"></textarea>
 <button id="ask-ai-btn" class="mt-4 btn-primary font-bold py-3 px-8 rounded-full">
 Ask AI Assistant
 </button>
@@ -172,6 +254,7 @@ Ask AI Assistant
 </div>
 </section>
 
+<!-- About Section -->
 <section id="about" class="py-20 md:py-32 slide-in-section">
 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 highlight-text">
 About Me
@@ -185,15 +268,16 @@ class="rounded-full shadow-2xl w-full h-auto object-cover aspect-square transfor
 </div>
 <div class="md:w-1/2 lg:w-3/5">
 <p class="text-lg mb-4 text-gray-400">
-Hello! I'm Amith, a tech enthusiast from Mysore, India, born on December 7, 2001. I hold a Bachelor of Engineering from Vidyavardhaka College of Engineering, Mysore. My academic background provided a solid foundation in hardware systems, which sparked a deeper curiosity about the data these systems generate, leading me to the world of data analysis and machine learning.
+Hello! I'm Amith, a tech enthusiast from Mysore, India. I hold a Bachelor of Engineering from Vidyavardhaka College of Engineering. My academic background provided a solid foundation in hardware systems, which sparked a deeper curiosity about the data these systems generate, leading me to the world of data analysis and machine learning.
 </p>
 <p class="text-lg text-gray-400">
-My goal is to apply my problem-solving skills to help businesses make smarter, data-informed decisions. Whether it's developing a machine learning model or analyzing electrical systems for a company like Schneider Electric, I am driven by the challenge of turning technical possibilities into real-world value.
+My goal is to apply my problem-solving skills to help businesses make smarter, data-informed decisions. I am driven by the challenge of turning technical possibilities into real-world value.
 </p>
 </div>
 </div>
 </section>
 
+<!-- Skills Section -->
 <section id="skills" class="py-20 md:py-32 slide-in-section">
 <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 highlight-text">
 Professional Skillset
@@ -224,12 +308,12 @@ Professional Skillset
 </div>
 </section>
 
-
-<section id="projects" class="py-20 md:py-32 slide-in-section">
+<!-- Professional Experience Section -->
+<section id="experience" class="py-20 md:py-32 slide-in-section">
 <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 highlight-text">
-My Projects & Experience
+Professional Experience
 </h2>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
 <div class="rounded-lg p-6 flex flex-col card-hover">
 <div class="flex-grow">
 <h3 class="text-xl font-bold mb-2 highlight-text">Current Leakage Detection System</h3>
@@ -244,50 +328,70 @@ My Projects & Experience
 </div>
 <div class="rounded-lg p-6 flex flex-col card-hover">
 <div class="flex-grow">
-<h3 class="text-xl font-bold mb-2 highlight-text">Early Crop Disease Detection</h3>
-<p class="text-sm text-gray-500 mb-2">Published Research Paper (IJFMR)</p>
-<p class="text-gray-400 mb-4">Designed a machine learning framework to identify crop diseases at an early stage, minimizing crop damage and optimizing yield for better agricultural productivity.</p>
+<h3 class="text-xl font-bold mb-2 highlight-text">Data Analysis Intern</h3>
+<p class="text-sm text-gray-500 mb-2">Internship @ Unified Mentor</p>
+<p class="text-gray-400 mb-4">Utilized Python, Excel, and SQL for data manipulation, visualization, and interpretation. Analyzed diverse datasets to identify key trends and present actionable insights.</p>
 </div>
 <div class="mt-4 flex flex-wrap gap-2">
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Automation</span>
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">SQL</span>
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Excel</span>
 <span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
-</div>
-</div>
-<div class="rounded-lg p-6 flex flex-col card-hover">
-<div class="flex-grow">
-<h3 class="text-xl font-bold mb-2 highlight-text">Tableau Data Visualizations</h3>
-<p class="text-sm text-gray-500 mb-2">Public Portfolio</p>
-<p class="text-gray-400 mb-4">A collection of interactive dashboards and visualizations showcasing my ability to communicate complex data stories effectively. Click below to explore.</p>
-</div>
-<div class="mt-4">
-<a href="https://public.tableau.com/app/profile/amith.naglapura/vizzes" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold">View Profile &rarr;</a>
-</div>
-</div>
-<div class="rounded-lg p-6 flex flex-col card-hover">
-<div class="flex-grow">
-<h3 class="text-xl font-bold mb-2 highlight-text">Personal Portfolio Website</h3>
-<p class="text-sm text-gray-500 mb-2">UI/UX & Web Development</p>
-<p class="text-gray-400 mb-4">Designed and developed a responsive portfolio website focusing on clean UI/UX to showcase professional skills and data-driven projects effectively.</p>
-</div>
-<div class="flex-grow mt-4 flex flex-wrap gap-2">
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">UI/UX Design</span>
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">HTML</span>
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">CSS</span>
-</div>
-<div class="mt-4">
-<a href="https://akshaym000.github.io/AkshayM/" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold">View Live Site &rarr;</a>
 </div>
 </div>
 </div>
 </section>
 
+<!-- My Projects Section -->
+<section id="projects" class="py-20 md:py-32 slide-in-section">
+<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 highlight-text">
+My Projects
+</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Project Card 1 -->
+<div class="rounded-lg p-6 flex flex-col card-hover">
+<div class="flex-grow">
+<h3 class="text-xl font-bold mb-2 highlight-text">Early Crop Disease Detection</h3>
+<p class="text-sm text-gray-500 mb-2">Published Research Paper (IJFMR)</p>
+<p class="text-gray-400 mb-4">Designed a machine learning framework to identify crop diseases early, minimizing crop damage and optimizing yield for better agricultural productivity.</p>
+</div>
+<div class="mt-4 flex flex-wrap gap-2">
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="rounded-lg p-6 flex flex-col card-hover">
+<div class="flex-grow">
+<h3 class="text-xl font-bold mb-2 highlight-text">Crack Detection in Pipelines</h3>
+<p class="text-sm text-gray-500 mb-2">Academic Project</p>
+<p class="text-gray-400 mb-4">Utilized advanced sensors and machine learning for the accurate, non-invasive detection of cracks in industrial pipelines.</p>
+</div>
+<div class="mt-4 flex flex-wrap gap-2">
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
+<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Sensors</span>
+</div>
+</div>
+<!-- Tableau Visualizations Card -->
+<div class="rounded-lg p-6 flex flex-col card-hover">
+<div class="flex-grow">
+<h3 class="text-xl font-bold mb-2 highlight-text">Tableau Data Visualizations</h3>
+<p class="text-sm text-gray-500 mb-2">Interactive Dashboards</p>
+<p class="text-gray-400 mb-4">A collection of interactive dashboards that transform complex datasets into clear, actionable insights. Click below to explore them all.</p>
+</div>
+<button id="view-tableau-btn" class="mt-4 text-cyan-400 hover:text-cyan-300 font-semibold text-left">
+Explore Visualizations &rarr;
+</button>
+</div>
+</div>
+</section>
+
+<!-- Contact Section -->
 <section id="contact" class="py-20 md:py-32 text-center slide-in-section">
 <h2 class="text-3xl md:text-4xl font-bold mb-4 highlight-text">
 Get In Touch
 </h2>
 <p class="max-w-xl mx-auto text-lg mb-8 text-gray-400">
-I'm actively seeking roles where I can leverage my data analysis skills and am open to new opportunities and collaborations. If you're looking for a data-driven problem solver, I'd love to connect.
+I'm actively seeking roles where I can leverage my data analysis skills. If you're looking for a data-driven problem solver, I'd love to connect.
 </p>
 <a href="mailto:amithnaglapura@gmail.com?subject=Connecting from your Portfolio" class="btn-primary font-bold py-4 px-8 rounded-full">
 Say Hello
@@ -304,20 +408,85 @@ Say Hello
 <a href="https://github.com/AmithNaglapura" target="_blank" class="text-2xl hover:text-cyan-400 transition-colors">
 <i class="fab fa-github"></i>
 </a>
-<a href="https://public.tableau.com/app/profile/amith.naglapura/vizzes" target="_blank" class="text-2xl hover:text-cyan-400 transition-colors">
-<i class="fas fa-chart-bar"></i>
+<a href="#" id="admin-login-btn" class="text-2xl hover:text-cyan-400 transition-colors" title="Admin Login">
+<i class="fas fa-user-shield"></i>
 </a>
 </div>
 <p>Designed & Built by Amith Naglapura</p>
 <p>&copy; 2025. All rights reserved.</p>
 </footer>
 
+<!-- MODALS -->
+<!-- Tableau Projects Modal -->
+<div id="tableau-modal" class="modal-overlay hidden">
+<div class="modal-content glassmorphism rounded-lg">
+<span class="modal-close">&times;</span>
+<h3 class="text-2xl font-bold mb-6 text-center highlight-text">Tableau Visualizations</h3>
+<div id="tableau-projects-container" class="space-y-6">
+<!-- Projects will be dynamically inserted here -->
+</div>
+</div>
+</div>
+
+<!-- Admin Login Modal -->
+<div id="admin-login-modal" class="modal-overlay hidden">
+<div class="modal-content glassmorphism rounded-lg">
+<span class="modal-close">&times;</span>
+<h3 class="text-2xl font-bold mb-6 text-center highlight-text">Admin Access</h3>
+<div class="space-y-4">
+<div>
+<label for="username" class="block text-sm font-medium text-gray-400">Username</label>
+<input type="text" id="username" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" value="Amith" readonly>
+</div>
+<div>
+<label for="password" class="block text-sm font-medium text-gray-400">Password</label>
+<input type="password" id="Amithnp@18" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" placeholder="Enter password">
+</div>
+<button id="login-submit-btn" class="w-full btn-primary font-bold py-2 px-4 rounded-full">Login</button>
+<p class="text-xs text-gray-500 text-center mt-2">Note: This is a front-end simulation for demonstration purposes.</p>
+</div>
+</div>
+</div>
+
+<!-- Add New Project Modal -->
+<div id="add-project-modal" class="modal-overlay hidden">
+<div class="modal-content glassmorphism rounded-lg">
+<span class="modal-close">&times;</span>
+<h3 class="text-2xl font-bold mb-6 text-center highlight-text">Add New Tableau Project</h3>
+<form id="add-project-form" class="space-y-4">
+<div>
+<label for="project-title" class="block text-sm font-medium text-gray-400">Project Title</label>
+<input type="text" id="project-title" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" required>
+</div>
+<div>
+<label for="project-desc" class="block text-sm font-medium text-gray-400">Description</label>
+<textarea id="project-desc" rows="3" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" required></textarea>
+</div>
+<div>
+<label for="project-url" class="block text-sm font-medium text-gray-400">Tableau Public URL</label>
+<input type="url" id="project-url" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" placeholder="https://public.tableau.com/views/..." required>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-400">Thumbnail Image</label>
+<div id="drop-zone" class="mt-1 drop-zone">
+<p class="text-gray-500">Drag & drop an image here, or click to select</p>
+<input type="file" id="project-thumbnail-input" class="hidden" accept="image/*">
+<img id="thumbnail-preview" class="hidden drop-zone-preview" alt="Thumbnail preview">
+</div>
+</div>
+<button type="submit" id="save-project-btn" class="w-full btn-primary font-bold py-2 px-4 rounded-full">Save Project</button>
+<p id="success-message" class="text-green-400 text-center mt-2 hidden">Project added successfully!</p>
+</form>
+</div>
+</div>
+
+
 <script>
-// --- Galaxy Animation (Corrected for full-screen coverage) ---
+// --- Galaxy Animation ---
 const canvas = document.getElementById('galaxy-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
-const numParticles = 400; // Increased for a fuller effect
+const numParticles = 400;
 
 function setCanvasSize() {
     canvas.width = window.innerWidth;
@@ -343,12 +512,10 @@ function animate() {
     particles.forEach(p => {
         p.x += p.speedX;
         p.y += p.speedY;
-
         if (p.x < 0) p.x = canvas.width;
         if (p.x > canvas.width) p.x = 0;
         if (p.y < 0) p.y = canvas.height;
         if (p.y > canvas.height) p.y = 0;
-
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
@@ -366,15 +533,12 @@ setCanvasSize();
 createParticles();
 animate();
 
-
 // --- Mobile menu toggle ---
 const mobileMenuButton = document.getElementById('mobile-menu-button');
 const mobileMenu = document.getElementById('mobile-menu');
 mobileMenuButton.addEventListener('click', () => {
     mobileMenu.classList.toggle('hidden');
 });
-
-// Close mobile menu when a link is clicked
 const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
 for (let link of mobileMenuLinks) {
     link.addEventListener('click', () => {
@@ -400,13 +564,185 @@ const observer = new IntersectionObserver((entries) => {
             entry.target.classList.add('is-visible');
         }
     });
-}, {
-    threshold: 0.1
-});
-
+}, { threshold: 0.1 });
 sections.forEach(section => {
     observer.observe(section);
 });
+
+// --- DYNAMIC PROJECT & ADMIN LOGIC ---
+
+let isAdminLoggedIn = false;
+let newThumbnailData = null; // To store the base64 data of the new thumbnail
+let tableauProjects = [
+    {
+        title: 'Global Superstore Analysis',
+        description: 'An in-depth analysis of sales and profit data for a global superstore, identifying key trends and performance metrics across different regions and product categories.',
+        url: 'https://public.tableau.com/views/GlobalSuperstoreAnalysis_16782/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link',
+        thumbnail: 'https://placehold.co/400x250/161b22/c9d1d9?text=Superstore+Analysis'
+    },
+    {
+        title: 'COVID-19 Global Pandemic Tracker',
+        description: 'A comprehensive dashboard tracking the spread of COVID-19, including confirmed cases, deaths, and recovery rates by country.',
+        url: 'https://public.tableau.com/views/COVID-19GlobalPandemic_16004/COVID-19GlobalDashboard?:language=en-US&:display_count=n&:origin=viz_share_link',
+        thumbnail: 'https://placehold.co/400x250/161b22/c9d1d9?text=COVID-19+Tracker'
+    }
+];
+
+// --- Modal Management ---
+const tableauModal = document.getElementById('tableau-modal');
+const adminLoginModal = document.getElementById('admin-login-modal');
+const addProjectModal = document.getElementById('add-project-modal');
+const modals = [tableauModal, adminLoginModal, addProjectModal];
+
+function openModal(modal) {
+    modal.classList.remove('hidden');
+}
+
+function closeModal(modal) {
+    modal.classList.add('hidden');
+}
+
+modals.forEach(modal => {
+    modal.querySelector('.modal-close').addEventListener('click', () => closeModal(modal));
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal(modal);
+        }
+    });
+});
+
+// --- Tableau Projects Logic ---
+const viewTableauBtn = document.getElementById('view-tableau-btn');
+const tableauProjectsContainer = document.getElementById('tableau-projects-container');
+
+function renderTableauProjects() {
+    tableauProjectsContainer.innerHTML = '';
+    if (tableauProjects.length === 0) {
+        tableauProjectsContainer.innerHTML = '<p class="text-center text-gray-500">No projects have been added yet.</p>';
+        return;
+    }
+    tableauProjects.forEach((project, index) => {
+        const projectEl = document.createElement('div');
+        projectEl.className = 'relative p-4 rounded-lg bg-gray-900/50 border border-gray-700 flex flex-col md:flex-row gap-6 items-center';
+        
+        const deleteButtonHTML = isAdminLoggedIn 
+            ? `<button class="delete-project-btn" data-index="${index}" title="Delete Project"><i class="fas fa-trash-alt pointer-events-none"></i></button>` 
+            : '';
+
+        projectEl.innerHTML = `
+            <div class="md:w-1/3 w-full flex-shrink-0">
+                <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="rounded-lg w-full h-auto object-cover aspect-video shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/161b22/f0f6fc?text=Image+Not+Found';">
+            </div>
+            <div class="md:w-2/3 w-full">
+                <h4 class="text-xl font-bold highlight-text pr-8">${project.title}</h4>
+                <p class="text-gray-400 my-2 text-sm">${project.description}</p>
+                <a href="${project.url}" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold inline-block mt-2">View on Tableau Public &rarr;</a>
+            </div>
+            ${deleteButtonHTML}
+        `;
+        tableauProjectsContainer.appendChild(projectEl);
+    });
+}
+
+viewTableauBtn.addEventListener('click', () => {
+    renderTableauProjects();
+    openModal(tableauModal);
+});
+
+tableauProjectsContainer.addEventListener('click', function(e) {
+    if (e.target.closest('.delete-project-btn')) {
+        const button = e.target.closest('.delete-project-btn');
+        const index = button.dataset.index;
+        if (confirm(`Are you sure you want to delete "${tableauProjects[index].title}"?`)) {
+            tableauProjects.splice(index, 1);
+            renderTableauProjects();
+        }
+    }
+});
+
+
+// --- Admin Logic ---
+const adminLoginBtn = document.getElementById('admin-login-btn');
+const loginSubmitBtn = document.getElementById('login-submit-btn');
+const addProjectForm = document.getElementById('add-project-form');
+const dropZone = document.getElementById('drop-zone');
+const thumbnailInput = document.getElementById('project-thumbnail-input');
+const thumbnailPreview = document.getElementById('thumbnail-preview');
+
+adminLoginBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal(adminLoginModal);
+});
+
+loginSubmitBtn.addEventListener('click', () => {
+    isAdminLoggedIn = true;
+    closeModal(adminLoginModal);
+    openModal(addProjectModal);
+    document.getElementById('password').value = '';
+});
+
+// Drag and Drop Logic
+dropZone.addEventListener('click', () => thumbnailInput.click());
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+});
+dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('dragover');
+});
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        handleFile(files[0]);
+    }
+});
+thumbnailInput.addEventListener('change', (e) => {
+    const files = e.target.files;
+    if (files.length > 0) {
+        handleFile(files[0]);
+    }
+});
+
+function handleFile(file) {
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            newThumbnailData = e.target.result;
+            thumbnailPreview.src = newThumbnailData;
+            thumbnailPreview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    } else {
+        alert('Please drop an image file.');
+    }
+}
+
+addProjectForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = document.getElementById('project-title').value;
+    const description = document.getElementById('project-desc').value;
+    const url = document.getElementById('project-url').value;
+    const successMessage = document.getElementById('success-message');
+
+    if (!title || !description || !url || !newThumbnailData) {
+        alert('Please fill out all fields and add a thumbnail.');
+        return;
+    }
+
+    tableauProjects.push({ title, description, url, thumbnail: newThumbnailData });
+
+    addProjectForm.reset();
+    thumbnailPreview.classList.add('hidden');
+    newThumbnailData = null;
+
+    successMessage.classList.remove('hidden');
+    setTimeout(() => {
+        successMessage.classList.add('hidden');
+    }, 3000);
+});
+
 
 // --- Gemini AI Assistant ---
 const askBtn = document.getElementById('ask-ai-btn');
@@ -416,14 +752,9 @@ const spinnerContainer = document.getElementById('spinner-container');
 const responseContent = document.getElementById('response-content');
 
 askBtn.addEventListener('click', askAiAssistant);
-
-// --- Handle Enter Key Press ---
 questionInput.addEventListener('keydown', function(event) {
-    // Check if the Enter key is pressed without the Shift key
     if (event.key === 'Enter' && !event.shiftKey) {
-        // Prevent the default action of adding a new line
         event.preventDefault();
-        // Trigger the ask AI function
         askAiAssistant();
     }
 });
@@ -431,11 +762,10 @@ questionInput.addEventListener('keydown', function(event) {
 async function askAiAssistant() {
     const userQuestion = questionInput.value;
     if (!userQuestion.trim()) {
-        alert('Please ask a question first.');
+        displayError('Please ask a question first.');
         return;
     }
 
-    // Show loading spinner
     aiResponseOutput.classList.remove('hidden');
     spinnerContainer.classList.remove('hidden');
     responseContent.classList.add('hidden');
@@ -444,46 +774,32 @@ async function askAiAssistant() {
 
     const context = `
     Amith Naglapura's Professional Profile:
-    - Personal: Born on December 7, 2001.
-    - Education: Bachelor of Engineering from Vidyavardhaka College of Engineering, Mysore.
-    - Summary: A technologist specializing in data analysis, transforming complex data into actionable insights and engineering solutions that bridge hardware and software.
+    - Summary: A technologist specializing in data analysis and machine learning.
     - Experience:
-    - Schneider Electric (Intern): Worked on a 'Detecting Current Leakage' system. Developed algorithms to analyze real-time electrical circuit data to enhance safety and detection accuracy.
-    - Unified Mentor (Data Analysis Intern): Utilized Python, Excel, and SQL for data manipulation, visualization, and interpretation. Analyzed datasets to identify trends and present actionable insights.
+      - Schneider Electric (Intern): Developed algorithms for a 'Detecting Current Leakage' system.
+      - Unified Mentor (Data Analysis Intern): Used Python, Excel, and SQL for data manipulation and visualization.
     - Key Projects:
-    - Crack Detection In Pipeline: Used advanced sensors (EMAT/UT) and machine learning for accurate crack detection in pipelines.
-    - Early Stage Crop Disease Detection: Published a research paper on this topic. The project involved using drones/satellite imagery and machine learning to detect crop diseases early.
-    - Personal Portfolio Website: Designed and developed a responsive website with a focus on clean UI/UX and front-end technologies like HTML and CSS.
-    - Skills:
-    - Technical: Data Analysis, Machine Learning, Tableau, SQL, Python, Embedded C, C++, R, HTML, CSS.
-    - Professional: Problem Solving, Project Management, Business Analysis, Leadership.
+      - Early Stage Crop Disease Detection (Research Paper): Used ML to detect crop diseases.
+      - Crack Detection In Pipeline: Used sensors and ML for crack detection.
+      - Tableau Data Visualizations: Creates interactive dashboards to tell data stories. The projects are viewable on his portfolio.
+    - Skills: Data Analysis, Machine Learning, Tableau, SQL, Python, Embedded C/C++, R, HTML, CSS.
     `;
 
-    const prompt = `You are a specialized AI assistant for Amith Naglapura's portfolio. Your answers must be based *only* on the context provided below.
+    const prompt = `You are a helpful AI assistant for Amith Naglapura's portfolio. Your answers must be based *only* on the context provided. If asked a question you cannot answer from the context, politely say you don't have that information and suggest a relevant question they could ask, like "What are his technical skills?".
 
-    **Your Personality and Behavior:**
-    - You are friendly, professional, and helpful. Your goal is to inform users about Amith Naglapura.
-    - **If a user asks a conversational question (like 'hi', 'how are you?') or an off-topic question (like 'what is the capital of France?'):**
-        1. Respond warmly and politely (e.g., "Hello there!", "Thanks for asking!").
-        2. Gently state your purpose, explaining that your knowledge is focused on Amith's professional profile.
-        3. **Crucially, suggest one or two specific example questions** to guide the user, such as, "You could ask me, 'What are his main technical skills?' or 'Tell me about his internship project.'"
-    - For all other relevant questions, answer them directly based on the provided context.
-
-    **Context about Amith:**
+    Context:
     ---
     ${context}
     ---
 
-    **User's Question:** "${userQuestion}"
-
-    Based only on the context provided, answer the user's question according to your defined personality and behavior.`;
+    User's Question: "${userQuestion}"`;
     
     const payload = {
         contents: [{ role: "user", parts: [{ text: prompt }] }]
     };
 
-    const apiKey = "AIzaSyCmXt4_sh9o2Rxqg_56jPH0YThK5JCnhn4"; // API key will be provided by the environment
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    const apiKey = "AIzaSyCmXt4_sh9o2Rxqg_56jPH0YThK5JCnhn4"; // The build environment provides the key
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
     try {
         const response = await fetch(apiUrl, {
@@ -491,28 +807,14 @@ async function askAiAssistant() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
-
-        if (!response.ok) {
-            throw new Error(`API error: ${response.statusText}`);
-        }
-
+        if (!response.ok) throw new Error(`API error: ${response.statusText}`);
         const result = await response.json();
-
-        if (result.candidates && result.candidates.length > 0 &&
-            result.candidates[0].content && result.candidates[0].content.parts &&
-            result.candidates[0].content.parts.length > 0) {
-            const text = result.candidates[0].content.parts[0].text;
-            displayResponse(text);
-
-        } else {
-            displayError('The AI could not generate a response. Please try a different question.');
-        }
-
+        const text = result.candidates[0].content.parts[0].text;
+        displayResponse(text);
     } catch (error) {
         console.error('Error calling Gemini API:', error);
-        displayError('An error occurred while generating the response. Please check the console for details.');
+        displayError('An error occurred. Please try again.');
     } finally {
-        // Hide spinner and restore button
         spinnerContainer.classList.add('hidden');
         askBtn.disabled = false;
         askBtn.textContent = 'Ask AI Assistant';
@@ -520,9 +822,8 @@ async function askAiAssistant() {
 }
 
 function displayResponse(text) {
-    // A simple way to format potential markdown lists
     let formattedText = text.replace(/- /g, '<br>- ').replace(/\* /g, '<br>• ');
-    if(formattedText.startsWith('<br>')) {
+    if (formattedText.startsWith('<br>')) {
         formattedText = formattedText.substring(4);
     }
     responseContent.innerHTML = `<p class="text-gray-300">${formattedText}</p>`;
@@ -532,6 +833,7 @@ function displayResponse(text) {
 function displayError(message) {
     responseContent.innerHTML = `<p class="text-red-400 text-center">${message}</p>`;
     responseContent.classList.remove('hidden');
+    aiResponseOutput.classList.remove('hidden');
 }
 
 </script>
