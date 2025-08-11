@@ -435,12 +435,12 @@ Say Hello
 <h3 class="text-2xl font-bold mb-6 text-center highlight-text">Admin Access</h3>
 <div class="space-y-4">
 <div>
-<label for="username" class="block text-sm font-medium text-gray-400">Username</label>
-<input type="text" id="username" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" value="Amith" readonly>
+<label for="username" class="block text-sm font-medium text-gray-400">Amith</label>
+<input type="text" id="username" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" value="admin" readonly>
 </div>
 <div>
-<label for="password" class="block text-sm font-medium text-gray-400">Password</label>
-<input type="password" id="Amithnp@18" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" placeholder="Enter password">
+    <label for="password" class="block text-sm font-medium text-gray-400">Password</label>
+    <input type="password" id="password" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" placeholder="Enter password">
 </div>
 <button id="login-submit-btn" class="w-full btn-primary font-bold py-2 px-4 rounded-full">Login</button>
 <p class="text-xs text-gray-500 text-center mt-2">Note: This is a front-end simulation for demonstration purposes.</p>
@@ -481,361 +481,392 @@ Say Hello
 </div>
 
 
-<script>
-// --- Galaxy Animation ---
-const canvas = document.getElementById('galaxy-canvas');
-const ctx = canvas.getContext('2d');
-let particles = [];
-const numParticles = 400;
+<script type="module">
+    // Import Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-function setCanvasSize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-
-function createParticles() {
-    particles = [];
-    for (let i = 0; i < numParticles; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 1.2 + 0.1,
-            speedX: (Math.random() - 0.5) * 0.1,
-            speedY: (Math.random() - 0.5) * 0.1,
-            color: `rgba(200, 220, 255, ${0.5 + Math.random() * 0.5})`
-        });
-    }
-}
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-        p.x += p.speedX;
-        p.y += p.speedY;
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.fill();
-    });
-    requestAnimationFrame(animate);
-}
-
-window.addEventListener('resize', () => {
-    setCanvasSize();
-    createParticles();
-});
-
-setCanvasSize();
-createParticles();
-animate();
-
-// --- Mobile menu toggle ---
-const mobileMenuButton = document.getElementById('mobile-menu-button');
-const mobileMenu = document.getElementById('mobile-menu');
-mobileMenuButton.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-});
-const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
-for (let link of mobileMenuLinks) {
-    link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-    });
-}
-
-// --- Navbar background on scroll ---
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('bg-black/50');
-    } else {
-        navbar.classList.remove('bg-black/50');
-    }
-});
-
-// --- Scroll-triggered fade-in animation ---
-const sections = document.querySelectorAll('.slide-in-section');
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-        }
-    });
-}, { threshold: 0.1 });
-sections.forEach(section => {
-    observer.observe(section);
-});
-
-// --- DYNAMIC PROJECT & ADMIN LOGIC ---
-
-let isAdminLoggedIn = false;
-let newThumbnailData = null; // To store the base64 data of the new thumbnail
-let tableauProjects = [
-    {
-        title: 'Global Superstore Analysis',
-        description: 'An in-depth analysis of sales and profit data for a global superstore, identifying key trends and performance metrics across different regions and product categories.',
-        url: 'https://public.tableau.com/views/GlobalSuperstoreAnalysis_16782/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link',
-        thumbnail: 'https://placehold.co/400x250/161b22/c9d1d9?text=Superstore+Analysis'
-    },
-    {
-        title: 'COVID-19 Global Pandemic Tracker',
-        description: 'A comprehensive dashboard tracking the spread of COVID-19, including confirmed cases, deaths, and recovery rates by country.',
-        url: 'https://public.tableau.com/views/COVID-19GlobalPandemic_16004/COVID-19GlobalDashboard?:language=en-US&:display_count=n&:origin=viz_share_link',
-        thumbnail: 'https://placehold.co/400x250/161b22/c9d1d9?text=COVID-19+Tracker'
-    }
-];
-
-// --- Modal Management ---
-const tableauModal = document.getElementById('tableau-modal');
-const adminLoginModal = document.getElementById('admin-login-modal');
-const addProjectModal = document.getElementById('add-project-modal');
-const modals = [tableauModal, adminLoginModal, addProjectModal];
-
-function openModal(modal) {
-    modal.classList.remove('hidden');
-}
-
-function closeModal(modal) {
-    modal.classList.add('hidden');
-}
-
-modals.forEach(modal => {
-    modal.querySelector('.modal-close').addEventListener('click', () => closeModal(modal));
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal(modal);
-        }
-    });
-});
-
-// --- Tableau Projects Logic ---
-const viewTableauBtn = document.getElementById('view-tableau-btn');
-const tableauProjectsContainer = document.getElementById('tableau-projects-container');
-
-function renderTableauProjects() {
-    tableauProjectsContainer.innerHTML = '';
-    if (tableauProjects.length === 0) {
-        tableauProjectsContainer.innerHTML = '<p class="text-center text-gray-500">No projects have been added yet.</p>';
-        return;
-    }
-    tableauProjects.forEach((project, index) => {
-        const projectEl = document.createElement('div');
-        projectEl.className = 'relative p-4 rounded-lg bg-gray-900/50 border border-gray-700 flex flex-col md:flex-row gap-6 items-center';
-        
-        const deleteButtonHTML = isAdminLoggedIn 
-            ? `<button class="delete-project-btn" data-index="${index}" title="Delete Project"><i class="fas fa-trash-alt pointer-events-none"></i></button>` 
-            : '';
-
-        projectEl.innerHTML = `
-            <div class="md:w-1/3 w-full flex-shrink-0">
-                <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="rounded-lg w-full h-auto object-cover aspect-video shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/161b22/f0f6fc?text=Image+Not+Found';">
-            </div>
-            <div class="md:w-2/3 w-full">
-                <h4 class="text-xl font-bold highlight-text pr-8">${project.title}</h4>
-                <p class="text-gray-400 my-2 text-sm">${project.description}</p>
-                <a href="${project.url}" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold inline-block mt-2">View on Tableau Public &rarr;</a>
-            </div>
-            ${deleteButtonHTML}
-        `;
-        tableauProjectsContainer.appendChild(projectEl);
-    });
-}
-
-viewTableauBtn.addEventListener('click', () => {
-    renderTableauProjects();
-    openModal(tableauModal);
-});
-
-tableauProjectsContainer.addEventListener('click', function(e) {
-    if (e.target.closest('.delete-project-btn')) {
-        const button = e.target.closest('.delete-project-btn');
-        const index = button.dataset.index;
-        if (confirm(`Are you sure you want to delete "${tableauProjects[index].title}"?`)) {
-            tableauProjects.splice(index, 1);
-            renderTableauProjects();
-        }
-    }
-});
-
-
-// --- Admin Logic ---
-const adminLoginBtn = document.getElementById('admin-login-btn');
-const loginSubmitBtn = document.getElementById('login-submit-btn');
-const addProjectForm = document.getElementById('add-project-form');
-const dropZone = document.getElementById('drop-zone');
-const thumbnailInput = document.getElementById('project-thumbnail-input');
-const thumbnailPreview = document.getElementById('thumbnail-preview');
-
-adminLoginBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal(adminLoginModal);
-});
-
-loginSubmitBtn.addEventListener('click', () => {
-    isAdminLoggedIn = true;
-    closeModal(adminLoginModal);
-    openModal(addProjectModal);
-    document.getElementById('password').value = '';
-});
-
-// Drag and Drop Logic
-dropZone.addEventListener('click', () => thumbnailInput.click());
-dropZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    dropZone.classList.add('dragover');
-});
-dropZone.addEventListener('dragleave', () => {
-    dropZone.classList.remove('dragover');
-});
-dropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropZone.classList.remove('dragover');
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-        handleFile(files[0]);
-    }
-});
-thumbnailInput.addEventListener('change', (e) => {
-    const files = e.target.files;
-    if (files.length > 0) {
-        handleFile(files[0]);
-    }
-});
-
-function handleFile(file) {
-    if (file && file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            newThumbnailData = e.target.result;
-            thumbnailPreview.src = newThumbnailData;
-            thumbnailPreview.classList.remove('hidden');
-        };
-        reader.readAsDataURL(file);
-    } else {
-        alert('Please drop an image file.');
-    }
-}
-
-addProjectForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const title = document.getElementById('project-title').value;
-    const description = document.getElementById('project-desc').value;
-    const url = document.getElementById('project-url').value;
-    const successMessage = document.getElementById('success-message');
-
-    if (!title || !description || !url || !newThumbnailData) {
-        alert('Please fill out all fields and add a thumbnail.');
-        return;
-    }
-
-    tableauProjects.push({ title, description, url, thumbnail: newThumbnailData });
-
-    addProjectForm.reset();
-    thumbnailPreview.classList.add('hidden');
-    newThumbnailData = null;
-
-    successMessage.classList.remove('hidden');
-    setTimeout(() => {
-        successMessage.classList.add('hidden');
-    }, 3000);
-});
-
-
-// --- Gemini AI Assistant ---
-const askBtn = document.getElementById('ask-ai-btn');
-const questionInput = document.getElementById('question-input');
-const aiResponseOutput = document.getElementById('ai-response-output');
-const spinnerContainer = document.getElementById('spinner-container');
-const responseContent = document.getElementById('response-content');
-
-askBtn.addEventListener('click', askAiAssistant);
-questionInput.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault();
-        askAiAssistant();
-    }
-});
-
-async function askAiAssistant() {
-    const userQuestion = questionInput.value;
-    if (!userQuestion.trim()) {
-        displayError('Please ask a question first.');
-        return;
-    }
-
-    aiResponseOutput.classList.remove('hidden');
-    spinnerContainer.classList.remove('hidden');
-    responseContent.classList.add('hidden');
-    askBtn.disabled = true;
-    askBtn.textContent = 'Thinking...';
-
-    const context = `
-    Amith Naglapura's Professional Profile:
-    - Summary: A technologist specializing in data analysis and machine learning.
-    - Experience:
-      - Schneider Electric (Intern): Developed algorithms for a 'Detecting Current Leakage' system.
-      - Unified Mentor (Data Analysis Intern): Used Python, Excel, and SQL for data manipulation and visualization.
-    - Key Projects:
-      - Early Stage Crop Disease Detection (Research Paper): Used ML to detect crop diseases.
-      - Crack Detection In Pipeline: Used sensors and ML for crack detection.
-      - Tableau Data Visualizations: Creates interactive dashboards to tell data stories. The projects are viewable on his portfolio.
-    - Skills: Data Analysis, Machine Learning, Tableau, SQL, Python, Embedded C/C++, R, HTML, CSS.
-    `;
-
-    const prompt = `You are a helpful AI assistant for Amith Naglapura's portfolio. Your answers must be based *only* on the context provided. If asked a question you cannot answer from the context, politely say you don't have that information and suggest a relevant question they could ask, like "What are his technical skills?".
-
-    Context:
-    ---
-    ${context}
-    ---
-
-    User's Question: "${userQuestion}"`;
-    
-    const payload = {
-        contents: [{ role: "user", parts: [{ text: prompt }] }]
+    // IMPORTANT: Replace with your actual Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyD7qvQX-TIgdhEh8oWD_hRNqFbJtU5TYeE",
+  authDomain: "amith-np.firebaseapp.com",
+  projectId: "amith-np",
+  storageBucket: "amith-np.firebasestorage.app",
+  messagingSenderId: "989434262632",
+  appId: "1:989434262632:web:59a03bbf0468409fe637dd",
+  measurementId: "G-Y0K0CV151E"
     };
 
-    const apiKey = "AIzaSyCmXt4_sh9o2Rxqg_56jPH0YThK5JCnhn4"; // The build environment provides the key
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
 
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+    // --- Galaxy Animation ---
+    const canvas = document.getElementById('galaxy-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const numParticles = 400;
+
+    function setCanvasSize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    function createParticles() {
+        particles = [];
+        for (let i = 0; i < numParticles; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 1.2 + 0.1,
+                speedX: (Math.random() - 0.5) * 0.1,
+                speedY: (Math.random() - 0.5) * 0.1,
+                color: `rgba(200, 220, 255, ${0.5 + Math.random() * 0.5})`
+            });
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.x += p.speedX;
+            p.y += p.speedY;
+            if (p.x < 0) p.x = canvas.width;
+            if (p.x > canvas.width) p.x = 0;
+            if (p.y < 0) p.y = canvas.height;
+            if (p.y > canvas.height) p.y = 0;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.fill();
         });
-        if (!response.ok) throw new Error(`API error: ${response.statusText}`);
-        const result = await response.json();
-        const text = result.candidates[0].content.parts[0].text;
-        displayResponse(text);
-    } catch (error) {
-        console.error('Error calling Gemini API:', error);
-        displayError('An error occurred. Please try again.');
-    } finally {
-        spinnerContainer.classList.add('hidden');
-        askBtn.disabled = false;
-        askBtn.textContent = 'Ask AI Assistant';
+        requestAnimationFrame(animate);
     }
-}
 
-function displayResponse(text) {
-    let formattedText = text.replace(/- /g, '<br>- ').replace(/\* /g, '<br>• ');
-    if (formattedText.startsWith('<br>')) {
-        formattedText = formattedText.substring(4);
+    window.addEventListener('resize', () => {
+        setCanvasSize();
+        createParticles();
+    });
+
+    setCanvasSize();
+    createParticles();
+    animate();
+
+    // --- Mobile menu toggle ---
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+    const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
+    for (let link of mobileMenuLinks) {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
     }
-    responseContent.innerHTML = `<p class="text-gray-300">${formattedText}</p>`;
-    responseContent.classList.remove('hidden');
-}
 
-function displayError(message) {
-    responseContent.innerHTML = `<p class="text-red-400 text-center">${message}</p>`;
-    responseContent.classList.remove('hidden');
-    aiResponseOutput.classList.remove('hidden');
-}
+    // --- Navbar background on scroll ---
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('bg-black/50');
+        } else {
+            navbar.classList.remove('bg-black/50');
+        }
+    });
 
+    // --- Scroll-triggered fade-in animation ---
+    const sections = document.querySelectorAll('.slide-in-section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    // --- DYNAMIC PROJECT & ADMIN LOGIC ---
+
+    let isAdminLoggedIn = false;
+    let newThumbnailData = null;
+    let tableauProjects = [];
+    const projectsCol = collection(db, 'tableauProjects');
+
+    // --- Modal Management ---
+    const tableauModal = document.getElementById('tableau-modal');
+    const adminLoginModal = document.getElementById('admin-login-modal');
+    const addProjectModal = document.getElementById('add-project-modal');
+    const modals = [tableauModal, adminLoginModal, addProjectModal];
+
+    function openModal(modal) {
+        modal.classList.remove('hidden');
+    }
+
+    function closeModal(modal) {
+        modal.classList.add('hidden');
+    }
+
+    modals.forEach(modal => {
+        modal.querySelector('.modal-close').addEventListener('click', () => closeModal(modal));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal(modal);
+            }
+        });
+    });
+
+    // --- Tableau Projects Logic ---
+    const viewTableauBtn = document.getElementById('view-tableau-btn');
+    const tableauProjectsContainer = document.getElementById('tableau-projects-container');
+
+    onSnapshot(projectsCol, (snapshot) => {
+        tableauProjects = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+        renderTableauProjects();
+    });
+
+    function renderTableauProjects() {
+        tableauProjectsContainer.innerHTML = '';
+        if (tableauProjects.length === 0) {
+            tableauProjectsContainer.innerHTML = '<p class="text-center text-gray-500">No projects have been added yet.</p>';
+            return;
+        }
+        tableauProjects.forEach((project) => {
+            const projectEl = document.createElement('div');
+            projectEl.className = 'relative p-4 rounded-lg bg-gray-900/50 border border-gray-700 flex flex-col md:flex-row gap-6 items-center';
+            
+            const deleteButtonHTML = isAdminLoggedIn 
+                ? `<button class="delete-project-btn" data-id="${project.id}" title="Delete Project"><i class="fas fa-trash-alt pointer-events-none"></i></button>` 
+                : '';
+
+            projectEl.innerHTML = `
+                <div class="md:w-1/3 w-full flex-shrink-0">
+                    <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="rounded-lg w-full h-auto object-cover aspect-video shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/161b22/f0f6fc?text=Image+Not+Found';">
+                </div>
+                <div class="md:w-2/3 w-full">
+                    <h4 class="text-xl font-bold highlight-text pr-8">${project.title}</h4>
+                    <p class="text-gray-400 my-2 text-sm">${project.description}</p>
+                    <a href="${project.url}" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold inline-block mt-2">View on Tableau Public &rarr;</a>
+                </div>
+                ${deleteButtonHTML}
+            `;
+            tableauProjectsContainer.appendChild(projectEl);
+        });
+    }
+
+    viewTableauBtn.addEventListener('click', () => {
+        renderTableauProjects();
+        openModal(tableauModal);
+    });
+
+    tableauProjectsContainer.addEventListener('click', async function(e) {
+        if (e.target.closest('.delete-project-btn')) {
+            const button = e.target.closest('.delete-project-btn');
+            const projectId = button.dataset.id;
+            const projectToDelete = tableauProjects.find(p => p.id === projectId);
+            if (confirm(`Are you sure you want to delete "${projectToDelete.title}"?`)) {
+                await deleteDoc(doc(db, "tableauProjects", projectId));
+            }
+        }
+    });
+
+
+    // --- Admin Logic ---
+    const adminLoginBtn = document.getElementById('admin-login-btn');
+    const loginSubmitBtn = document.getElementById('login-submit-btn');
+    const addProjectForm = document.getElementById('add-project-form');
+    const dropZone = document.getElementById('drop-zone');
+    const thumbnailInput = document.getElementById('project-thumbnail-input');
+    const thumbnailPreview = document.getElementById('thumbnail-preview');
+
+    adminLoginBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal(adminLoginModal);
+    });
+
+    loginSubmitBtn.addEventListener('click', () => {
+    const passwordInput = document.getElementById('password');
+    const enteredPassword = passwordInput.value;
+    const correctPassword = 'Amithnp@18'; // The correct password
+
+    if (enteredPassword === correctPassword) {
+        // On successful login
+        isAdminLoggedIn = true;
+        closeModal(adminLoginModal);
+        openModal(addProjectModal);
+        passwordInput.value = ''; // Clear the password field for security
+        renderTableauProjects(); // Refresh the project view to show admin controls
+    } else {
+        // On failed login
+        isAdminLoggedIn = false;
+        alert('Incorrect password. Please try again.');
+        passwordInput.value = ''; // Clear the incorrect password
+    }
+});
+
+    // Drag and Drop Logic
+    dropZone.addEventListener('click', () => thumbnailInput.click());
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+    });
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('dragover');
+    });
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            handleFile(files[0]);
+        }
+    });
+    thumbnailInput.addEventListener('change', (e) => {
+        const files = e.target.files;
+        if (files.length > 0) {
+            handleFile(files[0]);
+        }
+    });
+
+    function handleFile(file) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                newThumbnailData = e.target.result;
+                thumbnailPreview.src = newThumbnailData;
+                thumbnailPreview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert('Please drop an image file.');
+        }
+    }
+
+    addProjectForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const title = document.getElementById('project-title').value;
+        const description = document.getElementById('project-desc').value;
+        const url = document.getElementById('project-url').value;
+        const successMessage = document.getElementById('success-message');
+
+        if (!title || !description || !url || !newThumbnailData) {
+            alert('Please fill out all fields and add a thumbnail.');
+            return;
+        }
+
+        await addDoc(projectsCol, {
+            title,
+            description,
+            url,
+            thumbnail: newThumbnailData
+        });
+
+        addProjectForm.reset();
+        thumbnailPreview.classList.add('hidden');
+        newThumbnailData = null;
+
+        successMessage.classList.remove('hidden');
+        setTimeout(() => {
+            successMessage.classList.add('hidden');
+        }, 3000);
+    });
+
+
+    // --- Gemini AI Assistant ---
+    const askBtn = document.getElementById('ask-ai-btn');
+    const questionInput = document.getElementById('question-input');
+    const aiResponseOutput = document.getElementById('ai-response-output');
+    const spinnerContainer = document.getElementById('spinner-container');
+    const responseContent = document.getElementById('response-content');
+
+    askBtn.addEventListener('click', askAiAssistant);
+    questionInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            askAiAssistant();
+        }
+    });
+
+    async function askAiAssistant() {
+        const userQuestion = questionInput.value;
+        if (!userQuestion.trim()) {
+            displayError('Please ask a question first.');
+            return;
+        }
+
+        aiResponseOutput.classList.remove('hidden');
+        spinnerContainer.classList.remove('hidden');
+        responseContent.classList.add('hidden');
+        askBtn.disabled = true;
+        askBtn.textContent = 'Thinking...';
+
+        const context = `
+        Amith Naglapura's Professional Profile:
+        - Summary: A technologist specializing in data analysis and machine learning.
+        - Experience:
+          - Schneider Electric (Intern): Developed algorithms for a 'Detecting Current Leakage' system.
+          - Unified Mentor (Data Analysis Intern): Used Python, Excel, and SQL for data manipulation and visualization.
+        - Key Projects:
+          - Early Stage Crop Disease Detection (Research Paper): Used ML to detect crop diseases.
+          - Crack Detection In Pipeline: Used sensors and ML for crack detection.
+          - Tableau Data Visualizations: Creates interactive dashboards to tell data stories. The projects are viewable on his portfolio.
+        - Skills: Data Analysis, Machine Learning, Tableau, SQL, Python, Embedded C/C++, R, HTML, CSS.
+        `;
+
+        const prompt = `You are a helpful AI assistant for Amith Naglapura's portfolio. Your answers must be based *only* on the context provided. If asked a question you cannot answer from the context, politely say you don't have that information and suggest a relevant question they could ask, like "What are his technical skills?".
+
+        Context:
+        ---
+        ${context}
+        ---
+
+        User's Question: "${userQuestion}"`;
+        
+        const payload = {
+            contents: [{ role: "user", parts: [{ text: prompt }] }]
+        };
+
+        const apiKey = ""; // The build environment provides the key
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!response.ok) throw new Error(`API error: ${response.statusText}`);
+            const result = await response.json();
+            const text = result.candidates[0].content.parts[0].text;
+            displayResponse(text);
+        } catch (error) {
+            console.error('Error calling Gemini API:', error);
+            displayError('An error occurred. Please try again.');
+        } finally {
+            spinnerContainer.classList.add('hidden');
+            askBtn.disabled = false;
+            askBtn.textContent = 'Ask AI Assistant';
+        }
+    }
+
+    function displayResponse(text) {
+        let formattedText = text.replace(/- /g, '<br>- ').replace(/\* /g, '<br>• ');
+        if (formattedText.startsWith('<br>')) {
+            formattedText = formattedText.substring(4);
+        }
+        responseContent.innerHTML = `<p class="text-gray-300">${formattedText}</p>`;
+        responseContent.classList.remove('hidden');
+    }
+
+    function displayError(message) {
+        responseContent.innerHTML = `<p class="text-red-400 text-center">${message}</p>`;
+        responseContent.classList.remove('hidden');
+        aiResponseOutput.classList.remove('hidden');
+    }
 </script>
 </body>
 </html>
