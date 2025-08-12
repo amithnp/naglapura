@@ -7,174 +7,207 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
+/* --- UPDATED: Minimalist Color Palette --- */
+:root {
+    --bg-color: #0d1117;
+    --card-bg: #161b22;
+    --border-color: #30363d;
+    --accent-color: #58a6ff; /* A subtle blue accent */
+    --text-main: #e6edf3;
+    --text-secondary: #7d8590;
+}
+
 body {
-font-family: 'Lato', sans-serif;
-background-color: #0d1117;
-color: #c9d1d9;
-overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    overflow-x: hidden;
 }
 #galaxy-canvas {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.5; /* Softened the background animation */
 }
 h1, h2, h3, h4, h5, h6 {
-font-family: 'Poppins', sans-serif;
-color: #f0f6fc;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--text-main);
+}
+/* --- NEW: Gradient Text Utility (Used sparingly) --- */
+.gradient-text {
+    background: linear-gradient(90deg, #58a6ff, #a371f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
 }
 .glassmorphism {
-background: rgba(13, 17, 23, 0.6);
-backdrop-filter: blur(12px);
-border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(22, 27, 34, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
 }
 .highlight-text {
-color: #f0f6fc;
+    color: var(--text-main);
 }
 .slide-in-section {
-opacity: 0;
-transform: translateY(50px);
-transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 .slide-in-section.is-visible {
-opacity: 1;
-transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
 }
+/* --- UPDATED: Minimalist Card Styling --- */
 .card-hover {
-background-color: rgba(31, 41, 55, 0.2);
-border: 1px solid rgba(255, 255, 255, 0.1);
-transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 .card-hover:hover {
-transform: translateY(-8px);
-background-color: rgba(31, 41, 55, 0.4);
-box-shadow: 0 0 20px rgba(200, 220, 255, 0.1);
+    transform: translateY(-6px);
+    background-color: #1c222b;
 }
+/* --- UPDATED: Minimalist Button Styles --- */
 .btn-primary {
-background-color: #c9d1d9;
-color: #0d1117;
-font-weight: bold;
-transition: all 0.3s ease;
+    background-color: var(--accent-color);
+    color: #0d1117;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 .btn-primary:hover {
-background-color: #f0f6fc;
-transform: scale(1.05);
-box-shadow: 0 0 20px rgba(240, 246, 252, 0.3);
+    background-color: #79c0ff;
+    transform: scale(1.05);
 }
 .btn-secondary {
-background-color: transparent;
-border: 1px solid #30363d;
-color: #c9d1d9;
-transition: all 0.3s ease;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
 }
 .btn-secondary:hover {
-background-color: #161b22;
-border-color: #8b949e;
+    background-color: var(--card-bg);
+    border-color: var(--accent-color);
+    color: var(--text-main);
 }
 .spinner {
-border: 4px solid rgba(255, 255, 255, 0.2);
-border-left-color: #c9d1d9;
-border-radius: 50%;
-width: 36px;
-height: 36px;
-animation: spin 1s linear infinite;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-left-color: var(--accent-color);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    animation: spin 1s linear infinite;
 }
 @keyframes spin {
 to { transform: rotate(360deg); }
 }
 /* Modal Styles */
 .modal-overlay {
-position: fixed;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background: rgba(0, 0, 0, 0.7);
-display: flex;
-align-items: center;
-justify-content: center;
-z-index: 1000;
-transition: opacity 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
 }
 .modal-content {
-position: relative;
-padding: 2rem;
-width: 90%;
-max-width: 1100px; /* Increased max-width for 3 columns */
-max-height: 90vh;
-overflow-y: auto;
-transition: transform 0.3s ease;
+    position: relative;
+    padding: 2rem;
+    width: 90%;
+    max-width: 1100px;
+    max-height: 90vh;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
 }
-/* Specific modal widths */
 #admin-login-modal .modal-content,
 #add-project-modal .modal-content {
     max-width: 650px;
 }
 .modal-overlay.hidden {
-opacity: 0;
-pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
 }
 .modal-overlay.hidden .modal-content {
-transform: scale(0.95);
+    transform: scale(0.95);
 }
 .modal-close {
-position: absolute;
-top: 1rem;
-right: 1rem;
-font-size: 1.5rem;
-color: #9ca3af;
-cursor: pointer;
-transition: color 0.2s;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s;
 }
 .modal-close:hover {
-color: #f0f6fc;
+    color: var(--text-main);
 }
 /* Drag and Drop Area */
 .drop-zone {
-border: 2px dashed #30363d;
-border-radius: 0.5rem;
-padding: 2rem;
-text-align: center;
-cursor: pointer;
-transition: border-color 0.3s, background-color 0.3s;
+    border: 2px dashed var(--border-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s, background-color 0.3s;
 }
 .drop-zone.dragover {
-border-color: #58a6ff;
-background-color: rgba(88, 166, 255, 0.1);
+    border-color: var(--accent-color);
+    background-color: rgba(88, 166, 255, 0.1);
 }
 .drop-zone-preview {
-max-width: 200px;
-max-height: 125px;
-margin: 1rem auto 0;
-border-radius: 0.5rem;
+    max-width: 200px;
+    max-height: 125px;
+    margin: 1rem auto 0;
+    border-radius: 0.5rem;
 }
 .delete-project-btn {
-position: absolute;
-top: 0.5rem;
-right: 0.5rem;
-background: #4b0b0b;
-color: #f87171;
-border-radius: 50%;
-width: 2rem;
-height: 2rem;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 0.9rem;
-transition: all 0.2s ease;
-border: 1px solid #f87171;
-z-index: 10; /* Ensure it's above the image */
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: #4b0b0b;
+    color: #f87171;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    border: 1px solid #f87171;
+    z-index: 10;
 }
 .delete-project-btn:hover {
-background: #7f1d1d;
-color: #fca5a5;
-transform: scale(1.1);
+    background: #7f1d1d;
+    color: #fca5a5;
+    transform: scale(1.1);
+}
+/* --- UPDATED: Icon Styling --- */
+.fa, .fab, .fas {
+    color: var(--accent-color);
+}
+.social-icon:hover i {
+    color: var(--text-main);
+}
+/* --- UPDATED: AI Response Bubble --- */
+#response-content {
+    border: 1px solid var(--border-color);
 }
 </style>
 </head>
@@ -184,22 +217,22 @@ transform: scale(1.1);
 <!-- Header and Navigation -->
 <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
 <div class="container mx-auto px-4 py-4">
-<div class="flex justify-between items-center glassmorphism rounded-full px-6 py-3 shadow-sm">
-<a href="#" class="text-xl font-bold tracking-wider highlight-text">AN</a>
-<nav class="hidden md:flex space-x-8 text-gray-400">
-<a href="#home" class="hover:text-cyan-400 transition-colors">Home</a>
-<a href="#ai-assistant" class="hover:text-cyan-400 transition-colors">AI Assistant</a>
-<a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
-<a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
-<a href="#experience" class="hover:text-cyan-400 transition-colors">Experience</a>
-<a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
-<a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+<div class="flex justify-between items-center glassmorphism rounded-full px-6 py-3 shadow-lg">
+<a href="#" class="text-2xl font-extrabold tracking-wider gradient-text">AN</a>
+<nav class="hidden md:flex space-x-8 text-gray-300 font-medium">
+<a href="#home" class="hover:text-white transition-colors">Home</a>
+<a href="#ai-assistant" class="hover:text-white transition-colors">AI Assistant</a>
+<a href="#about" class="hover:text-white transition-colors">About</a>
+<a href="#skills" class="hover:text-white transition-colors">Skills</a>
+<a href="#experience" class="hover:text-white transition-colors">Experience</a>
+<a href="#projects" class="hover:text-white transition-colors">Projects</a>
+<a href="#contact" class="hover:text-white transition-colors">Contact</a>
 </nav>
-<a href="mailto:amithnaglapura@gmail.com" class="hidden md:block btn-primary font-medium py-2 px-4 rounded-full">
+<a href="mailto:amithnaglapura@gmail.com" class="hidden md:block btn-primary py-2 px-5 rounded-full">
 Hire Me
 </a>
 <button id="mobile-menu-button" class="md:hidden text-2xl text-gray-300">
-☰
+<i class="fas fa-bars"></i>
 </button>
 </div>
 </div>
@@ -219,14 +252,14 @@ Hire Me
 <!-- Home Section -->
 <section id="home" class="min-h-screen flex items-center justify-center text-center">
 <div class="max-w-4xl">
-<span class="text-cyan-400 font-semibold">Hi, my name is</span>
-<h1 class="text-4xl md:text-6xl lg:text-7xl font-bold my-4 highlight-text">Amith Naglapura</h1>
-<h2 class="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-500">I build data-driven solutions.</h2>
-<p class="mt-6 max-w-2xl mx-auto text-lg text-gray-400">
+<span class="font-semibold text-accent-color">Hi, my name is</span>
+<h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold my-4 highlight-text">Amith Naglapura</h1>
+<h2 class="text-4xl md:text-6xl lg:text-7xl font-bold text-text-secondary">I build data-driven solutions.</h2>
+<p class="mt-6 max-w-2xl mx-auto text-lg text-text-secondary">
 As a passionate technologist, I specialize in data analysis and creating data-driven applications. My expertise lies in transforming complex data into actionable insights and engineering solutions that bridge the gap between hardware and software.
 </p>
 <div class="mt-8 flex flex-wrap justify-center gap-4">
-<a href="#projects" class="btn-primary font-bold py-3 px-6 rounded-full">
+<a href="#projects" class="btn-primary py-3 px-6 rounded-full">
 View My Work
 </a>
 <a href="https://github.com/AmithNaglapura" target="_blank" class="btn-secondary font-bold py-3 px-6 rounded-full">
@@ -238,15 +271,15 @@ GitHub Profile
 
 <!-- AI Assistant Section -->
 <section id="ai-assistant" class="py-20 md:py-32 text-center slide-in-section">
-<h2 class="text-3xl md:text-4xl font-bold mb-4 highlight-text">
+<h2 class="text-4xl md:text-5xl font-bold mb-4 highlight-text">
 ✨ AI Assistant
 </h2>
-<p class="max-w-2xl mx-auto text-lg mb-8 text-gray-400">
+<p class="max-w-2xl mx-auto text-lg mb-8 text-text-secondary">
 Want the highlights fast? Ask my AI assistant. It's trained on my skills, projects, and experience to answer your questions instantly.
 <strong class="text-gray-300 block mt-2">Please note: The AI will only answer questions related to my professional profile.</strong>
 </p>
 <div class="max-w-2xl mx-auto">
-<textarea id="question-input" rows="3" class="w-full p-4 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-cyan-500 focus:outline-none text-white placeholder-gray-500" placeholder="e.g., 'What was Amith's role at Schneider Electric?'"></textarea>
+<textarea id="question-input" rows="3" class="w-full p-4 rounded-lg bg-gray-800/50 border border-border-color focus:ring-2 focus:ring-accent-color focus:outline-none text-white placeholder-gray-500" placeholder="e.g., 'What was Amith's role at Schneider Electric?'"></textarea>
 <button id="ask-ai-btn" class="mt-4 btn-primary font-bold py-3 px-8 rounded-full">
 Ask AI Assistant
 </button>
@@ -262,21 +295,21 @@ Ask AI Assistant
 
 <!-- About Section -->
 <section id="about" class="py-20 md:py-32 slide-in-section">
-<h2 class="text-3xl md:text-4xl font-bold text-center mb-12 highlight-text">
+<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 highlight-text">
 About Me
 </h2>
 <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
 <div class="md:w-1/2 lg:w-2/5">
-<img src="Amith.jpeg"
-onerror="this.onerror=null;this.src='https://placehold.co/600x600/0d1117/c9d1d9?text=Amith+Naglapura';"
-alt="A portrait of Amith Naglapura"
-class="rounded-full shadow-2xl w-full h-auto object-cover aspect-square transform hover:scale-105 transition-transform duration-500 shadow-cyan-900/40">
+    <img src="Amith.jpeg"
+    onerror="this.onerror=null;this.src='https://placehold.co/600x600/0d1117/c9d1d9?text=Amith+Naglapura';"
+    alt="A portrait of Amith Naglapura"
+    class="relative rounded-full shadow-2xl w-full h-auto object-cover aspect-square transform hover:scale-105 transition-transform duration-500 border-4 border-border-color">
 </div>
 <div class="md:w-1/2 lg:w-3/5">
-<p class="text-lg mb-4 text-gray-400">
+<p class="text-lg mb-4 text-text-secondary">
 Hello! I'm Amith, a tech enthusiast from Mysore, India. I hold a Bachelor of Engineering from Vidyavardhaka College of Engineering. My academic background provided a solid foundation in hardware systems, which sparked a deeper curiosity about the data these systems generate, leading me to the world of data analysis and machine learning.
 </p>
-<p class="text-lg text-gray-400">
+<p class="text-lg text-text-secondary">
 My goal is to apply my problem-solving skills to help businesses make smarter, data-informed decisions. I am driven by the challenge of turning technical possibilities into real-world value.
 </p>
 </div>
@@ -285,30 +318,30 @@ My goal is to apply my problem-solving skills to help businesses make smarter, d
 
 <!-- Skills Section -->
 <section id="skills" class="py-20 md:py-32 slide-in-section">
-<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 highlight-text">
+<h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
 Professional Skillset
 </h2>
-<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-<div class="rounded-lg p-6 card-hover">
-<h3 class="text-xl font-bold mb-4 highlight-text">Technical Skills</h3>
-<ul class="space-y-2 text-gray-400 grid grid-cols-2 gap-2">
-<li class="flex items-center"><i class="fas fa-chart-line text-cyan-400 mr-3"></i>Data Analysis</li>
-<li class="flex items-center"><i class="fas fa-brain text-cyan-400 mr-3"></i>Machine Learning</li>
-<li class="flex items-center"><i class="fas fa-chart-pie text-cyan-400 mr-3"></i>Tableau</li>
-<li class="flex items-center"><i class="fas fa-database text-cyan-400 mr-3"></i>SQL</li>
-<li class="flex items-center"><i class="fab fa-python text-cyan-400 mr-3"></i>Python</li>
-<li class="flex items-center"><i class="fas fa-microchip text-cyan-400 mr-3"></i>Embedded C, C++</li>
-<li class="flex items-center"><i class="fab fa-r-project text-cyan-400 mr-3"></i>R</li>
-<li class="flex items-center"><i class="fab fa-html5 text-cyan-400 mr-3"></i>HTML & CSS</li>
+<div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="rounded-lg p-8 card-hover">
+<h3 class="text-2xl font-bold mb-6 highlight-text">Technical Skills</h3>
+<ul class="space-y-3 text-text-secondary grid grid-cols-2 gap-x-4 gap-y-3">
+<li class="flex items-center"><i class="fas fa-chart-line w-6 text-center mr-3"></i>Data Analysis</li>
+<li class="flex items-center"><i class="fas fa-brain w-6 text-center mr-3"></i>Machine Learning</li>
+<li class="flex items-center"><i class="fas fa-chart-pie w-6 text-center mr-3"></i>Tableau</li>
+<li class="flex items-center"><i class="fas fa-database w-6 text-center mr-3"></i>SQL</li>
+<li class="flex items-center"><i class="fab fa-python w-6 text-center mr-3"></i>Python</li>
+<li class="flex items-center"><i class="fas fa-microchip w-6 text-center mr-3"></i>Embedded C, C++</li>
+<li class="flex items-center"><i class="fab fa-r-project w-6 text-center mr-3"></i>R</li>
+<li class="flex items-center"><i class="fab fa-html5 w-6 text-center mr-3"></i>HTML & CSS</li>
 </ul>
 </div>
-<div class="rounded-lg p-6 card-hover">
-<h3 class="text-xl font-bold mb-4 highlight-text">Professional Skills</h3>
-<ul class="space-y-2 text-gray-400 grid grid-cols-2 gap-2">
-<li class="flex items-center"><i class="fas fa-lightbulb text-cyan-400 mr-3"></i>Problem Solving</li>
-<li class="flex items-center"><i class="fas fa-tasks text-cyan-400 mr-3"></i>Project Management</li>
-<li class="flex items-center"><i class="fas fa-briefcase text-cyan-400 mr-3"></i>Business Analysis</li>
-<li class="flex items-center"><i class="fas fa-users text-cyan-400 mr-3"></i>Leadership</li>
+<div class="rounded-lg p-8 card-hover">
+<h3 class="text-2xl font-bold mb-6 highlight-text">Professional Skills</h3>
+<ul class="space-y-3 text-text-secondary grid grid-cols-2 gap-x-4 gap-y-3">
+<li class="flex items-center"><i class="fas fa-lightbulb w-6 text-center mr-3"></i>Problem Solving</li>
+<li class="flex items-center"><i class="fas fa-tasks w-6 text-center mr-3"></i>Project Management</li>
+<li class="flex items-center"><i class="fas fa-briefcase w-6 text-center mr-3"></i>Business Analysis</li>
+<li class="flex items-center"><i class="fas fa-users w-6 text-center mr-3"></i>Leadership</li>
 </ul>
 </div>
 </div>
@@ -316,32 +349,32 @@ Professional Skillset
 
 <!-- Professional Experience Section -->
 <section id="experience" class="py-20 md:py-32 slide-in-section">
-<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 highlight-text">
+<h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
 Professional Experience
 </h2>
-<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-<div class="rounded-lg p-6 flex flex-col card-hover">
+<div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="rounded-lg p-8 flex flex-col card-hover">
 <div class="flex-grow">
 <h3 class="text-xl font-bold mb-2 highlight-text">Current Leakage Detection System</h3>
 <p class="text-sm text-gray-500 mb-2">Internship @ Schneider Electric</p>
-<p class="text-gray-400 mb-4">Developed algorithms to analyze real-time data from electrical circuits, enhancing detection accuracy to ensure electrical safety and prevent potential hazards.</p>
+<p class="text-text-secondary mb-4">Developed algorithms to analyze real-time data from electrical circuits, enhancing detection accuracy to ensure electrical safety and prevent potential hazards.</p>
 </div>
 <div class="mt-4 flex flex-wrap gap-2">
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">IoT</span>
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Data Analysis</span>
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
+<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">IoT</span>
+<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Data Analysis</span>
+<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
 </div>
 </div>
-<div class="rounded-lg p-6 flex flex-col card-hover">
+<div class="rounded-lg p-8 flex flex-col card-hover">
 <div class="flex-grow">
 <h3 class="text-xl font-bold mb-2 highlight-text">Data Analysis Intern</h3>
 <p class="text-sm text-gray-500 mb-2">Internship @ Unified Mentor</p>
-<p class="text-gray-400 mb-4">Utilized Python, Excel, and SQL for data manipulation, visualization, and interpretation. Analyzed diverse datasets to identify key trends and present actionable insights.</p>
+<p class="text-text-secondary mb-4">Utilized Python, Excel, and SQL for data manipulation, visualization, and interpretation. Analyzed diverse datasets to identify key trends and present actionable insights.</p>
 </div>
 <div class="mt-4 flex flex-wrap gap-2">
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">SQL</span>
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Excel</span>
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
+<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">SQL</span>
+<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Excel</span>
+<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
 </div>
 </div>
 </div>
@@ -349,7 +382,7 @@ Professional Experience
 
 <!-- My Projects Section -->
 <section id="projects" class="py-20 md:py-32 slide-in-section">
-<h2 class="text-3xl md:text-4xl font-bold text-center mb-16 highlight-text">
+<h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
 My Projects
 </h2>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -358,11 +391,11 @@ My Projects
 <div class="flex-grow">
 <h3 class="text-xl font-bold mb-2 highlight-text">Early Crop Disease Detection</h3>
 <p class="text-sm text-gray-500 mb-2">Published Research Paper (IJFMR)</p>
-<p class="text-gray-400 mb-4">Designed a machine learning framework to identify crop diseases early, minimizing crop damage and optimizing yield for better agricultural productivity.</p>
+<p class="text-text-secondary mb-4">Designed a machine learning framework to identify crop diseases early, minimizing crop damage and optimizing yield for better agricultural productivity.</p>
 </div>
 <div class="mt-4 flex flex-wrap gap-2">
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
+<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
+<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
 </div>
 </div>
 <!-- Project Card 2 -->
@@ -370,11 +403,11 @@ My Projects
 <div class="flex-grow">
 <h3 class="text-xl font-bold mb-2 highlight-text">Crack Detection in Pipelines</h3>
 <p class="text-sm text-gray-500 mb-2">Academic Project</p>
-<p class="text-gray-400 mb-4">Utilized advanced sensors and machine learning for the accurate, non-invasive detection of cracks in industrial pipelines.</p>
+<p class="text-text-secondary mb-4">Utilized advanced sensors and machine learning for the accurate, non-invasive detection of cracks in industrial pipelines.</p>
 </div>
 <div class="mt-4 flex flex-wrap gap-2">
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
-<span class="bg-gray-800 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Sensors</span>
+<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
+<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Sensors</span>
 </div>
 </div>
 <!-- Tableau Visualizations Card -->
@@ -382,9 +415,9 @@ My Projects
 <div class="flex-grow">
 <h3 class="text-xl font-bold mb-2 highlight-text">Tableau Data Visualizations</h3>
 <p class="text-sm text-gray-500 mb-2">Interactive Dashboards</p>
-<p class="text-gray-400 mb-4">A collection of interactive dashboards that transform complex datasets into clear, actionable insights. Click below to explore them all.</p>
+<p class="text-text-secondary mb-4">A collection of interactive dashboards that transform complex datasets into clear, actionable insights. Click below to explore them all.</p>
 </div>
-<button id="view-tableau-btn" class="mt-4 text-cyan-400 hover:text-cyan-300 font-semibold text-left">
+<button id="view-tableau-btn" class="mt-4 font-semibold text-left text-accent-color hover:text-white transition-colors">
 Explore Visualizations &rarr;
 </button>
 </div>
@@ -393,10 +426,10 @@ Explore Visualizations &rarr;
 
 <!-- Contact Section -->
 <section id="contact" class="py-20 md:py-32 text-center slide-in-section">
-<h2 class="text-3xl md:text-4xl font-bold mb-4 highlight-text">
+<h2 class="text-4xl md:text-5xl font-bold mb-4 highlight-text">
 Get In Touch
 </h2>
-<p class="max-w-xl mx-auto text-lg mb-8 text-gray-400">
+<p class="max-w-xl mx-auto text-lg mb-8 text-text-secondary">
 I'm actively seeking roles where I can leverage my data analysis skills. If you're looking for a data-driven problem solver, I'd love to connect.
 </p>
 <a href="mailto:amithnaglapura@gmail.com?subject=Connecting from your Portfolio" class="btn-primary font-bold py-4 px-8 rounded-full">
@@ -408,13 +441,13 @@ Say Hello
 
 <footer class="py-8 text-center text-gray-500 relative z-10">
 <div class="flex justify-center items-center space-x-6 mb-4">
-<a href="https://www.linkedin.com/in/amithnaglaupra" target="_blank" class="text-2xl hover:text-cyan-400 transition-colors">
+<a href="https://www.linkedin.com/in/amithnaglaupra" target="_blank" class="text-2xl social-icon text-gray-400 hover:text-white transition-colors">
 <i class="fab fa-linkedin"></i>
 </a>
-<a href="https://github.com/AmithNaglapura" target="_blank" class="text-2xl hover:text-cyan-400 transition-colors">
+<a href="https://github.com/AmithNaglapura" target="_blank" class="text-2xl social-icon text-gray-400 hover:text-white transition-colors">
 <i class="fab fa-github"></i>
 </a>
-<a href="#" id="admin-login-btn" class="text-2xl hover:text-cyan-400 transition-colors" title="Admin Login">
+<a href="#" id="admin-login-btn" class="text-2xl social-icon text-gray-400 hover:text-white transition-colors" title="Admin Login">
 <i class="fas fa-user-shield"></i>
 </a>
 </div>
@@ -427,7 +460,7 @@ Say Hello
 <div id="tableau-modal" class="modal-overlay hidden">
 <div class="modal-content glassmorphism rounded-lg">
 <span class="modal-close">&times;</span>
-<h3 class="text-2xl font-bold mb-6 text-center highlight-text">Tableau Visualizations</h3>
+<h3 class="text-3xl font-bold mb-8 text-center highlight-text">Tableau Visualizations</h3>
 <div id="tableau-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 <!-- Projects will be dynamically inserted here -->
 </div>
@@ -442,11 +475,11 @@ Say Hello
 <div class="space-y-4">
 <div>
 <label for="username" class="block text-sm font-medium text-gray-400">User Name</label>
-<input type="text" id="username" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" value="Amith" readonly>
+<input type="text" id="username" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-accent-color focus:border-accent-color" value="Amith" readonly>
 </div>
 <div>
     <label for="password" class="block text-sm font-medium text-gray-400">Password</label>
-    <input type="password" id="password" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" placeholder="Enter password">
+    <input type="password" id="password" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-accent-color focus:border-accent-color" placeholder="Enter password">
 </div>
 <button id="login-submit-btn" class="w-full btn-primary font-bold py-2 px-4 rounded-full">Login</button>
 <p class="text-xs text-gray-500 text-center mt-2">Note: This is a front-end simulation for demonstration purposes.</p>
@@ -462,15 +495,15 @@ Say Hello
 <form id="add-project-form" class="space-y-4">
 <div>
 <label for="project-title" class="block text-sm font-medium text-gray-400">Project Title</label>
-<input type="text" id="project-title" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" required>
+<input type="text" id="project-title" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-accent-color focus:border-accent-color" required>
 </div>
 <div>
 <label for="project-desc" class="block text-sm font-medium text-gray-400">Description</label>
-<textarea id="project-desc" rows="3" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" required></textarea>
+<textarea id="project-desc" rows="3" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-accent-color focus:border-accent-color" required></textarea>
 </div>
 <div>
 <label for="project-url" class="block text-sm font-medium text-gray-400">Tableau Public URL</label>
-<input type="url" id="project-url" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500" placeholder="https://public.tableau.com/views/..." required>
+<input type="url" id="project-url" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-accent-color focus:border-accent-color" placeholder="https://public.tableau.com/views/..." required>
 </div>
 <div>
 <label class="block text-sm font-medium text-gray-400">Thumbnail Image</label>
@@ -643,21 +676,19 @@ Say Hello
         }
         tableauProjects.forEach((project) => {
             const projectEl = document.createElement('div');
-            // UPDATED: Classes for a vertical card layout
-            projectEl.className = 'relative rounded-lg bg-gray-900/50 border border-gray-700 flex flex-col h-full card-hover overflow-hidden';
+            projectEl.className = 'relative rounded-lg flex flex-col h-full card-hover overflow-hidden';
             
             const deleteButtonHTML = isAdminLoggedIn 
                 ? `<button class="delete-project-btn" data-id="${project.id}" title="Delete Project"><i class="fas fa-trash-alt pointer-events-none"></i></button>` 
                 : '';
 
-            // UPDATED: innerHTML for a vertical card layout
             projectEl.innerHTML = `
                 ${deleteButtonHTML}
                 <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="w-full h-auto object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/400x225/161b22/f0f6fc?text=Image+Not+Found';">
                 <div class="p-4 flex flex-col flex-grow">
                     <h4 class="text-lg font-bold highlight-text">${project.title}</h4>
-                    <p class="text-gray-400 my-2 text-sm flex-grow">${project.description}</p>
-                    <a href="${project.url}" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold inline-block mt-2 self-start">View on Tableau Public &rarr;</a>
+                    <p class="text-text-secondary my-2 text-sm flex-grow">${project.description}</p>
+                    <a href="${project.url}" target="_blank" class="font-semibold inline-block mt-2 self-start text-accent-color hover:text-white transition-colors">View on Tableau Public &rarr;</a>
                 </div>
             `;
             tableauProjectsContainer.appendChild(projectEl);
@@ -810,8 +841,11 @@ Say Hello
         askBtn.disabled = true;
         askBtn.textContent = 'Thinking...';
 
+        // UPDATED: AI Context with new information
         const context = `
         Amith Naglapura's Professional Profile:
+        - Current Status: Amith has recently been accepted and is preparing to begin his MSc in AI in Business at Queen's University Belfast.
+        - Contact Information: The best way to contact him is via email at amithnaglapura@gmail.com.
         - Summary: A technologist specializing in data analysis and machine learning.
         - Experience:
           - Schneider Electric (Intern): Developed algorithms for a 'Detecting Current Leakage' system.
@@ -819,11 +853,17 @@ Say Hello
         - Key Projects:
           - Early Stage Crop Disease Detection (Research Paper): Used ML to detect crop diseases.
           - Crack Detection In Pipeline: Used sensors and ML for crack detection.
-          - Tableau Data Visualizations: Creates interactive dashboards to tell data stories. The projects are viewable on his portfolio.
+          - Tableau Data Visualizations: Creates interactive dashboards.
         - Skills: Data Analysis, Machine Learning, Tableau, SQL, Python, Embedded C/C++, R, HTML, CSS.
         `;
 
-        const prompt = `You are a helpful AI assistant for Amith Naglapura's portfolio. Your answers must be based *only* on the context provided. If asked a question you cannot answer from the context, politely say you don't have that information and suggest a relevant question they could ask, like "What are his technical skills?".
+        // UPDATED: Prompt with specific instructions for new info
+        const prompt = `You are a helpful AI assistant for Amith Naglapura's portfolio. Your answers must be based *only* on the context provided below.
+        - Your primary goal is to answer questions about Amith's professional profile.
+        - If asked what Amith is doing now, about his current status, or where he is, you MUST state that he is starting his MSc in AI in Business at Queen's University Belfast.
+        - If asked for his contact information or how to get in touch, you MUST provide his email: amithnaglapura@gmail.com.
+        - For any other questions, use the provided context.
+        - If asked a question you cannot answer from the context, politely say you don't have that information and suggest a relevant question they could ask, like "What are his technical skills?". Do not make up information.
 
         Context:
         ---
