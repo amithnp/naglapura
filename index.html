@@ -106,10 +106,15 @@ transition: opacity 0.3s ease;
 position: relative;
 padding: 2rem;
 width: 90%;
-max-width: 650px;
+max-width: 1100px; /* Increased max-width for 3 columns */
 max-height: 90vh;
 overflow-y: auto;
 transition: transform 0.3s ease;
+}
+/* Specific modal widths */
+#admin-login-modal .modal-content,
+#add-project-modal .modal-content {
+    max-width: 650px;
 }
 .modal-overlay.hidden {
 opacity: 0;
@@ -151,8 +156,8 @@ border-radius: 0.5rem;
 }
 .delete-project-btn {
 position: absolute;
-top: -0.5rem;
-right: -0.5rem;
+top: 0.5rem;
+right: 0.5rem;
 background: #4b0b0b;
 color: #f87171;
 border-radius: 50%;
@@ -164,6 +169,7 @@ justify-content: center;
 font-size: 0.9rem;
 transition: all 0.2s ease;
 border: 1px solid #f87171;
+z-index: 10; /* Ensure it's above the image */
 }
 .delete-project-btn:hover {
 background: #7f1d1d;
@@ -422,7 +428,7 @@ Say Hello
 <div class="modal-content glassmorphism rounded-lg">
 <span class="modal-close">&times;</span>
 <h3 class="text-2xl font-bold mb-6 text-center highlight-text">Tableau Visualizations</h3>
-<div id="tableau-projects-container" class="space-y-6">
+<div id="tableau-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 <!-- Projects will be dynamically inserted here -->
 </div>
 </div>
@@ -490,12 +496,12 @@ Say Hello
     // IMPORTANT: Replace with your actual Firebase configuration
     const firebaseConfig = {
         apiKey: "AIzaSyD7qvQX-TIgdhEh8oWD_hRNqFbJtU5TYeE",
-  authDomain: "amith-np.firebaseapp.com",
-  projectId: "amith-np",
-  storageBucket: "amith-np.firebasestorage.app",
-  messagingSenderId: "989434262632",
-  appId: "1:989434262632:web:59a03bbf0468409fe637dd",
-  measurementId: "G-Y0K0CV151E"
+        authDomain: "amith-np.firebaseapp.com",
+        projectId: "amith-np",
+        storageBucket: "amith-np.firebasestorage.app",
+        messagingSenderId: "989434262632",
+        appId: "1:989434262632:web:59a03bbf0468409fe637dd",
+        measurementId: "G-Y0K0CV151E"
     };
 
     // Initialize Firebase
@@ -632,27 +638,27 @@ Say Hello
     function renderTableauProjects() {
         tableauProjectsContainer.innerHTML = '';
         if (tableauProjects.length === 0) {
-            tableauProjectsContainer.innerHTML = '<p class="text-center text-gray-500">No projects have been added yet.</p>';
+            tableauProjectsContainer.innerHTML = '<p class="text-center text-gray-500 col-span-full">No projects have been added yet.</p>';
             return;
         }
         tableauProjects.forEach((project) => {
             const projectEl = document.createElement('div');
-            projectEl.className = 'relative p-4 rounded-lg bg-gray-900/50 border border-gray-700 flex flex-col md:flex-row gap-6 items-center';
+            // UPDATED: Classes for a vertical card layout
+            projectEl.className = 'relative rounded-lg bg-gray-900/50 border border-gray-700 flex flex-col h-full card-hover overflow-hidden';
             
             const deleteButtonHTML = isAdminLoggedIn 
                 ? `<button class="delete-project-btn" data-id="${project.id}" title="Delete Project"><i class="fas fa-trash-alt pointer-events-none"></i></button>` 
                 : '';
 
+            // UPDATED: innerHTML for a vertical card layout
             projectEl.innerHTML = `
-                <div class="md:w-1/3 w-full flex-shrink-0">
-                    <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="rounded-lg w-full h-auto object-cover aspect-video shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x250/161b22/f0f6fc?text=Image+Not+Found';">
-                </div>
-                <div class="md:w-2/3 w-full">
-                    <h4 class="text-xl font-bold highlight-text pr-8">${project.title}</h4>
-                    <p class="text-gray-400 my-2 text-sm">${project.description}</p>
-                    <a href="${project.url}" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold inline-block mt-2">View on Tableau Public &rarr;</a>
-                </div>
                 ${deleteButtonHTML}
+                <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="w-full h-auto object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/400x225/161b22/f0f6fc?text=Image+Not+Found';">
+                <div class="p-4 flex flex-col flex-grow">
+                    <h4 class="text-lg font-bold highlight-text">${project.title}</h4>
+                    <p class="text-gray-400 my-2 text-sm flex-grow">${project.description}</p>
+                    <a href="${project.url}" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold inline-block mt-2 self-start">View on Tableau Public &rarr;</a>
+                </div>
             `;
             tableauProjectsContainer.appendChild(projectEl);
         });
@@ -689,24 +695,24 @@ Say Hello
     });
 
     loginSubmitBtn.addEventListener('click', () => {
-    const passwordInput = document.getElementById('password');
-    const enteredPassword = passwordInput.value;
-    const correctPassword = 'Amithnp@18'; // The correct password
+        const passwordInput = document.getElementById('password');
+        const enteredPassword = passwordInput.value;
+        const correctPassword = 'Amithnp@18'; // The correct password
 
-    if (enteredPassword === correctPassword) {
-        // On successful login
-        isAdminLoggedIn = true;
-        closeModal(adminLoginModal);
-        openModal(addProjectModal);
-        passwordInput.value = ''; // Clear the password field for security
-        renderTableauProjects(); // Refresh the project view to show admin controls
-    } else {
-        // On failed login
-        isAdminLoggedIn = false;
-        alert('Incorrect password. Please try again.');
-        passwordInput.value = ''; // Clear the incorrect password
-    }
-});
+        if (enteredPassword === correctPassword) {
+            // On successful login
+            isAdminLoggedIn = true;
+            closeModal(adminLoginModal);
+            openModal(addProjectModal);
+            passwordInput.value = ''; // Clear the password field for security
+            renderTableauProjects(); // Refresh the project view to show admin controls
+        } else {
+            // On failed login
+            isAdminLoggedIn = false;
+            alert('Incorrect password. Please try again.');
+            passwordInput.value = ''; // Clear the incorrect password
+        }
+    });
 
     // Drag and Drop Logic
     dropZone.addEventListener('click', () => thumbnailInput.click());
