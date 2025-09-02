@@ -11,14 +11,15 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
-/* --- UPDATED: Minimalist Color Palette --- */
+/* --- NEW: Cosmic Latte Color Palette --- */
 :root {
     --bg-color: #0d1117;
     --card-bg: #161b22;
     --border-color: #30363d;
-    --accent-color: #58a6ff; /* A subtle blue accent */
-    --text-main: #e6edf3;
-    --text-secondary: #7d8590;
+    --accent-color-blue: #47c9ff;
+    --accent-color-yellow: #ffea00;
+    --text-main: #fff8e7;    /* Cosmic Latte */
+    --text-secondary: #ccc8b8; /* Muted Cosmic Latte */
 }
 
 body {
@@ -34,16 +35,16 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    opacity: 0.5; /* Softened the background animation */
+    opacity: 0.5;
 }
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Inter', sans-serif;
     font-weight: 700;
     color: var(--text-main);
 }
-/* --- NEW: Gradient Text Utility (Used sparingly) --- */
+/* --- UPDATED: Gradient Text Utility --- */
 .gradient-text {
-    background: linear-gradient(90deg, #58a6ff, #a371f7);
+    background: linear-gradient(90deg, var(--accent-color-blue), var(--accent-color-yellow));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -67,7 +68,7 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 1;
     transform: translateY(0);
 }
-/* --- UPDATED: Minimalist Card Styling --- */
+/* --- UPDATED: Card Styling --- */
 .card-hover {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -78,15 +79,15 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-6px);
     background-color: #1c222b;
 }
-/* --- UPDATED: Minimalist Button Styles --- */
+/* --- UPDATED: Button Styles --- */
 .btn-primary {
-    background-color: var(--accent-color);
+    background-color: var(--accent-color-blue);
     color: #0d1117;
     font-weight: 600;
     transition: all 0.3s ease;
 }
 .btn-primary:hover {
-    background-color: #79c0ff;
+    background-color: #82daff; /* Lighter blue */
     transform: scale(1.05);
 }
 .btn-secondary {
@@ -97,12 +98,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 .btn-secondary:hover {
     background-color: var(--card-bg);
-    border-color: var(--accent-color);
+    border-color: var(--accent-color-blue);
     color: var(--text-main);
 }
 .spinner {
-    border: 4px solid rgba(255, 255, 255, 0.1);
-    border-left-color: var(--accent-color);
+    border: 4px solid rgba(255, 248, 231, 0.1);
+    border-left-color: var(--accent-color-blue);
     border-radius: 50%;
     width: 36px;
     height: 36px;
@@ -167,8 +168,8 @@ to { transform: rotate(360deg); }
     transition: border-color 0.3s, background-color 0.3s;
 }
 .drop-zone.dragover {
-    border-color: var(--accent-color);
-    background-color: rgba(88, 166, 255, 0.1);
+    border-color: var(--accent-color-blue);
+    background-color: rgba(71, 201, 255, 0.1);
 }
 .drop-zone-preview {
     max-width: 200px;
@@ -200,7 +201,7 @@ to { transform: rotate(360deg); }
 }
 /* --- UPDATED: Icon Styling --- */
 .fa, .fab, .fas {
-    color: var(--accent-color);
+    color: var(--accent-color-blue);
 }
 .social-icon:hover i {
     color: var(--text-main);
@@ -208,6 +209,31 @@ to { transform: rotate(360deg); }
 /* --- UPDATED: AI Response Bubble --- */
 #response-content {
     border: 1px solid var(--border-color);
+}
+/* --- NEW: Skill Tag Style --- */
+.tag-blue {
+    background-color: rgba(71, 201, 255, 0.15);
+    color: var(--accent-color-blue);
+}
+/* --- NEW: Nav Link Hover Style --- */
+.nav-link {
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color-yellow);
+    transition: width 0.3s ease-in-out;
+}
+.nav-link:hover::after {
+    width: 100%;
 }
 </style>
 </head>
@@ -218,22 +244,23 @@ to { transform: rotate(360deg); }
 <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
 <div class="container mx-auto px-4 py-4">
 <div class="flex justify-between items-center glassmorphism rounded-full px-6 py-3 shadow-lg">
-<a href="#" class="text-2xl font-extrabold tracking-wider gradient-text">AN</a>
-<nav class="hidden md:flex space-x-8 text-gray-300 font-medium">
-<a href="#home" class="hover:text-white transition-colors">Home</a>
-<a href="#ai-assistant" class="hover:text-white transition-colors">AI Assistant</a>
-<a href="#about" class="hover:text-white transition-colors">About</a>
-<a href="#skills" class="hover:text-white transition-colors">Skills</a>
-<a href="#experience" class="hover:text-white transition-colors">Experience</a>
-<a href="#projects" class="hover:text-white transition-colors">Projects</a>
-<a href="#contact" class="hover:text-white transition-colors">Contact</a>
-</nav>
-<a href="mailto:amithnaglapura@gmail.com" class="hidden md:block btn-primary py-2 px-5 rounded-full">
-Hire Me
-</a>
-<button id="mobile-menu-button" class="md:hidden text-2xl text-gray-300">
-<i class="fas fa-bars"></i>
-</button>
+    <div class="flex-1">
+        <nav class="hidden md:flex justify-center items-center gap-x-8 text-gray-300 font-medium">
+            <a href="#home" class="nav-link hover:text-white">Home</a>
+            <a href="#ai-assistant" class="nav-link hover:text-white">AI Assistant</a>
+            <a href="#about" class="nav-link hover:text-white">About</a>
+            <a href="#skills" class="nav-link hover:text-white">Skills</a>
+            <a href="#experience" class="nav-link hover:text-white">Experience</a>
+            <a href="#projects" class="nav-link hover:text-white">Projects</a>
+            <a href="#contact" class="nav-link hover:text-white">Contact</a>
+        </nav>
+    </div>
+    <a href="mailto:amithnaglapura@gmail.com" class="hidden md:block btn-primary py-2 px-5 rounded-full flex-shrink-0">
+    Hire Me
+    </a>
+    <button id="mobile-menu-button" class="md:hidden text-2xl text-gray-300">
+    <i class="fas fa-bars"></i>
+    </button>
 </div>
 </div>
 <div id="mobile-menu" class="hidden md:hidden glassmorphism mx-4 rounded-lg shadow-lg">
@@ -252,7 +279,7 @@ Hire Me
 <!-- Home Section -->
 <section id="home" class="min-h-screen flex items-center justify-center text-center">
 <div class="max-w-4xl">
-<span class="font-semibold text-accent-color">Hi, my name is</span>
+<span class="font-semibold" style="color: var(--accent-color-blue);">Hi, my name is</span>
 <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold my-4 highlight-text">Amith Naglapura</h1>
 <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold text-text-secondary">I build data-driven solutions.</h2>
 <p class="mt-6 max-w-2xl mx-auto text-lg text-text-secondary">
@@ -279,7 +306,7 @@ Want the highlights fast? Ask my AI assistant. It's trained on my skills, projec
 <strong class="text-gray-300 block mt-2">Please note: The AI will only answer questions related to my professional profile.</strong>
 </p>
 <div class="max-w-2xl mx-auto">
-<textarea id="question-input" rows="3" class="w-full p-4 rounded-lg bg-gray-800/50 border border-border-color focus:ring-2 focus:ring-accent-color focus:outline-none text-white placeholder-gray-500" placeholder="e.g., 'What was Amith's role at Schneider Electric?'"></textarea>
+<textarea id="question-input" rows="3" class="w-full p-4 rounded-lg bg-gray-800/50 border border-border-color focus:ring-2 focus:ring-accent-color-blue focus:outline-none placeholder-gray-500" placeholder="e.g., 'What was Amith's role at Schneider Electric?'" style="color: var(--text-main);"></textarea>
 <button id="ask-ai-btn" class="mt-4 btn-primary font-bold py-3 px-8 rounded-full">
 Ask AI Assistant
 </button>
@@ -318,32 +345,57 @@ My goal is to apply my problem-solving skills to help businesses make smarter, d
 
 <!-- Skills Section -->
 <section id="skills" class="py-20 md:py-32 slide-in-section">
-<h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
-Professional Skillset
-</h2>
-<div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-<div class="rounded-lg p-8 card-hover">
-<h3 class="text-2xl font-bold mb-6 highlight-text">Technical Skills</h3>
-<ul class="space-y-3 text-text-secondary grid grid-cols-2 gap-x-4 gap-y-3">
-<li class="flex items-center"><i class="fas fa-chart-line w-6 text-center mr-3"></i>Data Analysis</li>
-<li class="flex items-center"><i class="fas fa-brain w-6 text-center mr-3"></i>Machine Learning</li>
-<li class="flex items-center"><i class="fas fa-chart-pie w-6 text-center mr-3"></i>Tableau</li>
-<li class="flex items-center"><i class="fas fa-database w-6 text-center mr-3"></i>SQL</li>
-<li class="flex items-center"><i class="fab fa-python w-6 text-center mr-3"></i>Python</li>
-<li class="flex items-center"><i class="fas fa-microchip w-6 text-center mr-3"></i>Embedded C, C++</li>
-<li class="flex items-center"><i class="fab fa-r-project w-6 text-center mr-3"></i>R</li>
-<li class="flex items-center"><i class="fab fa-html5 w-6 text-center mr-3"></i>HTML & CSS</li>
-</ul>
-</div>
-<div class="rounded-lg p-8 card-hover">
-<h3 class="text-2xl font-bold mb-6 highlight-text">Professional Skills</h3>
-<ul class="space-y-3 text-text-secondary grid grid-cols-2 gap-x-4 gap-y-3">
-<li class="flex items-center"><i class="fas fa-lightbulb w-6 text-center mr-3"></i>Problem Solving</li>
-<li class="flex items-center"><i class="fas fa-tasks w-6 text-center mr-3"></i>Project Management</li>
-<li class="flex items-center"><i class="fas fa-briefcase w-6 text-center mr-3"></i>Business Analysis</li>
-<li class="flex items-center"><i class="fas fa-users w-6 text-center mr-3"></i>Leadership</li>
-</ul>
-</div>
+<div class="max-w-5xl mx-auto">
+    <!-- Oracle Certification Banner -->
+    <div class="mb-8 text-center">
+        <a href="#" target="_blank" rel="noopener noreferrer" title="View Certification">
+             <img src="EMAIL-SIGNATURE_Level1.png"
+                  onerror="this.onerror=null;this.src='https://placehold.co/700x150/0d1117/c9d1d9?text=Oracle+Certification';"
+                  alt="Oracle Certification Banner"
+                  class="mx-auto rounded-lg shadow-2xl border-2 border-border-color transform hover:scale-105 transition-transform duration-300"
+                  style="max-width: 700px; width: 100%;">
+        </a>
+    </div>
+    
+    <!-- Two New Badges -->
+    <div class="mb-12 flex justify-center items-center flex-wrap gap-8 md:gap-12">
+        <img src="OCI25DSOCP.jpg"
+             onerror="this.onerror=null;this.src='https://placehold.co/160x160/0d1117/fff8e7?text=New+Badge+1';"
+             alt="Certification Badge 2"
+             class="h-32 md:h-40 object-contain transform hover:scale-110 transition-transform duration-300 rounded-lg">
+        <img src="MYSQLHWIMPOCA.jpg"
+             onerror="this.onerror=null;this.src='https://placehold.co/160x160/0d1117/fff8e7?text=New+Badge+2';"
+             alt="Certification Badge 3"
+             class="h-32 md:h-40 object-contain transform hover:scale-110 transition-transform duration-300 rounded-lg">
+    </div>
+    <section id="skills" class="py-20 md:py-32 slide-in-section">
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
+        Professional Skillset
+        </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="rounded-lg p-8 card-hover">
+            <h3 class="text-2xl font-bold mb-6 highlight-text">Technical Skills</h3>
+            <ul class="space-y-3 text-text-secondary grid grid-cols-2 gap-x-4 gap-y-3">
+                <li class="flex items-center"><i class="fas fa-chart-line w-6 text-center mr-3"></i>Data Analysis</li>
+                <li class="flex items-center"><i class="fas fa-brain w-6 text-center mr-3"></i>Machine Learning</li>
+                <li class="flex items-center"><i class="fas fa-chart-pie w-6 text-center mr-3"></i>Tableau</li>
+                <li class="flex items-center"><i class="fas fa-database w-6 text-center mr-3"></i>SQL</li>
+                <li class="flex items-center"><i class="fab fa-python w-6 text-center mr-3"></i>Python</li>
+                <li class="flex items-center"><i class="fas fa-microchip w-6 text-center mr-3"></i>Embedded C, C++</li>
+                <li class="flex items-center"><i class="fab fa-r-project w-6 text-center mr-3"></i>R</li>
+                <li class="flex items-center"><i class="fab fa-html5 w-6 text-center mr-3"></i>HTML & CSS</li>
+            </ul>
+        </div>
+        <div class="rounded-lg p-8 card-hover">
+            <h3 class="text-2xl font-bold mb-6 highlight-text">Professional Skills</h3>
+            <ul class="space-y-3 text-text-secondary grid grid-cols-2 gap-x-4 gap-y-3">
+                <li class="flex items-center"><i class="fas fa-lightbulb w-6 text-center mr-3"></i>Problem Solving</li>
+                <li class="flex items-center"><i class="fas fa-tasks w-6 text-center mr-3"></i>Project Management</li>
+                <li class="flex items-center"><i class="fas fa-briefcase w-6 text-center mr-3"></i>Business Analysis</li>
+                <li class="flex items-center"><i class="fas fa-users w-6 text-center mr-3"></i>Leadership</li>
+            </ul>
+        </div>
+    </div>
 </div>
 </section>
 
@@ -360,9 +412,9 @@ Professional Experience
 <p class="text-text-secondary mb-4">Developed algorithms to analyze real-time data from electrical circuits, enhancing detection accuracy to ensure electrical safety and prevent potential hazards.</p>
 </div>
 <div class="mt-4 flex flex-wrap gap-2">
-<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">IoT</span>
-<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Data Analysis</span>
-<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
+<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">IoT</span>
+<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Data Analysis</span>
+<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
 </div>
 </div>
 <div class="rounded-lg p-8 flex flex-col card-hover">
@@ -372,9 +424,9 @@ Professional Experience
 <p class="text-text-secondary mb-4">Utilized Python, Excel, and SQL for data manipulation, visualization, and interpretation. Analyzed diverse datasets to identify key trends and present actionable insights.</p>
 </div>
 <div class="mt-4 flex flex-wrap gap-2">
-<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">SQL</span>
-<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Excel</span>
-<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
+<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">SQL</span>
+<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Excel</span>
+<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
 </div>
 </div>
 </div>
@@ -394,8 +446,8 @@ My Projects
 <p class="text-text-secondary mb-4">Designed a machine learning framework to identify crop diseases early, minimizing crop damage and optimizing yield for better agricultural productivity.</p>
 </div>
 <div class="mt-4 flex flex-wrap gap-2">
-<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
-<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
+<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
+<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
 </div>
 </div>
 <!-- Project Card 2 -->
@@ -406,8 +458,8 @@ My Projects
 <p class="text-text-secondary mb-4">Utilized advanced sensors and machine learning for the accurate, non-invasive detection of cracks in industrial pipelines.</p>
 </div>
 <div class="mt-4 flex flex-wrap gap-2">
-<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
-<span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Sensors</span>
+<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
+<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Sensors</span>
 </div>
 </div>
 <!-- Tableau Visualizations Card -->
@@ -417,7 +469,7 @@ My Projects
 <p class="text-sm text-gray-500 mb-2">Interactive Dashboards</p>
 <p class="text-text-secondary mb-4">A collection of interactive dashboards that transform complex datasets into clear, actionable insights. Click below to explore them all.</p>
 </div>
-<button id="view-tableau-btn" class="mt-4 font-semibold text-left text-accent-color hover:text-white transition-colors">
+<button id="view-tableau-btn" class="mt-4 font-semibold text-left transition-colors hover:opacity-80" style="color: var(--accent-color-blue);">
 Explore Visualizations &rarr;
 </button>
 </div>
@@ -475,11 +527,11 @@ Say Hello
 <div class="space-y-4">
 <div>
 <label for="username" class="block text-sm font-medium text-gray-400">User Name</label>
-<input type="text" id="username" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-accent-color focus:border-accent-color" value="Amith" readonly>
+<input type="text" id="username" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" value="Amith" readonly style="color: var(--text-main);">
 </div>
 <div>
     <label for="password" class="block text-sm font-medium text-gray-400">Password</label>
-    <input type="password" id="password" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-accent-color focus:border-accent-color" placeholder="Enter password">
+    <input type="password" id="password" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" placeholder="Enter password" style="color: var(--text-main);">
 </div>
 <button id="login-submit-btn" class="w-full btn-primary font-bold py-2 px-4 rounded-full">Login</button>
 <p class="text-xs text-gray-500 text-center mt-2">Note: This is a front-end simulation for demonstration purposes.</p>
@@ -495,15 +547,15 @@ Say Hello
 <form id="add-project-form" class="space-y-4">
 <div>
 <label for="project-title" class="block text-sm font-medium text-gray-400">Project Title</label>
-<input type="text" id="project-title" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-accent-color focus:border-accent-color" required>
+<input type="text" id="project-title" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" required style="color: var(--text-main);">
 </div>
 <div>
 <label for="project-desc" class="block text-sm font-medium text-gray-400">Description</label>
-<textarea id="project-desc" rows="3" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-accent-color focus:border-accent-color" required></textarea>
+<textarea id="project-desc" rows="3" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" required style="color: var(--text-main);"></textarea>
 </div>
 <div>
 <label for="project-url" class="block text-sm font-medium text-gray-400">Tableau Public URL</label>
-<input type="url" id="project-url" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-accent-color focus:border-accent-color" placeholder="https://public.tableau.com/views/..." required>
+<input type="url" id="project-url" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" placeholder="https://public.tableau.com/views/..." required style="color: var(--text-main);">
 </div>
 <div>
 <label class="block text-sm font-medium text-gray-400">Thumbnail Image</label>
@@ -562,7 +614,7 @@ Say Hello
                 radius: Math.random() * 1.2 + 0.1,
                 speedX: (Math.random() - 0.5) * 0.1,
                 speedY: (Math.random() - 0.5) * 0.1,
-                color: `rgba(200, 220, 255, ${0.5 + Math.random() * 0.5})`
+                color: `rgba(255, 234, 0, ${0.3 + Math.random() * 0.5})` // Yellow particles
             });
         }
     }
@@ -684,11 +736,11 @@ Say Hello
 
             projectEl.innerHTML = `
                 ${deleteButtonHTML}
-                <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="w-full h-auto object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/400x225/161b22/f0f6fc?text=Image+Not+Found';">
+                <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="w-full h-auto object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/400x225/161b22/fff8e7?text=Image+Not+Found';">
                 <div class="p-4 flex flex-col flex-grow">
                     <h4 class="text-lg font-bold highlight-text">${project.title}</h4>
                     <p class="text-text-secondary my-2 text-sm flex-grow">${project.description}</p>
-                    <a href="${project.url}" target="_blank" class="font-semibold inline-block mt-2 self-start text-accent-color hover:text-white transition-colors">View on Tableau Public &rarr;</a>
+                    <a href="${project.url}" target="_blank" class="font-semibold inline-block mt-2 self-start transition-colors hover:opacity-80" style="color: var(--accent-color-blue);">View on Tableau Public &rarr;</a>
                 </div>
             `;
             tableauProjectsContainer.appendChild(projectEl);
@@ -705,8 +757,14 @@ Say Hello
             const button = e.target.closest('.delete-project-btn');
             const projectId = button.dataset.id;
             const projectToDelete = tableauProjects.find(p => p.id === projectId);
-            if (confirm(`Are you sure you want to delete "${projectToDelete.title}"?`)) {
-                await deleteDoc(doc(db, "tableauProjects", projectId));
+            
+            if (window.confirm(`Are you sure you want to delete "${projectToDelete.title}"?`)) {
+                try {
+                    await deleteDoc(doc(db, "tableauProjects", projectId));
+                } catch (error) {
+                    console.error("Error deleting project:", error);
+                    alert("There was an error deleting the project.");
+                }
             }
         }
     });
@@ -728,20 +786,18 @@ Say Hello
     loginSubmitBtn.addEventListener('click', () => {
         const passwordInput = document.getElementById('password');
         const enteredPassword = passwordInput.value;
-        const correctPassword = 'Amithnp@18'; // The correct password
+        const correctPassword = 'Amithnp@18';
 
         if (enteredPassword === correctPassword) {
-            // On successful login
             isAdminLoggedIn = true;
             closeModal(adminLoginModal);
             openModal(addProjectModal);
-            passwordInput.value = ''; // Clear the password field for security
-            renderTableauProjects(); // Refresh the project view to show admin controls
+            passwordInput.value = ''; 
+            renderTableauProjects();
         } else {
-            // On failed login
             isAdminLoggedIn = false;
             alert('Incorrect password. Please try again.');
-            passwordInput.value = ''; // Clear the incorrect password
+            passwordInput.value = '';
         }
     });
 
@@ -795,21 +851,26 @@ Say Hello
             return;
         }
 
-        await addDoc(projectsCol, {
-            title,
-            description,
-            url,
-            thumbnail: newThumbnailData
-        });
+        try {
+            await addDoc(projectsCol, {
+                title,
+                description,
+                url,
+                thumbnail: newThumbnailData
+            });
 
-        addProjectForm.reset();
-        thumbnailPreview.classList.add('hidden');
-        newThumbnailData = null;
+            addProjectForm.reset();
+            thumbnailPreview.classList.add('hidden');
+            newThumbnailData = null;
 
-        successMessage.classList.remove('hidden');
-        setTimeout(() => {
-            successMessage.classList.add('hidden');
-        }, 3000);
+            successMessage.classList.remove('hidden');
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+            }, 3000);
+        } catch (error) {
+            console.error("Error adding project:", error);
+            alert("There was an error saving the project.");
+        }
     });
 
 
@@ -841,7 +902,6 @@ Say Hello
         askBtn.disabled = true;
         askBtn.textContent = 'Thinking...';
 
-        // UPDATED: AI Context with new information
         const context = `
         Amith Naglapura's Professional Profile:
         - Current Status: Amith has recently been accepted and is preparing to begin his MSc in AI in Business at Queen's University Belfast.
@@ -857,7 +917,6 @@ Say Hello
         - Skills: Data Analysis, Machine Learning, Tableau, SQL, Python, Embedded C/C++, R, HTML, CSS.
         `;
 
-        // UPDATED: Prompt with specific instructions for new info
         const prompt = `You are a helpful AI assistant for Amith Naglapura's portfolio. Your answers must be based *only* on the context provided below.
         - Your primary goal is to answer questions about Amith's professional profile.
         - If asked what Amith is doing now, about his current status, or where he is, you MUST state that he is starting his MSc in AI in Business at Queen's University Belfast.
@@ -904,7 +963,7 @@ Say Hello
         if (formattedText.startsWith('<br>')) {
             formattedText = formattedText.substring(4);
         }
-        responseContent.innerHTML = `<p class="text-gray-300">${formattedText}</p>`;
+        responseContent.innerHTML = `<p>${formattedText}</p>`;
         responseContent.classList.remove('hidden');
     }
 
