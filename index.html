@@ -244,23 +244,29 @@ to { transform: rotate(360deg); }
 <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
 <div class="container mx-auto px-4 py-4">
 <div class="flex justify-between items-center glassmorphism rounded-full px-6 py-3 shadow-lg">
-    <div class="flex-1">
-        <nav class="hidden md:flex justify-center items-center gap-x-8 text-gray-300 font-medium">
-            <a href="#home" class="nav-link hover:text-white">Home</a>
-            <a href="#ai-assistant" class="nav-link hover:text-white">AI Assistant</a>
-            <a href="#about" class="nav-link hover:text-white">About</a>
-            <a href="#skills" class="nav-link hover:text-white">Skills</a>
-            <a href="#experience" class="nav-link hover:text-white">Experience</a>
-            <a href="#projects" class="nav-link hover:text-white">Projects</a>
-            <a href="#contact" class="nav-link hover:text-white">Contact</a>
-        </nav>
-    </div>
-    <a href="mailto:amithnaglapura@gmail.com" class="hidden md:block btn-primary py-2 px-5 rounded-full flex-shrink-0">
-    Hire Me
+    <!-- Left: Name -->
+    <a href="#" class="text-xl font-bold tracking-wide text-white flex-shrink-0 hover:opacity-80 transition-opacity">
+        Amith N P
     </a>
-    <button id="mobile-menu-button" class="md:hidden text-2xl text-gray-300">
-    <i class="fas fa-bars"></i>
-    </button>
+    <!-- Center: Navigation -->
+    <nav class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-x-8 text-gray-300 font-medium">
+        <a href="#home" class="nav-link hover:text-white">Home</a>
+        <a href="#ai-assistant" class="nav-link hover:text-white">AI Assistant</a>
+        <a href="#about" class="nav-link hover:text-white">About</a>
+        <a href="#skills" class="nav-link hover:text-white">Skills</a>
+        <a href="#experience" class="nav-link hover:text-white">Experience</a>
+        <a href="#projects" class="nav-link hover:text-white">Projects</a>
+        <a href="#contact" class="nav-link hover:text-white">Contact</a>
+    </nav>
+    <!-- Right: Hire Me Button & Mobile Menu Toggle -->
+    <div>
+        <a href="mailto:amithnaglapura@gmail.com" class="hidden md:block btn-primary py-2 px-5 rounded-full">
+        Hire Me
+        </a>
+        <button id="mobile-menu-button" class="md:hidden text-2xl text-gray-300">
+        <i class="fas fa-bars"></i>
+        </button>
+    </div>
 </div>
 </div>
 <div id="mobile-menu" class="hidden md:hidden glassmorphism mx-4 rounded-lg shadow-lg">
@@ -345,33 +351,43 @@ My goal is to apply my problem-solving skills to help businesses make smarter, d
 
 <!-- Skills Section -->
 <section id="skills" class="py-20 md:py-32 slide-in-section">
+<h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
+Professional Skillset
+</h2>
 <div class="max-w-5xl mx-auto">
-    <!-- Oracle Certification Banner -->
-    <div class="mb-8 text-center">
-        <a href="#" target="_blank" rel="noopener noreferrer" title="View Certification">
-             <img src="EMAIL-SIGNATURE_Level1.png"
-                  onerror="this.onerror=null;this.src='https://placehold.co/700x150/0d1117/c9d1d9?text=Oracle+Certification';"
-                  alt="Oracle Certification Banner"
-                  class="mx-auto rounded-lg shadow-2xl border-2 border-border-color transform hover:scale-105 transition-transform duration-300"
-                  style="max-width: 700px; width: 100%;">
-        </a>
+    <!-- Certifications Container -->
+    <div class="mb-16 p-8 rounded-lg card-hover">
+        <h3 class="text-3xl font-bold text-center mb-8 highlight-text">Certifications</h3>
+        <!-- Oracle Certification Banner -->
+        <div class="mb-10 text-center">
+            <a href="#" target="_blank" rel="noopener noreferrer" title="View Certification">
+                 <img src="EMAIL-SIGNATURE_Level1.png"
+                      onerror="this.onerror=null;this.src='https://placehold.co/700x150/0d1117/c9d1d9?text=Oracle+Certification';"
+                      alt="Oracle Certification Banner"
+                      class="mx-auto rounded-lg shadow-2xl border-2 border-border-color transform hover:scale-105 transition-transform duration-300"
+                      style="max-width: 600px; width: 100%;">
+            </a>
+        </div>
+        
+        <!-- Two New Badges -->
+        <div class="flex justify-center items-start flex-wrap gap-8 md:gap-16">
+            <div class="text-center w-48">
+                <img src="OCI25DSOCP.jpg"
+                     onerror="this.onerror=null;this.src='https://placehold.co/160x160/161b22/fff8e7?text=OCI';"
+                     alt="Oracle Cloud Infrastructure Data Science Professional Badge"
+                     class="h-32 md:h-40 object-contain transform hover:scale-110 transition-transform duration-300 rounded-full mx-auto border-2 border-border-color">
+                <p class="mt-4 font-semibold text-text-secondary text-sm">OCI Data Science Professional</p>
+            </div>
+            <div class="text-center w-48">
+                <img src="MYSQLHWIMPOCA.jpg"
+                     onerror="this.onerror=null;this.src='https://placehold.co/160x160/161b22/fff8e7?text=MySQL';"
+                     alt="MySQL HeatWave Implementation Certified Associate Badge"
+                     class="h-32 md:h-40 object-contain transform hover:scale-110 transition-transform duration-300 rounded-full mx-auto border-2 border-border-color">
+                <p class="mt-4 font-semibold text-text-secondary text-sm">MySQL HeatWave Associate</p>
+            </div>
+        </div>
     </div>
-    
-    <!-- Two New Badges -->
-    <div class="mb-12 flex justify-center items-center flex-wrap gap-8 md:gap-12">
-        <img src="OCI25DSOCP.jpg"
-             onerror="this.onerror=null;this.src='https://placehold.co/160x160/0d1117/fff8e7?text=New+Badge+1';"
-             alt="Certification Badge 2"
-             class="h-32 md:h-40 object-contain transform hover:scale-110 transition-transform duration-300 rounded-lg">
-        <img src="MYSQLHWIMPOCA.jpg"
-             onerror="this.onerror=null;this.src='https://placehold.co/160x160/0d1117/fff8e7?text=New+Badge+2';"
-             alt="Certification Badge 3"
-             class="h-32 md:h-40 object-contain transform hover:scale-110 transition-transform duration-300 rounded-lg">
-    </div>
-    <section id="skills" class="py-20 md:py-32 slide-in-section">
-        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
-        Professional Skillset
-        </h2>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="rounded-lg p-8 card-hover">
             <h3 class="text-2xl font-bold mb-6 highlight-text">Technical Skills</h3>
@@ -975,3 +991,4 @@ Say Hello
 </script>
 </body>
 </html>
+
