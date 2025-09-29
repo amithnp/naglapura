@@ -226,63 +226,21 @@ to { transform: rotate(360deg); }
     width: 100%;
 }
 
-/* --- NEW: AI CHATBOT STYLES --- */
-#chat-window {
-    transform: scale(0);
-    transform-origin: bottom right;
-    transition: transform 0.3s ease-out;
+/* --- Notification Toast --- */
+#notification-toast {
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(calc(100% + 1rem));
 }
-#chat-window.open {
-    transform: scale(1);
+#notification-toast.show {
+    transform: translateX(0);
 }
-.chat-message {
-    max-width: 80%;
-    padding: 0.75rem 1rem;
-    border-radius: 1rem;
-    margin-bottom: 0.75rem;
-    word-wrap: break-word;
+#notification-toast.success {
+    background-color: #166534;
+    border: 1px solid #22c55e;
 }
-.ai-message {
-    background-color: #21262d; /* Slightly different from card-bg */
-    color: var(--text-secondary);
-    align-self: flex-start;
-    border-bottom-left-radius: 0.25rem;
-}
-.user-message {
-    background-color: var(--accent-color-blue);
-    color: var(--bg-color);
-    align-self: flex-end;
-    border-bottom-right-radius: 0.25rem;
-}
-.typing-indicator {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem;
-}
-.typing-indicator span {
-    height: 8px;
-    width: 8px;
-    margin: 0 2px;
-    background-color: var(--text-secondary);
-    border-radius: 50%;
-    display: inline-block;
-    animation: bounce 1.4s infinite ease-in-out both;
-}
-.typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
-.typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
-@keyframes bounce {
-    0%, 80%, 100% { transform: scale(0); }
-    40% { transform: scale(1.0); }
-}
-
-#send-chat-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: scale(1);
-}
-
-#send-chat-btn .fas {
-    color: var(--bg-color);
+#notification-toast.error {
+    background-color: #991b1b;
+    border: 1px solid #ef4444;
 }
 
 </style>
@@ -598,11 +556,45 @@ Say Hello
 <p>&copy; 2025. All rights reserved.</p>
 </footer>
 
+<div id="notification-toast" class="fixed top-24 right-4 z-[1001] p-4 rounded-lg shadow-lg text-white">
+    <p id="notification-text"></p>
+</div>
+
+<div id="confirm-modal" class="modal-overlay hidden">
+    <div class="modal-content glassmorphism rounded-lg max-w-sm">
+        <h3 id="confirm-title" class="text-xl font-bold mb-4 text-center highlight-text">Confirm Action</h3>
+        <p id="confirm-text" class="text-text-secondary text-center mb-6">Are you sure?</p>
+        <div class="flex justify-center gap-4">
+            <button id="confirm-no-btn" class="btn-secondary font-bold py-2 px-6 rounded-full">Cancel</button>
+            <button id="confirm-yes-btn" class="btn-primary font-bold py-2 px-6 rounded-full">Confirm</button>
+        </div>
+    </div>
+</div>
+
 <div id="tableau-modal" class="modal-overlay hidden">
 <div class="modal-content glassmorphism rounded-lg">
 <span class="modal-close">&times;</span>
 <h3 class="text-3xl font-bold mb-8 text-center highlight-text">Tableau Visualizations</h3>
 <div id="tableau-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="relative rounded-lg flex flex-col h-full card-hover overflow-hidden">
+        <img src="https://placehold.co/400x225/161b22/58d0ff?text=Sales+Dashboard" alt="Sales Dashboard thumbnail" class="w-full h-auto object-cover aspect-video">
+        <div class="p-4 flex flex-col flex-grow">
+            <h4 class="text-lg font-bold highlight-text">Global Sales Dashboard</h4>
+            <p class="text-text-secondary my-2 text-sm flex-grow">An interactive dashboard analyzing global sales data to identify key market trends and regional performance.</p>
+            <a href="#" target="_blank" class="font-semibold inline-block mt-2 self-start transition-colors hover:opacity-80" style="color: var(--accent-color-blue);">View on Tableau Public &rarr;</a>
+        </div>
+    </div>
+    <div class="relative rounded-lg flex flex-col h-full card-hover overflow-hidden">
+        <img src="https://placehold.co/400x225/161b22/ffea00?text=HR+Analytics" alt="HR Analytics thumbnail" class="w-full h-auto object-cover aspect-video">
+        <div class="p-4 flex flex-col flex-grow">
+            <h4 class="text-lg font-bold highlight-text">HR Analytics: Employee Attrition</h4>
+            <p class="text-text-secondary my-2 text-sm flex-grow">A visualization exploring the factors contributing to employee attrition, helping to inform retention strategies.</p>
+            <a href="#" target="_blank" class="font-semibold inline-block mt-2 self-start transition-colors hover:opacity-80" style="color: var(--accent-color-blue);">View on Tableau Public &rarr;</a>
+        </div>
+    </div>
+    <div class="relative rounded-lg flex flex-col h-full card-hover overflow-hidden">
+        <p class="text-center text-gray-500 col-span-full p-8">More projects coming soon.</p>
+    </div>
 </div>
 </div>
 </div>
@@ -610,7 +602,7 @@ Say Hello
 <div id="admin-login-modal" class="modal-overlay hidden">
 <div class="modal-content glassmorphism rounded-lg">
 <span class="modal-close">&times;</span>
-<h3 class="text-2xl font-bold mb-6 text-center highlight-text">Admin Access</h3>
+<h3 class="text-2xl font-bold mb-6 text-center highlight-text">Admin Access</h4>
 <div class="space-y-4">
 <div>
 <label for="username" class="block text-sm font-medium text-gray-400">User Name</label>
@@ -636,8 +628,8 @@ Say Hello
 <input type="text" id="project-title" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" required style="color: var(--text-main);">
 </div>
 <div>
-<label for="project-desc" class="block text-sm font-medium text-gray-400">Description</label>
-<textarea id="project-desc" rows="3" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" required style="color: var(--text-main);"></textarea>
+    <label for="project-desc" class="block text-sm font-medium text-gray-400 mb-1">Description</label>
+    <textarea id="project-desc" rows="3" class="block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" required style="color: var(--text-main);"></textarea>
 </div>
 <div>
 <label for="project-url" class="block text-sm font-medium text-gray-400">Tableau Public URL</label>
@@ -652,74 +644,12 @@ Say Hello
 </div>
 </div>
 <button type="submit" id="save-project-btn" class="w-full btn-primary font-bold py-2 px-4 rounded-full">Save Project</button>
-<p id="success-message" class="text-green-400 text-center mt-2 hidden">Project added successfully!</p>
 </form>
 </div>
 </div>
 
-<div id="ai-chat-widget" class="fixed bottom-8 right-8 z-[999]">
-    <button id="chat-bubble" class="bg-[var(--accent-color-blue)] w-16 h-16 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform focus:outline-none">
-        <svg class="w-10 h-10 text-[var(--bg-color)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Happy AI robot icon">
-            <rect x="4" y="6.5" width="16" height="12" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
-            
-            <rect x="2" y="10" width="2" height="5" rx="1" fill="currentColor"/>
-            <rect x="20" y="10" width="2" height="5" rx="1" fill="currentColor"/>
-            
-            <circle cx="9" cy="12" r="1.5" fill="currentColor"/>
-            <circle cx="15" cy="12" r="1.5" fill="currentColor"/>
-            
-            <path d="M9 15c1 1 5 1 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            
-            <path d="M12 6.5V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="12" cy="3" r="1" fill="currentColor"/>
-          </svg>
-        
-    </button>
 
-    <div id="chat-window" class="absolute bottom-24 right-0 w-[90vw] max-w-sm h-[500px] bg-[var(--card-bg)] rounded-lg shadow-2xl flex flex-col glassmorphism">
-        <div class="p-4 rounded-t-lg flex justify-between items-center border-b border-[var(--border-color)] bg-black/20">
-            <h3 class="font-bold text-white">AI Assistant</h3>
-            <button id="close-chat-btn" class="text-2xl text-gray-400 hover:text-white">&times;</button>
-        </div>
-        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto flex flex-col space-y-3">
-            <div class="chat-message ai-message">
-                <p>Hi there! Ask me anything about Amith's skills, projects, or experience.</p>
-            </div>
-            </div>
-        <div class="p-4 border-t border-[var(--border-color)] bg-black/20">
-            <div class="flex gap-2">
-                <input type="text" id="chat-input" class="flex-1 p-2 rounded-lg bg-gray-800/50 border border-[var(--border-color)] focus:ring-2 focus:ring-[var(--accent-color-blue)] focus:outline-none text-white placeholder-gray-500" placeholder="Ask a question...">
-                <button id="send-chat-btn" class="btn-primary px-4 rounded-lg flex items-center justify-center transition-opacity" disabled>
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script type="module">
-    // Import Firebase modules
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-
-    // IMPORTANT: Replace with your actual Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyD7qvQX-TIgdhEh8oWD_hRNqFbJtU5TYeE",
-        authDomain: "amith-np.firebaseapp.com",
-        projectId: "amith-np",
-        storageBucket: "amith-np.firebasestorage.app",
-        messagingSenderId: "989434262632",
-        appId: "1:989434262632:web:59a03bbf0468409fe637dd",
-        measurementId: "G-Y0K0CV151E"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const auth = getAuth(app);
-
+<script>
     // --- Galaxy Animation ---
     const canvas = document.getElementById('galaxy-canvas');
     const ctx = canvas.getContext('2d');
@@ -740,7 +670,7 @@ Say Hello
                 radius: Math.random() * 1.2 + 0.1,
                 speedX: (Math.random() - 0.5) * 0.1,
                 speedY: (Math.random() - 0.5) * 0.1,
-                color: `rgba(255, 234, 0, ${0.3 + Math.random() * 0.5})` // Yellow particles
+                color: `rgba(255, 234, 0, ${0.3 + Math.random() * 0.5})`
             });
         }
     }
@@ -761,196 +691,177 @@ Say Hello
         });
         requestAnimationFrame(animate);
     }
-
-    window.addEventListener('resize', () => {
-        setCanvasSize();
-        createParticles();
-    });
-
+    
+    window.addEventListener('resize', () => { setCanvasSize(); createParticles(); });
     setCanvasSize();
     createParticles();
     animate();
 
-    // --- Mobile menu toggle ---
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-    });
-    const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
-    for (let link of mobileMenuLinks) {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
+    // --- UI Interactions ---
+    function setupUIInteractions() {
+        // Mobile menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('bg-black/50', window.scrollY > 50);
+        });
+
+        // Scroll-triggered fade-in animation
+        const sections = document.querySelectorAll('.slide-in-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
+    }
+    setupUIInteractions();
+    
+    // --- Notification & Confirmation System ---
+    const notificationToast = document.getElementById('notification-toast');
+    const notificationText = document.getElementById('notification-text');
+    let notificationTimeout;
+
+    function showNotification(message, type = 'success', duration = 3000) {
+        clearTimeout(notificationTimeout);
+        notificationText.textContent = message;
+        notificationToast.className = 'fixed top-24 right-4 z-[1001] p-4 rounded-lg shadow-lg text-white'; // Reset
+        notificationToast.classList.add('show', type);
+
+        notificationTimeout = setTimeout(() => {
+            notificationToast.classList.remove('show');
+        }, duration);
+    }
+
+    const confirmModal = document.getElementById('confirm-modal');
+    const confirmTitle = document.getElementById('confirm-title');
+    const confirmText = document.getElementById('confirm-text');
+    const confirmYesBtn = document.getElementById('confirm-yes-btn');
+    const confirmNoBtn = document.getElementById('confirm-no-btn');
+
+    function showConfirmation(title, text) {
+        return new Promise((resolve) => {
+            confirmTitle.textContent = title;
+            confirmText.textContent = text;
+            confirmModal.classList.remove('hidden');
+
+            const yesHandler = () => {
+                confirmModal.classList.add('hidden');
+                resolve(true);
+                confirmYesBtn.removeEventListener('click', yesHandler);
+                confirmNoBtn.removeEventListener('click', noHandler);
+            };
+
+            const noHandler = () => {
+                confirmModal.classList.add('hidden');
+                resolve(false);
+                confirmYesBtn.removeEventListener('click', yesHandler);
+                confirmNoBtn.removeEventListener('click', noHandler);
+            };
+
+            confirmYesBtn.addEventListener('click', yesHandler);
+            confirmNoBtn.addEventListener('click', noHandler);
         });
     }
 
-    // --- Navbar background on scroll ---
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('bg-black/50');
-        } else {
-            navbar.classList.remove('bg-black/50');
-        }
-    });
 
-    // --- Scroll-triggered fade-in animation ---
-    const sections = document.querySelectorAll('.slide-in-section');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-            }
-        });
-    }, { threshold: 0.1 });
-    sections.forEach(section => {
-        observer.observe(section);
-    });
-
-    // --- DYNAMIC PROJECT & ADMIN LOGIC ---
-
+    // --- DYNAMIC PROJECT & ADMIN LOGIC (DEMO) ---
     let isAdminLoggedIn = false;
     let newThumbnailData = null;
-    let tableauProjects = [];
-    const projectsCol = collection(db, 'tableauProjects');
 
     // --- Modal Management ---
-    const tableauModal = document.getElementById('tableau-modal');
-    const adminLoginModal = document.getElementById('admin-login-modal');
-    const addProjectModal = document.getElementById('add-project-modal');
-    const modals = [tableauModal, adminLoginModal, addProjectModal];
-
-    function openModal(modal) {
-        modal.classList.remove('hidden');
-    }
-
-    function closeModal(modal) {
-        modal.classList.add('hidden');
-    }
-
-    modals.forEach(modal => {
-        modal.querySelector('.modal-close').addEventListener('click', () => closeModal(modal));
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal(modal);
-            }
-        });
+    const modals = {
+        tableau: document.getElementById('tableau-modal'),
+        adminLogin: document.getElementById('admin-login-modal'),
+        addProject: document.getElementById('add-project-modal')
+    };
+    const openModal = (modal) => modal.classList.remove('hidden');
+    const closeModal = (modal) => modal.classList.add('hidden');
+    Object.values(modals).forEach(modal => {
+        if (modal) {
+            modal.querySelector('.modal-close')?.addEventListener('click', () => closeModal(modal));
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(modal); });
+        }
     });
 
     // --- Tableau Projects Logic ---
     const viewTableauBtn = document.getElementById('view-tableau-btn');
     const tableauProjectsContainer = document.getElementById('tableau-projects-container');
 
-    onSnapshot(projectsCol, (snapshot) => {
-        tableauProjects = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-        renderTableauProjects();
-    });
-
+    // This function can be used to render delete buttons if admin logs in.
     function renderTableauProjects() {
-        tableauProjectsContainer.innerHTML = '';
-        if (tableauProjects.length === 0) {
-            tableauProjectsContainer.innerHTML = '<p class="text-center text-gray-500 col-span-full">No projects have been added yet.</p>';
-            return;
+        const deleteButtons = tableauProjectsContainer.querySelectorAll('.delete-project-btn');
+        if (isAdminLoggedIn) {
+            // In a real app, you would generate buttons here. For this demo, we just show them.
+             // For this static version, we can't dynamically add/remove, so we'll just leave this logic out for simplicity.
+        } else {
+            // Hide buttons
         }
-        tableauProjects.forEach((project) => {
-            const projectEl = document.createElement('div');
-            projectEl.className = 'relative rounded-lg flex flex-col h-full card-hover overflow-hidden';
-            
-            const deleteButtonHTML = isAdminLoggedIn 
-                ? `<button class="delete-project-btn" data-id="${project.id}" title="Delete Project"><i class="fas fa-trash-alt pointer-events-none"></i></button>` 
-                : '';
-
-            projectEl.innerHTML = `
-                ${deleteButtonHTML}
-                <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="w-full h-auto object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/400x225/161b22/fff8e7?text=Image+Not+Found';">
-                <div class="p-4 flex flex-col flex-grow">
-                    <h4 class="text-lg font-bold highlight-text">${project.title}</h4>
-                    <p class="text-text-secondary my-2 text-sm flex-grow">${project.description}</p>
-                    <a href="${project.url}" target="_blank" class="font-semibold inline-block mt-2 self-start transition-colors hover:opacity-80" style="color: var(--accent-color-blue);">View on Tableau Public &rarr;</a>
-                </div>
-            `;
-            tableauProjectsContainer.appendChild(projectEl);
-        });
     }
 
     viewTableauBtn.addEventListener('click', () => {
-        renderTableauProjects();
-        openModal(tableauModal);
+        renderTableauProjects(); // In case we add dynamic button rendering later
+        openModal(modals.tableau);
     });
 
-    tableauProjectsContainer.addEventListener('click', async function(e) {
+    tableauProjectsContainer.addEventListener('click', async (e) => {
         if (e.target.closest('.delete-project-btn')) {
-            const button = e.target.closest('.delete-project-btn');
-            const projectId = button.dataset.id;
-            const projectToDelete = tableauProjects.find(p => p.id === projectId);
-            
-            // Replaced window.confirm with a custom implementation if needed
-            if (confirm(`Are you sure you want to delete "${projectToDelete.title}"?`)) {
-                try {
-                    await deleteDoc(doc(db, "tableauProjects", projectId));
-                } catch (error) {
-                    console.error("Error deleting project:", error);
-                    // Replaced alert with a custom implementation if needed
-                    alert("There was an error deleting the project.");
-                }
-            }
+            showNotification('This is a demo. Delete functionality is disabled.', 'error');
         }
     });
-
 
     // --- Admin Logic ---
     const adminLoginBtn = document.getElementById('admin-login-btn');
     const loginSubmitBtn = document.getElementById('login-submit-btn');
-    const addProjectForm = document.getElementById('add-project-form');
-    const dropZone = document.getElementById('drop-zone');
-    const thumbnailInput = document.getElementById('project-thumbnail-input');
-    const thumbnailPreview = document.getElementById('thumbnail-preview');
 
     adminLoginBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        openModal(adminLoginModal);
+        openModal(modals.adminLogin);
     });
 
     loginSubmitBtn.addEventListener('click', () => {
         const passwordInput = document.getElementById('password');
-        const enteredPassword = passwordInput.value;
-        const correctPassword = 'Amithnp@18';
-
-        if (enteredPassword === correctPassword) {
+        if (passwordInput.value === 'Amithnp@18') {
             isAdminLoggedIn = true;
-            closeModal(adminLoginModal);
-            openModal(addProjectModal);
+            closeModal(modals.adminLogin);
+            openModal(modals.addProject);
             passwordInput.value = ''; 
             renderTableauProjects();
+            showNotification('Admin login successful! (Demo Mode)', 'success');
         } else {
             isAdminLoggedIn = false;
-            alert('Incorrect password. Please try again.');
+            showNotification('Incorrect password.', 'error');
             passwordInput.value = '';
         }
     });
 
     // Drag and Drop Logic
-    dropZone.addEventListener('click', () => thumbnailInput.click());
-    dropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropZone.classList.add('dragover');
+    const dropZone = document.getElementById('drop-zone');
+    const thumbnailInput = document.getElementById('project-thumbnail-input');
+    const thumbnailPreview = document.getElementById('thumbnail-preview');
+
+    const preventDefaults = (e) => { e.preventDefault(); e.stopPropagation(); };
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
     });
-    dropZone.addEventListener('dragleave', () => {
-        dropZone.classList.remove('dragover');
-    });
+    dropZone.addEventListener('dragenter', () => dropZone.classList.add('dragover'));
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
     dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
         dropZone.classList.remove('dragover');
-        const files = e.dataTransfer.files;
-        if (files.length > 0) {
-            handleFile(files[0]);
-        }
+        if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
     });
+    dropZone.addEventListener('click', () => thumbnailInput.click());
     thumbnailInput.addEventListener('change', (e) => {
-        const files = e.target.files;
-        if (files.length > 0) {
-            handleFile(files[0]);
-        }
+        if (e.target.files.length > 0) handleFile(e.target.files[0]);
     });
 
     function handleFile(file) {
@@ -963,194 +874,28 @@ Say Hello
             };
             reader.readAsDataURL(file);
         } else {
-            alert('Please drop an image file.');
+            showNotification('Please select an image file.', 'error');
         }
     }
 
-    addProjectForm.addEventListener('submit', async (e) => {
+    document.getElementById('add-project-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const title = document.getElementById('project-title').value;
         const description = document.getElementById('project-desc').value;
         const url = document.getElementById('project-url').value;
-        const successMessage = document.getElementById('success-message');
 
         if (!title || !description || !url || !newThumbnailData) {
-            alert('Please fill out all fields and add a thumbnail.');
+            showNotification('Please fill out all fields and add a thumbnail.', 'error');
             return;
         }
 
-        try {
-            await addDoc(projectsCol, {
-                title,
-                description,
-                url,
-                thumbnail: newThumbnailData
-            });
-
-            addProjectForm.reset();
-            thumbnailPreview.classList.add('hidden');
-            newThumbnailData = null;
-
-            successMessage.classList.remove('hidden');
-            setTimeout(() => {
-                successMessage.classList.add('hidden');
-            }, 3000);
-        } catch (error) {
-            console.error("Error adding project:", error);
-            alert("There was an error saving the project.");
-        }
+        // In this demo, we don't save to a database.
+        showNotification('Project submitted! (Demo only, not saved)', 'success');
+        document.getElementById('add-project-form').reset();
+        thumbnailPreview.classList.add('hidden');
+        newThumbnailData = null;
+        closeModal(modals.addProject);
     });
-
-    // --- Gemini AI Chatbot ---
-    const chatBubble = document.getElementById('chat-bubble');
-    const chatWindow = document.getElementById('chat-window');
-    const closeChatBtn = document.getElementById('close-chat-btn');
-    const chatMessages = document.getElementById('chat-messages');
-    const chatInput = document.getElementById('chat-input');
-    const sendChatBtn = document.getElementById('send-chat-btn');
-
-    chatBubble.addEventListener('click', () => chatWindow.classList.toggle('open'));
-    closeChatBtn.addEventListener('click', () => chatWindow.classList.remove('open'));
-
-    chatInput.addEventListener('input', () => {
-        if (chatInput.value.trim()) {
-            sendChatBtn.disabled = false;
-        } else {
-            sendChatBtn.disabled = true;
-        }
-    });
-
-    sendChatBtn.addEventListener('click', askAiAssistant);
-    chatInput.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' && !event.shiftKey) {
-            event.preventDefault();
-            askAiAssistant();
-        }
-    });
-
-    function addMessageToChat(message, sender) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `chat-message ${sender}-message`;
-        messageDiv.innerHTML = `<p>${message}</p>`;
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    function showTypingIndicator() {
-        const typingDiv = document.createElement('div');
-        typingDiv.id = 'typing-indicator';
-        typingDiv.className = 'chat-message ai-message typing-indicator';
-        typingDiv.innerHTML = '<span></span><span></span><span></span>';
-        chatMessages.appendChild(typingDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    function removeTypingIndicator() {
-        const typingIndicator = document.getElementById('typing-indicator');
-        if (typingIndicator) {
-            typingIndicator.remove();
-        }
-    }
-
-    async function askAiAssistant() {
-        const userQuestion = chatInput.value;
-        if (!userQuestion.trim()) return;
-
-        addMessageToChat(userQuestion, 'user');
-        chatInput.value = '';
-        showTypingIndicator();
-        sendChatBtn.disabled = true;
-
-        const context = `
-    Amith Naglapura's Professional Profile:
-
-    -   **Summary**: A results-oriented technologist with a foundational background in Electronics and Communication, now specializing in the intersection of data science, machine learning, and business strategy. Passionate about transforming raw data into actionable insights and building intelligent systems that drive efficiency and innovation. Amith excels at bridging the gap between complex hardware systems and the data they generate, with a core focus on leveraging AI for strategic business growth.
-
-    -   **Current Status**: As of September 2025, Amith is actively pursuing his MSc in AI in Business at Queen's University Belfast.
-        -   **Focus Areas**: Core modules include Machine Learning Applications, Business Intelligence, Data Governance, and AI Ethics.
-        -   **Objective**: He is exploring how advanced AI technologies can optimize operations, inform strategic decisions, and create new value streams in a corporate environment.
-
-    -   **Key Skills**:
-        -   **Data Science & Machine Learning**: Data Analysis, Statistical Modeling, Predictive Analytics, CNNs, Data Visualization, Business Intelligence.
-        -   **Programming & Databases**: Python (Pandas, NumPy, Scikit-learn), R, SQL, Embedded C/C++.
-        -   **Tools & Platforms**: Tableau, Microsoft Excel (Advanced), Jupyter Notebooks, Git & GitHub.
-        -   **Professional**: Problem Solving, Project Management, Business Analysis, Stakeholder Communication, Leadership.
-
-    -   **Professional Experience**:
-        -   **Schneider Electric (Intern)**:
-            -   **Project**: Real-time Current Leakage Detection System.
-            -   **Task**: Tasked with improving electrical safety protocols for IoT-enabled circuits.
-            -   **Actions**: Developed and implemented Python algorithms to analyze real-time sensor data, identifying subtle patterns indicative of current leakage.
-            -   **Result**: Successfully enhanced the detection accuracy of the system, contributing to the prevention of potential electrical hazards and improving overall system reliability.
-        -   **Unified Mentor (Data Analysis Intern)**:
-            -   **Project**: Business Performance Analysis.
-            -   **Task**: Analyzed diverse business datasets to identify key performance trends and operational patterns.
-            -   **Actions**: Utilized Python (Pandas, Matplotlib) for data cleaning and manipulation, SQL for complex data extraction from relational databases, and Excel for final reporting.
-            -   **Result**: Translated complex findings into clear visualizations and actionable insights for project stakeholders, supporting data-informed decision-making processes.
-
-    -   **Publications**:
-        -   **"Machine Learning Framework for Early Detection of Crop Disease"** (Published in: International Journal for Multidisciplinary Research - IJFMR):
-            -   **Abstract**: This research introduces a novel framework for precision agriculture aimed at minimizing crop loss and improving yield.
-            -   **Key Contribution**: Designed, trained, and validated a Convolutional Neural Network (CNN) model that achieved 98% accuracy in identifying common crop diseases from leaf imagery.
-            -   **Application**: The paper also outlines the system's architecture for deployment on an autonomous robotic platform, enabling scalable, real-time crop health monitoring across large agricultural fields.
-
-    -   **Key Projects**:
-        -   **Crack Detection in Pipelines**:
-            -   **Objective**: To engineer a non-invasive solution to improve industrial safety and reduce maintenance costs.
-            -   **Method**: Leveraged data from advanced sensors and applied machine learning classifiers to accurately detect and classify structural cracks in industrial pipelines.
-            -   **Outcome**: The system demonstrated high accuracy, providing a proactive method for preventing potential infrastructure failures.
-        -   **Tableau Data Visualizations**:
-            -   **Objective**: To democratize data access and understanding for non-technical users.
-            -   **Method**: Developed a portfolio of interactive business intelligence dashboards using Tableau, connecting to various data sources.
-            -   **Outcome**: Transformed complex raw datasets into intuitive, easy-to-understand visualizations, enabling stakeholders to explore trends, apply filters, and extract clear, actionable insights without needing technical expertise.
-
-    -   **Certifications**:
-        -   **Oracle Certified Data Science Professional**: Validates expertise in using Oracle Cloud Infrastructure (OCI) services for data science workflows.
-        -   **MySQL HeatWave Certified Associate**: Demonstrates proficiency in implementing and managing MySQL HeatWave, an in-memory query accelerator.
-
-    -   **Contact Information**: The most effective way to contact Amith is by email at **amithnaglapura@gmail.com**.
-`;
-
-        const prompt = `You are a helpful AI assistant for Amith Naglapura's portfolio. Your answers must be based *only* on the context provided below.
-        - Your primary goal is to answer questions about Amith's professional profile.
-        - If asked what Amith is doing now, about his current status, or where he is, you MUST state that he is starting his MSc in AI in Business at Queen's University Belfast.
-        - If asked for his contact information or how to get in touch, you MUST provide his email: amithnaglapura@gmail.com.
-        - For any other questions, use the provided context.
-        - If asked about the latest certification, you must provide the list of certifications and highlight that Amith is recognized as an Oracle Certified professional under the Race to Certification 2025 program.
-        - If asked a question you cannot answer from the context, politely say you don't have that information and suggest a relevant question they could ask, like "What are his technical skills?". Do not make up information.
-
-        Context:
-        ---
-        ${context}
-        ---
-
-        User's Question: "${userQuestion}"`;
-        
-        const payload = {
-            contents: [{ role: "user", parts: [{ text: prompt }] }]
-        };
-
-        const apiKey = "AIzaSyCmXt4_sh9o2Rxqg_56jPH0YThK5JCnhn4"; // The build environment provides the key
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-preview-0514:generateContent?key=${apiKey}`;
-
-        try {
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            if (!response.ok) throw new Error(`API error: ${response.statusText}`);
-            const result = await response.json();
-            const text = result.candidates[0].content.parts[0].text;
-            addMessageToChat(text, 'ai');
-        } catch (error) {
-            console.error('Error calling Gemini API:', error);
-            addMessageToChat('Sorry, an error occurred. Please try again.', 'ai');
-        } finally {
-            removeTypingIndicator();
-            sendChatBtn.disabled = false;
-        }
-    }
 </script>
 </body>
 </html>
