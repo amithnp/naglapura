@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 /* --- Cosmic Latte Color Palette --- */
 :root {
@@ -87,6 +87,10 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #79e1ff; /* Brighter Hover */
     transform: scale(1.05);
 }
+.btn-primary:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
 .btn-secondary {
     background-color: transparent;
     border: 1px solid var(--border-color);
@@ -102,8 +106,8 @@ h1, h2, h3, h4, h5, h6 {
     border: 4px solid rgba(255, 248, 231, 0.1);
     border-left-color: var(--accent-color-blue);
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
+    width: 24px;
+    height: 24px;
     animation: spin 1s linear infinite;
 }
 @keyframes spin {
@@ -132,10 +136,6 @@ to { transform: rotate(360deg); }
     overflow-y: auto;
     transition: transform 0.3s ease;
 }
-#admin-login-modal .modal-content,
-#add-project-modal .modal-content {
-    max-width: 650px;
-}
 .modal-overlay.hidden {
     opacity: 0;
     pointer-events: none;
@@ -154,48 +154,6 @@ to { transform: rotate(360deg); }
 }
 .modal-close:hover {
     color: var(--text-main);
-}
-/* Drag and Drop Area */
-.drop-zone {
-    border: 2px dashed var(--border-color);
-    border-radius: 0.5rem;
-    padding: 2rem;
-    text-align: center;
-    cursor: pointer;
-    transition: border-color 0.3s, background-color 0.3s;
-}
-.drop-zone.dragover {
-    border-color: var(--accent-color-blue);
-    background-color: rgba(71, 201, 255, 0.1);
-}
-.drop-zone-preview {
-    max-width: 200px;
-    max-height: 125px;
-    margin: 1rem auto 0;
-    border-radius: 0.5rem;
-}
-.delete-project-btn {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: #4b0b0b;
-    color: #f87171;
-    border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
-    border: 1px solid #f87171;
-    z-index: 10;
-    cursor: pointer;
-}
-.delete-project-btn:hover {
-    background: #7f1d1d;
-    color: #fca5a5;
-    transform: scale(1.1);
 }
 .fa, .fab, .fas {
     color: var(--accent-color-blue);
@@ -568,9 +526,6 @@ Explore Visualizations &rarr;
 <a href="https://github.com/AmithNaglapura" target="_blank" class="text-2xl social-icon text-gray-400 hover:text-white transition-colors">
 <i class="fab fa-github"></i>
 </a>
-<a href="#" id="admin-login-btn" class="text-2xl social-icon text-gray-400 hover:text-white transition-colors" title="Admin Login">
-<i class="fas fa-user-shield"></i>
-</a>
 </div>
 <p>Designed & Built by Amith Naglapura</p>
 <p>&copy; <span id="current-year">2025</span>. All rights reserved.</p>
@@ -580,80 +535,17 @@ Explore Visualizations &rarr;
     <p id="notification-text"></p>
 </div>
 
-<div id="confirm-modal" class="modal-overlay hidden">
-    <div class="modal-content glassmorphism rounded-lg max-w-sm">
-        <h3 id="confirm-title" class="text-xl font-bold mb-4 text-center highlight-text">Confirm Action</h3>
-        <p id="confirm-text" class="text-text-secondary text-center mb-6">Are you sure?</p>
-        <div class="flex justify-center gap-4">
-            <button id="confirm-no-btn" class="btn-secondary font-bold py-2 px-6 rounded-full">Cancel</button>
-            <button id="confirm-yes-btn" class="btn-primary font-bold py-2 px-6 rounded-full">Confirm</button>
-        </div>
-    </div>
-</div>
-
 <div id="tableau-modal" class="modal-overlay hidden">
 <div class="modal-content glassmorphism rounded-lg">
 <span class="modal-close">&times;</span>
 <div class="flex justify-between items-center mb-8">
     <h3 class="text-3xl font-bold text-center highlight-text">Tableau Visualizations</h3>
-    <button id="open-add-project-modal-btn" class="btn-primary py-2 px-5 rounded-full hidden">
-        <i class="fas fa-plus mr-2"></i> Add Project
-    </button>
 </div>
 <div id="tableau-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     </div>
 </div>
 </div>
 
-<div id="admin-login-modal" class="modal-overlay hidden">
-<div class="modal-content glassmorphism rounded-lg">
-<span class="modal-close">&times;</span>
-<h3 class="text-2xl font-bold mb-6 text-center highlight-text">Admin Access</h4>
-<div class="space-y-4">
-<div>
-<label for="username" class="block text-sm font-medium text-gray-400">Email</label>
-<input type="email" id="username" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" placeholder="Enter admin email" style="color: var(--text-main);">
-</div>
-<div>
-    <label for="password" class="block text-sm font-medium text-gray-400">Password</label>
-    <input type="password" id="password" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" placeholder="Enter password" style="color: var(--text-main);">
-</div>
-<button id="login-submit-btn" class="w-full btn-primary font-bold py-2 px-4 rounded-full">Login</button>
-</div>
-</div>
-</div>
-
-<div id="add-project-modal" class="modal-overlay hidden">
-<div class="modal-content glassmorphism rounded-lg">
-<span class="modal-close">&times;</span>
-<h3 class="text-2xl font-bold mb-6 text-center highlight-text">Add New Tableau Project</h3>
-<form id="add-project-form" class="space-y-4">
-<div>
-<label for="project-title" class="block text-sm font-medium text-gray-400">Project Title</label>
-<input type="text" id="project-title" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" required style="color: var(--text-main);">
-</div>
-<div>
-    <label for="project-desc" class="block text-sm font-medium text-gray-400 mb-1">Description</label>
-    <textarea id="project-desc" rows="3" class="block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" required style="color: var(--text-main);"></textarea>
-</div>
-<div>
-<label for="project-url" class="block text-sm font-medium text-gray-400">Tableau Public URL</label>
-<input type="url" id="project-url" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" placeholder="https://public.tableau.com/views/..." required style="color: var(--text-main);">
-</div>
-<div>
-<label class="block text-sm font-medium text-gray-400">Thumbnail Image</label>
-<div id="drop-zone" class="mt-1 drop-zone">
-<p class="text-gray-500">Drag & drop an image here, or click to select</p>
-<input type="file" id="project-thumbnail-input" class="hidden" accept="image/*">
-<img id="thumbnail-preview" class="hidden drop-zone-preview" alt="Thumbnail preview">
-</div>
-</div>
-<button type="submit" id="save-project-btn" class="w-full btn-primary font-bold py-2 px-4 rounded-full">Save Project</button>
-</form>
-</div>
-</div>
-
-<!-- AI Chat Modal -->
 <div id="ai-chat-modal" class="modal-overlay hidden">
     <div id="ai-chat-container" class="modal-content glassmorphism rounded-lg max-w-lg w-full flex flex-col" style="height: 70vh;">
         <div class="flex-shrink-0 flex justify-between items-center pb-4 border-b border-border-color">
@@ -661,8 +553,7 @@ Explore Visualizations &rarr;
             <span id="ai-chat-close" class="modal-close static text-2xl cursor-pointer">&times;</span>
         </div>
         <div id="chat-messages" class="flex-grow p-4 space-y-4 overflow-y-auto">
-            <!-- Initial bot message -->
-             <div class="flex justify-start">
+            <div class="flex justify-start">
                 <div class="chat-bot-message rounded-lg p-3 max-w-xs lg:max-w-md">
                     <p class="text-sm">Hello! I'm Amith's AI assistant. Feel free to ask me anything about his skills, projects, or experience.</p>
                 </div>
@@ -682,32 +573,7 @@ Explore Visualizations &rarr;
     </div>
 </div>
 
-
-<!-- Updated to use Firebase v11 (Modular) -->
-<script type="module">
-    // --- FIREBASE V11 (MODULAR) IMPORTS ---
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, collection, getDocs, query, orderBy, addDoc, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-    // --- FIREBASE CONFIGURATION ---
-    const firebaseConfig = {
-      apiKey: "AIzaSyD3Tg39E6Jjn5wxaOw3y_jOZajezPdHFN8",
-      authDomain: "newamith-f98e4.firebaseapp.com",
-      projectId: "newamith-f98e4",
-      storageBucket: "newamith-f98e4.firebasestorage.app",
-      messagingSenderId: "726089833559",
-      appId: "1:726089833559:web:7531aeb1fb54ec17b59712",
-      measurementId: "G-2JB7NXT8KY"
-    };
-
-    // --- FIREBASE INITIALIZATION ---
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const projectsCollectionRef = collection(db, 'tableauProjects');
-
-
+<script>
     // --- GALAXY BACKGROUND ANIMATION ---
     const canvas = document.getElementById('galaxy-canvas');
     const ctx = canvas.getContext('2d');
@@ -763,7 +629,7 @@ Explore Visualizations &rarr;
     }
     setupUIInteractions();
     
-    // --- NOTIFICATION & CONFIRMATION SYSTEM ---
+    // --- NOTIFICATION SYSTEM ---
     const notificationToast = document.getElementById('notification-toast');
     const notificationText = document.getElementById('notification-text');
     let notificationTimeout;
@@ -774,80 +640,69 @@ Explore Visualizations &rarr;
         notificationToast.classList.add('show', type);
         notificationTimeout = setTimeout(() => notificationToast.classList.remove('show'), duration);
     }
-    const confirmModal = document.getElementById('confirm-modal');
-    function showConfirmation(title, text) {
-        return new Promise((resolve) => {
-            document.getElementById('confirm-title').textContent = title;
-            document.getElementById('confirm-text').textContent = text;
-            confirmModal.classList.remove('hidden');
-            const yesHandler = () => { confirmModal.classList.add('hidden'); resolve(true); cleanup(); };
-            const noHandler = () => { confirmModal.classList.add('hidden'); resolve(false); cleanup(); };
-            const cleanup = () => {
-                document.getElementById('confirm-yes-btn').removeEventListener('click', yesHandler);
-                document.getElementById('confirm-no-btn').removeEventListener('click', noHandler);
-            };
-            document.getElementById('confirm-yes-btn').addEventListener('click', yesHandler);
-            document.getElementById('confirm-no-btn').addEventListener('click', noHandler);
-        });
-    }
-
-    // --- DYNAMIC PROJECT & ADMIN LOGIC ---
-    let isAdminLoggedIn = false;
-    let newThumbnailData = null;
 
     // --- MODAL MANAGEMENT ---
     const modals = {
         tableau: document.getElementById('tableau-modal'),
-        adminLogin: document.getElementById('admin-login-modal'),
-        addProject: document.getElementById('add-project-modal'),
         aiChat: document.getElementById('ai-chat-modal')
     };
     const openModal = (modal) => modal.classList.remove('hidden');
     const closeModal = (modal) => modal.classList.add('hidden');
     Object.values(modals).forEach(modal => {
-        if (modal && modal.id !== 'ai-chat-modal') { // AI Chat modal has special close logic
-            modal.querySelector('.modal-close')?.addEventListener('click', () => closeModal(modal));
-            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(modal); });
+        if (modal) {
+             modal.querySelector('.modal-close')?.addEventListener('click', () => closeModal(modal));
+             modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(modal); });
         }
     });
+     // Special handler for AI chat modal close button inside container
+    document.getElementById('ai-chat-close').addEventListener('click', () => closeModal(modals.aiChat));
 
-    // --- TABLEAU PROJECTS LOGIC ---
+
+    // --- STATIC TABLEAU PROJECTS LOGIC ---
     const viewTableauBtn = document.getElementById('view-tableau-btn');
     const tableauProjectsContainer = document.getElementById('tableau-projects-container');
-    const openAddProjectModalBtn = document.getElementById('open-add-project-modal-btn');
 
-    async function renderTableauProjects() {
-        tableauProjectsContainer.innerHTML = '<div class="spinner mx-auto col-span-full"></div>';
-        try {
-            const q = query(projectsCollectionRef, orderBy("createdAt", "desc"));
-            const snapshot = await getDocs(q);
-
-            tableauProjectsContainer.innerHTML = '';
-            if (snapshot.empty) {
-                tableauProjectsContainer.innerHTML = `<p class="text-center text-gray-500 col-span-full p-8">No projects have been added yet.</p>`;
-            } else {
-                snapshot.forEach(doc => {
-                    const project = doc.data();
-                    const projectId = doc.id;
-                    const projectCard = document.createElement('div');
-                    projectCard.className = 'relative rounded-lg flex flex-col h-full card-hover overflow-hidden';
-                    projectCard.innerHTML = `
-                        ${isAdminLoggedIn ? `<button class="delete-project-btn" data-project-id="${projectId}" title="Delete Project"><i class="fas fa-trash-alt"></i></button>` : ''}
-                        <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="w-full h-auto object-cover aspect-video">
-                        <div class="p-4 flex flex-col flex-grow">
-                            <h4 class="text-lg font-bold highlight-text">${project.title}</h4>
-                            <p class="text-text-secondary my-2 text-sm flex-grow">${project.description}</p>
-                            <a href="${project.url}" target="_blank" class="font-semibold inline-block mt-2 self-start transition-colors hover:opacity-80" style="color: var(--accent-color-blue);">View on Tableau Public &rarr;</a>
-                        </div>
-                    `;
-                    tableauProjectsContainer.appendChild(projectCard);
-                });
-            }
-        } catch (error) {
-            console.error("Error fetching projects: ", error);
-            tableauProjectsContainer.innerHTML = `<p class="text-center text-red-500 col-span-full p-8">Failed to load projects.</p>`;
+    // To update your projects, edit this array
+    const tableauProjects = [
+        {
+            title: "US Superstore Sales Analysis (2015-2018)",
+            description: "An interactive dashboard analyzing sales, profit, and shipping trends for a global retail superstore.",
+            url: "https://public.tableau.com/views/SuperstoreSalesAnalysis_16812/GlobalSuperstoreDashboard?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link",
+            thumbnail: "" // Assumes image is in the same folder or a configured assets folder
+        },
+        {
+            title: "UK Car Sales Dashboard",
+            description: "A deep dive into the UK car market, visualizing sales data by manufacturer, model, and region.",
+            url: "https://public.tableau.com/views/UKCarSalesDashboard_16812/UKCarSalesDashboard?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link",
+            thumbnail: "car.jpeg" // Assumes image is in the same folder or a configured assets folder
+        },
+        {
+            title: "Healthcare Analytics: Patient Readmissions",
+            description: "Visualizing factors contributing to patient readmissions to identify key areas for hospital improvement.",
+            url: "#", // Replace with your actual Tableau public URL
+            thumbnail: "healthcare.png" // Assumes image is in the same folder or a configured assets folder
         }
-        openAddProjectModalBtn.classList.toggle('hidden', !isAdminLoggedIn);
+    ];
+
+    function renderTableauProjects() {
+        tableauProjectsContainer.innerHTML = '';
+        if (tableauProjects.length === 0) {
+            tableauProjectsContainer.innerHTML = `<p class="text-center text-gray-500 col-span-full p-8">No projects have been added yet.</p>`;
+        } else {
+            tableauProjects.forEach(project => {
+                const projectCard = document.createElement('div');
+                projectCard.className = 'relative rounded-lg flex flex-col h-full card-hover overflow-hidden';
+                projectCard.innerHTML = `
+                    <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="w-full h-auto object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/600x338/161b22/fff8e7?text=Image+Not+Found';">
+                    <div class="p-4 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold highlight-text">${project.title}</h4>
+                        <p class="text-text-secondary my-2 text-sm flex-grow">${project.description}</p>
+                        <a href="${project.url}" target="_blank" class="font-semibold inline-block mt-2 self-start transition-colors hover:opacity-80" style="color: var(--accent-color-blue);">View on Tableau Public &rarr;</a>
+                    </div>
+                `;
+                tableauProjectsContainer.appendChild(projectCard);
+            });
+        }
     }
 
     viewTableauBtn.addEventListener('click', () => {
@@ -855,147 +710,8 @@ Explore Visualizations &rarr;
         openModal(modals.tableau);
     });
 
-    openAddProjectModalBtn.addEventListener('click', () => openModal(modals.addProject));
-
-    tableauProjectsContainer.addEventListener('click', async (e) => {
-        const deleteBtn = e.target.closest('.delete-project-btn');
-        if (deleteBtn && isAdminLoggedIn) {
-            const projectId = deleteBtn.dataset.projectId;
-            const confirmed = await showConfirmation('Delete Project', 'Are you sure you want to delete this project? This action cannot be undone.');
-            if (confirmed) {
-                try {
-                    await deleteDoc(doc(db, 'tableauProjects', projectId));
-                    renderTableauProjects();
-                    showNotification('Project deleted successfully.', 'success');
-                } catch (error) {
-                    console.error("Error deleting project:", error);
-                    showNotification('Failed to delete project.', 'error');
-                }
-            }
-        }
-    });
-
-    // --- ADMIN AUTHENTICATION LOGIC ---
-    const adminLoginBtn = document.getElementById('admin-login-btn');
-    const loginSubmitBtn = document.getElementById('login-submit-btn');
-
-    onAuthStateChanged(auth, user => {
-        const icon = adminLoginBtn.querySelector('i');
-        if (user) {
-            isAdminLoggedIn = true;
-            icon.classList.replace('fa-user-shield', 'fa-right-from-bracket');
-            adminLoginBtn.title = "Admin Logout";
-        } else {
-            isAdminLoggedIn = false;
-            icon.classList.replace('fa-right-from-bracket', 'fa-user-shield');
-            adminLoginBtn.title = "Admin Login";
-        }
-        if (modals.tableau && !modals.tableau.classList.contains('hidden')) {
-            renderTableauProjects();
-        }
-    });
-
-    adminLoginBtn.addEventListener('click', async (e) => {
-        e.preventDefault();
-        if (isAdminLoggedIn) {
-            try {
-                await signOut(auth);
-                showNotification('Admin logged out.', 'success');
-            } catch (error) {
-                console.error("Logout failed:", error);
-                showNotification('Logout failed.', 'error');
-            }
-        } else {
-            openModal(modals.adminLogin);
-        }
-    });
-
-    loginSubmitBtn.addEventListener('click', async () => {
-        const emailInput = document.getElementById('username');
-        const passwordInput = document.getElementById('password');
-        try {
-            await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
-            closeModal(modals.adminLogin);
-            passwordInput.value = '';
-            emailInput.value = '';
-            showNotification('Admin login successful!', 'success');
-        } catch (error) {
-            console.error("Login failed:", error.message);
-            showNotification('Incorrect email or password.', 'error');
-            passwordInput.value = '';
-        }
-    });
-
-    // --- DRAG & DROP LOGIC FOR THUMBNAIL ---
-    const dropZone = document.getElementById('drop-zone');
-    const thumbnailInput = document.getElementById('project-thumbnail-input');
-    const thumbnailPreview = document.getElementById('thumbnail-preview');
-    const preventDefaults = (e) => { e.preventDefault(); e.stopPropagation(); };
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, preventDefaults, false);
-    });
-    dropZone.addEventListener('dragenter', () => dropZone.classList.add('dragover'));
-    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-    dropZone.addEventListener('drop', (e) => {
-        dropZone.classList.remove('dragover');
-        if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
-    });
-    dropZone.addEventListener('click', () => thumbnailInput.click());
-    thumbnailInput.addEventListener('change', (e) => {
-        if (e.target.files.length > 0) handleFile(e.target.files[0]);
-    });
-    function handleFile(file) {
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                newThumbnailData = e.target.result;
-                thumbnailPreview.src = newThumbnailData;
-                thumbnailPreview.classList.remove('hidden');
-            };
-            reader.readAsDataURL(file);
-        } else {
-            showNotification('Please select an image file.', 'error');
-        }
-    }
-
-    // --- ADD NEW PROJECT FORM SUBMISSION ---
-    document.getElementById('add-project-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const title = document.getElementById('project-title').value;
-        const description = document.getElementById('project-desc').value;
-        const url = document.getElementById('project-url').value;
-
-        if (!title || !description || !url || !newThumbnailData) {
-            showNotification('Please fill out all fields and add a thumbnail.', 'error');
-            return;
-        }
-
-        const newProject = {
-            title,
-            description,
-            url,
-            thumbnail: newThumbnailData,
-            createdAt: serverTimestamp()
-        };
-
-        try {
-            await addDoc(projectsCollectionRef, newProject);
-            renderTableauProjects();
-            showNotification('Project added successfully!', 'success');
-            document.getElementById('add-project-form').reset();
-            thumbnailPreview.classList.add('hidden');
-            newThumbnailData = null;
-            closeModal(modals.addProject);
-        } catch (error) {
-            console.error("Error adding project: ", error);
-            showNotification('Failed to add project.', 'error');
-        }
-    });
-    
     // --- AI CHATBOT LOGIC ---
     const openAIChatBtnHome = document.getElementById('open-ai-chat-btn-home');
-    const aiChatModal = document.getElementById('ai-chat-modal');
-    const aiChatClose = document.getElementById('ai-chat-close');
     const chatMessagesContainer = document.getElementById('chat-messages');
     const chatForm = document.getElementById('chat-form');
     const chatInput = document.getElementById('chat-input');
@@ -1003,12 +719,6 @@ Explore Visualizations &rarr;
 
     // Toggle chat modal
     openAIChatBtnHome.addEventListener('click', () => openModal(modals.aiChat));
-    aiChatClose.addEventListener('click', () => closeModal(modals.aiChat));
-    aiChatModal.addEventListener('click', (e) => {
-        if (e.target === aiChatModal) {
-            closeModal(modals.aiChat);
-        }
-    });
 
     // Function to generate a context string from the portfolio content
     function generatePortfolioContext() {
@@ -1087,7 +797,7 @@ Explore Visualizations &rarr;
     });
 
     async function callGeminiAPI(userQuery) {
-        const apiKey = "AIzaSyBb7dLaR4u6GA5mfck8TJw57Ji7U7vrVXU"; // This will be provided by the runtime environment
+        const apiKey = "AIzaSyBb7dLaR4u6GA5mfck8TJw57Ji7U7vrVXU"; // IMPORTANT: Replace with your actual Gemini API Key
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
         const portfolioContext = generatePortfolioContext();
         
