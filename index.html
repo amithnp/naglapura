@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 /* --- Cosmic Latte Color Palette --- */
 :root {
@@ -190,6 +190,7 @@ to { transform: rotate(360deg); }
     transition: all 0.2s ease;
     border: 1px solid #f87171;
     z-index: 10;
+    cursor: pointer;
 }
 .delete-project-btn:hover {
     background: #7f1d1d;
@@ -225,8 +226,6 @@ to { transform: rotate(360deg); }
 .nav-link:hover::after {
     width: 100%;
 }
-
-/* --- Notification Toast --- */
 #notification-toast {
     transition: transform 0.5s ease-in-out;
     transform: translateX(calc(100% + 1rem));
@@ -242,7 +241,6 @@ to { transform: rotate(360deg); }
     background-color: #991b1b;
     border: 1px solid #ef4444;
 }
-
 </style>
 </head>
 <body class="antialiased">
@@ -287,7 +285,6 @@ to { transform: rotate(360deg); }
 </header>
 
 <main class="container mx-auto px-4 pt-24 relative z-10">
-
 <section id="home" class="min-h-screen flex items-center justify-center text-center">
 <div class="max-w-4xl">
 <span class="font-semibold" style="color: var(--accent-color-blue);">Hi, my name is</span>
@@ -574,28 +571,14 @@ Say Hello
 <div id="tableau-modal" class="modal-overlay hidden">
 <div class="modal-content glassmorphism rounded-lg">
 <span class="modal-close">&times;</span>
-<h3 class="text-3xl font-bold mb-8 text-center highlight-text">Tableau Visualizations</h3>
-<div id="tableau-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div class="relative rounded-lg flex flex-col h-full card-hover overflow-hidden">
-        <img src="https://placehold.co/400x225/161b22/58d0ff?text=Sales+Dashboard" alt="Sales Dashboard thumbnail" class="w-full h-auto object-cover aspect-video">
-        <div class="p-4 flex flex-col flex-grow">
-            <h4 class="text-lg font-bold highlight-text">Global Sales Dashboard</h4>
-            <p class="text-text-secondary my-2 text-sm flex-grow">An interactive dashboard analyzing global sales data to identify key market trends and regional performance.</p>
-            <a href="#" target="_blank" class="font-semibold inline-block mt-2 self-start transition-colors hover:opacity-80" style="color: var(--accent-color-blue);">View on Tableau Public &rarr;</a>
-        </div>
-    </div>
-    <div class="relative rounded-lg flex flex-col h-full card-hover overflow-hidden">
-        <img src="https://placehold.co/400x225/161b22/ffea00?text=HR+Analytics" alt="HR Analytics thumbnail" class="w-full h-auto object-cover aspect-video">
-        <div class="p-4 flex flex-col flex-grow">
-            <h4 class="text-lg font-bold highlight-text">HR Analytics: Employee Attrition</h4>
-            <p class="text-text-secondary my-2 text-sm flex-grow">A visualization exploring the factors contributing to employee attrition, helping to inform retention strategies.</p>
-            <a href="#" target="_blank" class="font-semibold inline-block mt-2 self-start transition-colors hover:opacity-80" style="color: var(--accent-color-blue);">View on Tableau Public &rarr;</a>
-        </div>
-    </div>
-    <div class="relative rounded-lg flex flex-col h-full card-hover overflow-hidden">
-        <p class="text-center text-gray-500 col-span-full p-8">More projects coming soon.</p>
-    </div>
+<div class="flex justify-between items-center mb-8">
+    <h3 class="text-3xl font-bold text-center highlight-text">Tableau Visualizations</h3>
+    <button id="open-add-project-modal-btn" class="btn-primary py-2 px-5 rounded-full hidden">
+        <i class="fas fa-plus mr-2"></i> Add Project
+    </button>
 </div>
+<div id="tableau-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    </div>
 </div>
 </div>
 
@@ -605,15 +588,14 @@ Say Hello
 <h3 class="text-2xl font-bold mb-6 text-center highlight-text">Admin Access</h4>
 <div class="space-y-4">
 <div>
-<label for="username" class="block text-sm font-medium text-gray-400">User Name</label>
-<input type="text" id="username" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" value="Amith" readonly style="color: var(--text-main);">
+<label for="username" class="block text-sm font-medium text-gray-400">Email</label>
+<input type="email" id="username" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" placeholder="Enter admin email" style="color: var(--text-main);">
 </div>
 <div>
     <label for="password" class="block text-sm font-medium text-gray-400">Password</label>
     <input type="password" id="password" class="mt-1 block w-full bg-gray-800 border-border-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-accent-color-blue focus:border-accent-color-blue" placeholder="Enter password" style="color: var(--text-main);">
 </div>
 <button id="login-submit-btn" class="w-full btn-primary font-bold py-2 px-4 rounded-full">Login</button>
-<p class="text-xs text-gray-500 text-center mt-2">Note: This is a front-end simulation for demonstration purposes.</p>
 </div>
 </div>
 </div>
@@ -648,135 +630,109 @@ Say Hello
 </div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 <script>
-    // --- Galaxy Animation ---
+    // --- COMPLETE FIREBASE CONFIG ---
+    // This is the full config object from your screenshot
+    const firebaseConfig = {
+  apiKey: "AIzaSyD3Tg39E6Jjn5wxaOw3y_jOZajezPdHFN8",
+  authDomain: "newamith-f98e4.firebaseapp.com",
+  projectId: "newamith-f98e4",
+  storageBucket: "newamith-f98e4.firebasestorage.app",
+  messagingSenderId: "726089833559",
+  appId: "1:726089833559:web:7531aeb1fb54ec17b59712",
+  measurementId: "G-2JB7NXT8KY"
+};
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const projectsCollection = db.collection('tableauProjects');
+
+
+    // --- Galaxy Animation (No Changes) ---
     const canvas = document.getElementById('galaxy-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
     const numParticles = 400;
-
-    function setCanvasSize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-
+    function setCanvasSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     function createParticles() {
         particles = [];
         for (let i = 0; i < numParticles; i++) {
             particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
+                x: Math.random() * canvas.width, y: Math.random() * canvas.height,
                 radius: Math.random() * 1.2 + 0.1,
-                speedX: (Math.random() - 0.5) * 0.1,
-                speedY: (Math.random() - 0.5) * 0.1,
+                speedX: (Math.random() - 0.5) * 0.1, speedY: (Math.random() - 0.5) * 0.1,
                 color: `rgba(255, 234, 0, ${0.3 + Math.random() * 0.5})`
             });
         }
     }
-
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach(p => {
-            p.x += p.speedX;
-            p.y += p.speedY;
-            if (p.x < 0) p.x = canvas.width;
-            if (p.x > canvas.width) p.x = 0;
-            if (p.y < 0) p.y = canvas.height;
-            if (p.y > canvas.height) p.y = 0;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = p.color;
-            ctx.fill();
+            p.x += p.speedX; p.y += p.speedY;
+            if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+            if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color; ctx.fill();
         });
         requestAnimationFrame(animate);
     }
-    
     window.addEventListener('resize', () => { setCanvasSize(); createParticles(); });
-    setCanvasSize();
-    createParticles();
-    animate();
+    setCanvasSize(); createParticles(); animate();
 
-    // --- UI Interactions ---
+    // --- UI Interactions (No Changes) ---
     function setupUIInteractions() {
-        // Mobile menu
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-        });
-
-        // Navbar scroll effect
+        mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
         const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('bg-black/50', window.scrollY > 50);
-        });
-
-        // Scroll-triggered fade-in animation
+        window.addEventListener('scroll', () => navbar.classList.toggle('bg-black/50', window.scrollY > 50));
         const sections = document.querySelectorAll('.slide-in-section');
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); } });
         }, { threshold: 0.1 });
         sections.forEach(section => observer.observe(section));
     }
     setupUIInteractions();
     
-    // --- Notification & Confirmation System ---
+    // --- Notification & Confirmation System (No Changes) ---
     const notificationToast = document.getElementById('notification-toast');
     const notificationText = document.getElementById('notification-text');
     let notificationTimeout;
-
     function showNotification(message, type = 'success', duration = 3000) {
         clearTimeout(notificationTimeout);
         notificationText.textContent = message;
-        notificationToast.className = 'fixed top-24 right-4 z-[1001] p-4 rounded-lg shadow-lg text-white'; // Reset
+        notificationToast.className = 'fixed top-24 right-4 z-[1001] p-4 rounded-lg shadow-lg text-white';
         notificationToast.classList.add('show', type);
-
-        notificationTimeout = setTimeout(() => {
-            notificationToast.classList.remove('show');
-        }, duration);
+        notificationTimeout = setTimeout(() => notificationToast.classList.remove('show'), duration);
     }
-
     const confirmModal = document.getElementById('confirm-modal');
-    const confirmTitle = document.getElementById('confirm-title');
-    const confirmText = document.getElementById('confirm-text');
-    const confirmYesBtn = document.getElementById('confirm-yes-btn');
-    const confirmNoBtn = document.getElementById('confirm-no-btn');
-
     function showConfirmation(title, text) {
         return new Promise((resolve) => {
-            confirmTitle.textContent = title;
-            confirmText.textContent = text;
+            document.getElementById('confirm-title').textContent = title;
+            document.getElementById('confirm-text').textContent = text;
             confirmModal.classList.remove('hidden');
-
-            const yesHandler = () => {
-                confirmModal.classList.add('hidden');
-                resolve(true);
-                confirmYesBtn.removeEventListener('click', yesHandler);
-                confirmNoBtn.removeEventListener('click', noHandler);
+            const yesHandler = () => { confirmModal.classList.add('hidden'); resolve(true); cleanup(); };
+            const noHandler = () => { confirmModal.classList.add('hidden'); resolve(false); cleanup(); };
+            const cleanup = () => {
+                document.getElementById('confirm-yes-btn').removeEventListener('click', yesHandler);
+                document.getElementById('confirm-no-btn').removeEventListener('click', noHandler);
             };
-
-            const noHandler = () => {
-                confirmModal.classList.add('hidden');
-                resolve(false);
-                confirmYesBtn.removeEventListener('click', yesHandler);
-                confirmNoBtn.removeEventListener('click', noHandler);
-            };
-
-            confirmYesBtn.addEventListener('click', yesHandler);
-            confirmNoBtn.addEventListener('click', noHandler);
+            document.getElementById('confirm-yes-btn').addEventListener('click', yesHandler);
+            document.getElementById('confirm-no-btn').addEventListener('click', noHandler);
         });
     }
 
-
-    // --- DYNAMIC PROJECT & ADMIN LOGIC (DEMO) ---
+    // --- DYNAMIC PROJECT & ADMIN LOGIC ---
     let isAdminLoggedIn = false;
     let newThumbnailData = null;
+    // REMOVED: The local tableauProjects array is no longer needed.
 
     // --- Modal Management ---
     const modals = {
@@ -793,62 +749,123 @@ Say Hello
         }
     });
 
-    // --- Tableau Projects Logic ---
+    // --- MODIFIED: Tableau Projects Logic ---
     const viewTableauBtn = document.getElementById('view-tableau-btn');
     const tableauProjectsContainer = document.getElementById('tableau-projects-container');
+    const openAddProjectModalBtn = document.getElementById('open-add-project-modal-btn');
 
-    // This function can be used to render delete buttons if admin logs in.
-    function renderTableauProjects() {
-        const deleteButtons = tableauProjectsContainer.querySelectorAll('.delete-project-btn');
-        if (isAdminLoggedIn) {
-            // In a real app, you would generate buttons here. For this demo, we just show them.
-             // For this static version, we can't dynamically add/remove, so we'll just leave this logic out for simplicity.
-        } else {
-            // Hide buttons
+    // MODIFIED: This function now reads directly from Firestore.
+    async function renderTableauProjects() {
+        tableauProjectsContainer.innerHTML = '<div class="spinner mx-auto col-span-full"></div>';
+        try {
+            const snapshot = await projectsCollection.orderBy("createdAt", "desc").get();
+            tableauProjectsContainer.innerHTML = '';
+            if (snapshot.empty) {
+                tableauProjectsContainer.innerHTML = `<p class="text-center text-gray-500 col-span-full p-8">No projects have been added yet.</p>`;
+            } else {
+                snapshot.forEach(doc => {
+                    const project = doc.data();
+                    const projectId = doc.id;
+                    const projectCard = document.createElement('div');
+                    projectCard.className = 'relative rounded-lg flex flex-col h-full card-hover overflow-hidden';
+                    projectCard.innerHTML = `
+                        ${isAdminLoggedIn ? `<button class="delete-project-btn" data-project-id="${projectId}" title="Delete Project"><i class="fas fa-trash-alt"></i></button>` : ''}
+                        <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="w-full h-auto object-cover aspect-video">
+                        <div class="p-4 flex flex-col flex-grow">
+                            <h4 class="text-lg font-bold highlight-text">${project.title}</h4>
+                            <p class="text-text-secondary my-2 text-sm flex-grow">${project.description}</p>
+                            <a href="${project.url}" target="_blank" class="font-semibold inline-block mt-2 self-start transition-colors hover:opacity-80" style="color: var(--accent-color-blue);">View on Tableau Public &rarr;</a>
+                        </div>
+                    `;
+                    tableauProjectsContainer.appendChild(projectCard);
+                });
+            }
+        } catch (error) {
+            console.error("Error fetching projects: ", error);
+            tableauProjectsContainer.innerHTML = `<p class="text-center text-red-500 col-span-full p-8">Failed to load projects.</p>`;
         }
+        openAddProjectModalBtn.classList.toggle('hidden', !isAdminLoggedIn);
     }
 
     viewTableauBtn.addEventListener('click', () => {
-        renderTableauProjects(); // In case we add dynamic button rendering later
+        renderTableauProjects();
         openModal(modals.tableau);
     });
 
+    openAddProjectModalBtn.addEventListener('click', () => openModal(modals.addProject));
+
+    // MODIFIED: This now deletes from Firestore.
     tableauProjectsContainer.addEventListener('click', async (e) => {
-        if (e.target.closest('.delete-project-btn')) {
-            showNotification('This is a demo. Delete functionality is disabled.', 'error');
+        const deleteBtn = e.target.closest('.delete-project-btn');
+        if (deleteBtn && isAdminLoggedIn) {
+            const projectId = deleteBtn.dataset.projectId;
+            const confirmed = await showConfirmation('Delete Project', 'Are you sure you want to delete this project? This action cannot be undone.');
+            if (confirmed) {
+                try {
+                    await projectsCollection.doc(projectId).delete();
+                    renderTableauProjects();
+                    showNotification('Project deleted successfully.', 'success');
+                } catch (error) {
+                    console.error("Error deleting project:", error);
+                    showNotification('Failed to delete project.', 'error');
+                }
+            }
         }
     });
 
-    // --- Admin Logic ---
+    // --- MODIFIED: Admin Logic ---
     const adminLoginBtn = document.getElementById('admin-login-btn');
     const loginSubmitBtn = document.getElementById('login-submit-btn');
 
-    adminLoginBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        openModal(modals.adminLogin);
-    });
-
-    loginSubmitBtn.addEventListener('click', () => {
-        const passwordInput = document.getElementById('password');
-        if (passwordInput.value === 'Amithnp@18') {
+    // MODIFIED: This now checks Firebase for the logged-in user.
+    auth.onAuthStateChanged(user => {
+        const icon = adminLoginBtn.querySelector('i');
+        if (user) {
             isAdminLoggedIn = true;
-            closeModal(modals.adminLogin);
-            openModal(modals.addProject);
-            passwordInput.value = ''; 
-            renderTableauProjects();
-            showNotification('Admin login successful! (Demo Mode)', 'success');
+            icon.classList.replace('fa-user-shield', 'fa-right-from-bracket');
+            adminLoginBtn.title = "Admin Logout";
         } else {
             isAdminLoggedIn = false;
-            showNotification('Incorrect password.', 'error');
-            passwordInput.value = '';
+            icon.classList.replace('fa-right-from-bracket', 'fa-user-shield');
+            adminLoginBtn.title = "Admin Login";
+        }
+        if (modals.tableau && !modals.tableau.classList.contains('hidden')) {
+            renderTableauProjects();
         }
     });
 
-    // Drag and Drop Logic
+    // MODIFIED: Handles both login and logout.
+    adminLoginBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (isAdminLoggedIn) {
+            auth.signOut().then(() => showNotification('Admin logged out.', 'success'));
+        } else {
+            openModal(modals.adminLogin);
+        }
+    });
+
+    // MODIFIED: Uses Firebase Auth to log in.
+    loginSubmitBtn.addEventListener('click', () => {
+        const emailInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        auth.signInWithEmailAndPassword(emailInput.value, passwordInput.value)
+            .then((userCredential) => {
+                closeModal(modals.adminLogin);
+                passwordInput.value = '';
+                emailInput.value = '';
+                showNotification('Admin login successful!', 'success');
+            })
+            .catch((error) => {
+                console.error("Login failed:", error.message);
+                showNotification('Incorrect email or password.', 'error');
+                passwordInput.value = '';
+            });
+    });
+
+    // --- Drag and Drop Logic (No changes) ---
     const dropZone = document.getElementById('drop-zone');
     const thumbnailInput = document.getElementById('project-thumbnail-input');
     const thumbnailPreview = document.getElementById('thumbnail-preview');
-
     const preventDefaults = (e) => { e.preventDefault(); e.stopPropagation(); };
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropZone.addEventListener(eventName, preventDefaults, false);
@@ -863,7 +880,6 @@ Say Hello
     thumbnailInput.addEventListener('change', (e) => {
         if (e.target.files.length > 0) handleFile(e.target.files[0]);
     });
-
     function handleFile(file) {
         if (file && file.type.startsWith('image/')) {
             const reader = new FileReader();
@@ -878,6 +894,7 @@ Say Hello
         }
     }
 
+    // MODIFIED: This now saves the new project to Firestore.
     document.getElementById('add-project-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const title = document.getElementById('project-title').value;
@@ -889,12 +906,26 @@ Say Hello
             return;
         }
 
-        // In this demo, we don't save to a database.
-        showNotification('Project submitted! (Demo only, not saved)', 'success');
-        document.getElementById('add-project-form').reset();
-        thumbnailPreview.classList.add('hidden');
-        newThumbnailData = null;
-        closeModal(modals.addProject);
+        const newProject = {
+            title,
+            description,
+            url,
+            thumbnail: newThumbnailData,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        try {
+            await projectsCollection.add(newProject);
+            renderTableauProjects();
+            showNotification('Project added successfully!', 'success');
+            document.getElementById('add-project-form').reset();
+            thumbnailPreview.classList.add('hidden');
+            newThumbnailData = null;
+            closeModal(modals.addProject);
+        } catch (error) {
+            console.error("Error adding project: ", error);
+            showNotification('Failed to add project.', 'error');
+        }
     });
 </script>
 </body>
