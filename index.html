@@ -1,852 +1,993 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amith Naglapura - Portfolio</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amith Naglapura - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- Cosmic Latte Color Palette --- */
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --accent-color-blue: #58d0ff;
+            --accent-color-yellow: #ffea00;
+            --text-main: #fff8e7;       /* Cosmic Latte */
+            --text-secondary: #ccc8b8; /* Muted Cosmic Latte */
+        }
 
-<!-- Fixed the 'xintegrity' issue -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<style>
-/* --- Cosmic Latte Color Palette --- */
-:root {
-    --bg-color: #0d1117;
-    --card-bg: #161b22;
-    --border-color: #30363d;
-    --accent-color-blue: #58d0ff; /* Brighter Blue */
-    --accent-color-yellow: #ffea00;
-    --text-main: #fff8e7;      /* Cosmic Latte */
-    --text-secondary: #ccc8b8; /* Muted Cosmic Latte */
-}
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
 
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    overflow-x: hidden;
-}
-#galaxy-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 0.5;
-}
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    color: var(--text-main);
-}
-.gradient-text {
-    background: linear-gradient(90deg, var(--accent-color-blue), var(--accent-color-yellow));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
-}
-.glassmorphism {
-    background: rgba(22, 27, 34, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--border-color);
-}
-.highlight-text {
-    color: var(--text-main);
-}
-.slide-in-section {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-.slide-in-section.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-.card-hover {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 0.75rem;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-.card-hover:hover {
-    transform: translateY(-6px);
-    background-color: #1c222b;
-}
-.btn-primary {
-    background-color: var(--accent-color-blue);
-    color: #0d1117;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-.btn-primary:hover {
-    background-color: #79e1ff; /* Brighter Hover */
-    transform: scale(1.05);
-}
-.btn-primary:disabled {
-    background-color: #555;
-    cursor: not-allowed;
-}
-.btn-secondary {
-    background-color: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    transition: all 0.3s ease;
-}
-.btn-secondary:hover {
-    background-color: var(--card-bg);
-    border-color: var(--accent-color-blue);
-    color: var(--text-main);
-}
-.spinner {
-    border: 4px solid rgba(255, 248, 231, 0.1);
-    border-left-color: var(--accent-color-blue);
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    animation: spin 1s linear infinite;
-}
-@keyframes spin {
-to { transform: rotate(360deg); }
-}
-/* Modal Styles */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    transition: opacity 0.3s ease;
-}
-.modal-content {
-    position: relative;
-    padding: 2rem;
-    width: 90%;
-    max-width: 1100px;
-    max-height: 90vh;
-    overflow-y: auto;
-    transition: transform 0.3s ease;
-}
-.modal-overlay.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-.modal-overlay.hidden .modal-content {
-    transform: scale(0.95);
-}
-.modal-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 1.5rem;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: color 0.2s;
-}
-.modal-close:hover {
-    color: var(--text-main);
-}
-.fa, .fab, .fas {
-    color: var(--accent-color-blue);
-}
-.social-icon:hover i {
-    color: var(--text-main);
-}
-.tag-blue {
-    background-color: rgba(71, 201, 255, 0.15);
-    color: var(--accent-color-blue);
-}
-.nav-link {
-    position: relative;
-    padding-bottom: 4px;
-    transition: color 0.3s;
-}
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background-color: var(--accent-color-yellow);
-    transition: width 0.3s ease-in-out;
-}
-.nav-link:hover::after {
-    width: 100%;
-}
-#notification-toast {
-    transition: transform 0.5s ease-in-out;
-    transform: translateX(calc(100% + 1rem));
-}
-#notification-toast.show {
-    transform: translateX(0);
-}
-#notification-toast.success {
-    background-color: #166534;
-    border: 1px solid #22c55e;
-}
-#notification-toast.error {
-    background-color: #991b1b;
-    border: 1px solid #ef4444;
-}
+        #galaxy-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+            pointer-events: none;
+        }
 
-/* AI Chat Styles */
-#chat-messages::-webkit-scrollbar {
-    width: 6px;
-}
-#chat-messages::-webkit-scrollbar-track {
-    background: transparent;
-}
-#chat-messages::-webkit-scrollbar-thumb {
-    background-color: var(--border-color);
-    border-radius: 20px;
-    border: 3px solid transparent;
-}
-.chat-user-message {
-    background-color: var(--accent-color-blue);
-    color: #0d1117;
-}
-.chat-bot-message {
-    background-color: #21262d; /* Slightly lighter than card bg */
-    color: var(--text-secondary);
-}
-</style>
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--accent-color-blue), var(--accent-color-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glassmorphism {
+            background: rgba(22, 27, 34, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+        }
+
+        .highlight-text {
+            color: var(--text-main);
+        }
+
+        .slide-in-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .slide-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-hover {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-6px);
+            background-color: #1c222b;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color-blue);
+            color: #0d1117;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #79e1ff;
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--card-bg);
+            border-color: var(--accent-color-blue);
+            color: var(--text-main);
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 248, 231, 0.1);
+            border-left-color: var(--accent-color-blue);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .modal-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .modal-content {
+            position: relative;
+            padding: 2rem;
+            width: 90%;
+            max-width: 1100px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            transform: scale(1);
+        }
+
+        .modal-overlay.hidden .modal-content {
+            transform: scale(0.95);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--text-main);
+        }
+
+        .fa, .fab, .fas {
+            color: var(--accent-color-blue);
+        }
+
+        .social-icon:hover i {
+            color: var(--text-main);
+        }
+
+        .tag-blue {
+            background-color: rgba(71, 201, 255, 0.15);
+            color: var(--accent-color-blue);
+        }
+
+        .nav-link {
+            position: relative;
+            padding-bottom: 4px;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color-yellow);
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        #notification-toast {
+            transition: transform 0.5s ease-in-out;
+            transform: translateX(calc(100% + 1rem));
+        }
+
+        #notification-toast.show {
+            transform: translateX(0);
+        }
+
+        #notification-toast.success {
+            background-color: #166534;
+            border: 1px solid #22c55e;
+        }
+
+        #notification-toast.error {
+            background-color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+
+        /* AI Chat Styles */
+        #chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        #chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #chat-messages::-webkit-scrollbar-thumb {
+            background-color: var(--border-color);
+            border-radius: 20px;
+            border: 3px solid transparent;
+        }
+        .chat-user-message {
+            background-color: var(--accent-color-blue);
+            color: #0d1117;
+        }
+        .chat-bot-message {
+            background-color: #21262d;
+            color: var(--text-secondary);
+        }
+        
+        /* Utility for missing images to look better */
+        img {
+            background-color: #1c222b;
+        }
+    </style>
 </head>
 <body class="antialiased">
-<canvas id="galaxy-canvas"></canvas>
+    <canvas id="galaxy-canvas"></canvas>
 
-<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
-<div class="container mx-auto px-4 py-4">
-<div class="flex justify-between items-center glassmorphism rounded-full px-6 py-3 shadow-lg">
-    <a href="#" class="text-xl font-bold tracking-wide text-white flex-shrink-0 hover:opacity-80 transition-opacity">
-        Amith N P
-    </a>
-    <nav class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-x-8 text-gray-300 font-medium">
-        <a href="#home" class="nav-link hover:text-white">Home</a>
-        <a href="#about" class="nav-link hover:text-white">About</a>
-        <a href="#education" class="nav-link hover:text-white">Education</a>
-        <a href="#skills" class="nav-link hover:text-white">Skills</a>
-        <a href="#experience" class="nav-link hover:text-white">Experience</a>
-        <a href="#projects" class="nav-link hover:text-white">Projects</a>
-        <a href="#publications" class="nav-link hover:text-white">Publications</a>
-        <a href="#contact" class="nav-link hover:text-white">Contact</a>
-    </nav>
-    <div>
-        <a href="mailto:amithnaglapura@gmail.com" class="hidden md:block btn-primary py-2 px-5 rounded-full">
-        Hire Me
-        </a>
-        <button id="mobile-menu-button" class="md:hidden text-2xl text-gray-300">
-        <i class="fas fa-bars"></i>
-        </button>
-    </div>
-</div>
-</div>
-<div id="mobile-menu" class="hidden md:hidden glassmorphism mx-4 rounded-lg shadow-lg">
-<a href="#home" class="block text-center py-3 hover:bg-gray-800 rounded-t-lg">Home</a>
-<a href="#about" class="block text-center py-3 hover:bg-gray-800">About</a>
-<a href="#education" class="block text-center py-3 hover:bg-gray-800">Education</a>
-<a href="#skills" class="block text-center py-3 hover:bg-gray-800">Skills</a>
-<a href="#experience" class="block text-center py-3 hover:bg-gray-800">Experience</a>
-<a href="#projects" class="block text-center py-3 hover:bg-gray-800">Projects</a>
-<a href="#publications" class="block text-center py-3 hover:bg-gray-800">Publications</a>
-<a href="#contact" class="block text-center py-3 hover:bg-gray-800 rounded-b-lg">Contact</a>
-</div>
-</header>
-
-<main class="container mx-auto px-4 pt-24 relative z-10">
-<section id="home" class="min-h-screen flex items-center justify-center text-center">
-<div class="max-w-4xl">
-<span class="font-semibold" style="color: var(--accent-color-blue);">Hi, my name is</span>
-<h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold my-4 highlight-text">Amith Naglapura</h1>
-<h2 class="text-4xl md:text-6xl lg:text-7xl font-bold text-text-secondary">I build data-driven solutions.</h2>
-<p class="mt-6 max-w-2xl mx-auto text-lg text-text-secondary">
-As a passionate technologist, I specialize in data analysis and creating data-driven applications. My expertise lies in transforming complex data into actionable insights and engineering solutions that bridge the gap between hardware and software.
-</p>
-<div class="mt-8 flex flex-wrap justify-center gap-4">
-    <a href="#projects" class="btn-primary py-3 px-6 rounded-full">
-        View My Work
-    </a>
-    <button id="open-ai-chat-btn-home" class="btn-secondary font-bold py-3 px-6 rounded-full inline-flex items-center">
-        <i class="fas fa-robot mr-2"></i> Ask AI Assistant
-    </button>
-    <a href="https://github.com/AmithNaglapura" target="_blank" class="btn-secondary font-bold py-3 px-6 rounded-full">
-        GitHub Profile
-    </a>
-</div>
-</div>
-</section>
-
-<section id="about" class="py-20 md:py-32 slide-in-section">
-<h2 class="text-4xl md:text-5xl font-bold text-center mb-12 highlight-text">
-About Me
-</h2>
-<div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
-<div class="md:w-1/2 lg:w-2/5">
-    <img src="IMG-20251115-WA0003.jpg.jpeg"
-    onerror="this.onerror=null;this.src='https://placehold.co/600x600/0d1117/c9d1d9?text=Amith+Naglapura';"
-    alt="A portrait of Amith Naglapura"
-    class="relative rounded-full shadow-2xl w-full h-auto object-cover aspect-square transform hover:scale-105 transition-transform duration-500 border-4 border-border-color">
-</div>
-<div class="md:w-1/2 lg:w-3/5">
-    <p class="text-3xl mb-4 text-text-secondary font-bold">
-        Hi, I’m Amith!
-    </p>
-    <p class="text-lg text-text-secondary text-justify">
-        I’m pursuing my <strong>MSc in Artificial Intelligence in Business</strong> at Queen’s University Belfast, where I explore how advanced AI technologies can solve real-world business challenges and drive innovation. Originally from Mysore, India, I hold a <strong>Bachelor of Engineering in Electronics and Communication</strong> from Vidyavardhaka College of Engineering. Starting with a foundation in hardware systems, my curiosity for the data behind them led me into data analysis and machine learning. Today, I combine my problem-solving skills and technical expertise to help businesses make smarter, data-driven decisions and turn ideas into lasting value.
-    </p>
-</div>
-</div>
-</section>
-
-<section id="education" class="py-20 md:py-32 slide-in-section">
-    <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
-        Education
-    </h2>
-    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="rounded-lg p-8 flex flex-col card-hover">
-            <div class="flex-grow flex items-center gap-6">
-                <img src="Queen's_University_Belfast_arms.svg.png" 
-                     onerror="this.onerror=null;this.src='https://placehold.co/100x100/161b22/fff8e7?text=QUB';"
-                     alt="Queen's University Belfast Logo" 
-                     class="w-20 h-20 md:w-24 md:h-24 object-contain flex-shrink-0 bg-white p-2 rounded-md">
-                <div>
-                    <h3 class="text-xl font-bold highlight-text">Master of Science</h3>
-                    <p class="text-md text-text-secondary">Queen's University Belfast</p>
-                    <p class="text-sm text-gray-500 mt-1">AI In Business | 2025 - 2026</p>
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center glassmorphism rounded-full px-6 py-3 shadow-lg">
+                <a href="#" class="text-xl font-bold tracking-wide text-white flex-shrink-0 hover:opacity-80 transition-opacity">
+                    Amith N P
+                </a>
+                <nav class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-x-8 text-gray-300 font-medium">
+                    <a href="#home" class="nav-link hover:text-white">Home</a>
+                    <a href="#about" class="nav-link hover:text-white">About</a>
+                    <a href="#education" class="nav-link hover:text-white">Education</a>
+                    <a href="#skills" class="nav-link hover:text-white">Skills</a>
+                    <a href="#experience" class="nav-link hover:text-white">Experience</a>
+                    <a href="#projects" class="nav-link hover:text-white">Projects</a>
+                    <a href="#publications" class="nav-link hover:text-white">Publications</a>
+                    <a href="#contact" class="nav-link hover:text-white">Contact</a>
+                </nav>
+                <div class="flex items-center gap-2">
+                    <a href="mailto:amithnaglapura@gmail.com" class="hidden md:block btn-primary py-2 px-5 rounded-full text-sm">
+                        Hire Me
+                    </a>
+                    <button id="mobile-menu-button" class="md:hidden text-2xl text-gray-300 p-2">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="rounded-lg p-8 flex flex-col card-hover">
-            <div class="flex-grow flex items-center gap-6">
-                <img src="vvce-logo.png" 
-                     onerror="this.onerror=null;this.src='https://placehold.co/100x100/161b22/fff8e7?text=VVCE';"
-                     alt="Vidyavardhaka College of Engineering Logo" 
-                     class="w-20 h-20 md:w-24 md:h-24 object-contain flex-shrink-0 bg-white p-2 rounded-md">
-                <div>
-                    <h3 class="text-xl font-bold highlight-text">Bachelor of Engineering</h3>
-                    <p class="text-md text-text-secondary">Vidyavardhaka College of Engineering, Mysore</p>
-                    <p class="text-sm text-gray-500 mt-1">Electronics And Communication | 2020 - 2024</p>
-                </div>
-            </div>
+        <div id="mobile-menu" class="hidden md:hidden glassmorphism mx-4 rounded-lg shadow-lg">
+            <a href="#home" class="block text-center py-3 hover:bg-gray-800 rounded-t-lg text-gray-300">Home</a>
+            <a href="#about" class="block text-center py-3 hover:bg-gray-800 text-gray-300">About</a>
+            <a href="#education" class="block text-center py-3 hover:bg-gray-800 text-gray-300">Education</a>
+            <a href="#skills" class="block text-center py-3 hover:bg-gray-800 text-gray-300">Skills</a>
+            <a href="#experience" class="block text-center py-3 hover:bg-gray-800 text-gray-300">Experience</a>
+            <a href="#projects" class="block text-center py-3 hover:bg-gray-800 text-gray-300">Projects</a>
+            <a href="#publications" class="block text-center py-3 hover:bg-gray-800 text-gray-300">Publications</a>
+            <a href="#contact" class="block text-center py-3 hover:bg-gray-800 rounded-b-lg text-gray-300">Contact</a>
         </div>
-    </div>
-</section>
+    </header>
 
-<section id="skills" class="py-20 md:py-32 slide-in-section">
-<h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
-Professional Skillset
-</h2>
-<div class="max-w-5xl mx-auto">
-    <div class="mb-16 p-8 rounded-lg card-hover">
-        <h3 class="text-3xl font-bold text-center mb-8 highlight-text">Certifications</h3>
-        <div class="mb-10 text-center">
-            <a target="_blank" rel="noopener noreferrer" title="View Certification">
-                 <img src="EMAIL-SIGNATURE_Level1.png"
-                      onerror="this.onerror=null;this.src='https://placehold.co/700x150/0d1117/c9d1d9?text=Oracle+Certification';"
-                      alt="Oracle Certification Banner"
-                      class="mx-auto rounded-lg shadow-2xl border-2 border-border-color transform hover:scale-105 transition-transform duration-300"
-                      style="max-width: 600px; width: 100%;">
-            </a>
-        </div>
-        
-        <div class="flex justify-center items-start flex-wrap gap-8 md:gap-16">
-            <a href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=B535BD4296838BBD92EC08632A3BFA10F470B84E4F8D0022738A95CFA5CCED7E" target="_blank" rel="noopener noreferrer" title="View OCI Data Science Professional Certification" class="text-center w-48 group">
-                <div class="h-32 w-32 md:h-40 md:w-40 rounded-full mx-auto border-2 border-border-color transform group-hover:scale-110 transition-transform duration-300 flex items-center justify-center overflow-hidden p-2">
-                    <img src="OCI25DSOCP.jpg"
-                         onerror="this.onerror=null;this.src='https://placehold.co/160x160/161b22/fff8e7?text=OCI';"
-                         alt="Oracle Cloud Infrastructure Data Science Professional Badge"
-                         class="h-full w-full object-contain">
-                </div>
-                <p class="mt-4 font-semibold text-text-secondary text-sm">OCI Data Science Professional</p>
-            </a>
-
-            <a href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=CE8517381AC5A3A738563AF8E8998E962E5A266C19196DE8D5392E9307C55C2A" target="_blank" rel="noopener noreferrer" title="View MySQL HeatWave Associate Certification" class="text-center w-48 group">
-                <div class="h-32 w-32 md:h-40 md:w-40 rounded-full mx-auto border-2 border-border-color transform group-hover:scale-110 transition-transform duration-300 flex items-center justify-center overflow-hidden p-2">
-                    <img src="MYSQLHWIMPOCA.jpg"
-                         onerror="this.onerror=null;this.src='https://placehold.co/160x160/161b22/fff8e7?text=MySQL';"
-                         alt="MySQL HeatWave Implementation Certified Associate Badge"
-                         class="h-full w-full object-contain">
-                </div>
-                <p class="mt-4 font-semibold text-text-secondary text-sm">MySQL HeatWave Associate</p>
-            </a>
-        </div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="rounded-lg p-8 card-hover">
-            <h3 class="text-2xl font-bold mb-6 highlight-text">Technical Skills</h3>
-            <ul class="space-y-3 text-text-secondary grid grid-cols-2 gap-x-4 gap-y-3">
-                <li class="flex items-center"><i class="fas fa-chart-line w-6 text-center mr-3"></i>Data Analysis</li>
-                <li class="flex items-center"><i class="fas fa-brain w-6 text-center mr-3"></i>Machine Learning</li>
-                <li class="flex items-center"><i class="fas fa-chart-pie w-6 text-center mr-3"></i>Tableau</li>
-                <li class="flex items-center"><i class="fas fa-database w-6 text-center mr-3"></i>SQL</li>
-                <li class="flex items-center"><i class="fab fa-python w-6 text-center mr-3"></i>Python</li>
-                <li class="flex items-center"><i class="fas fa-microchip w-6 text-center mr-3"></i>Embedded C, C++</li>
-                <li class="flex items-center"><i class="fab fa-r-project w-6 text-center mr-3"></i>R</li>
-                <li class="flex items-center"><i class="fab fa-html5 w-6 text-center mr-3"></i>HTML & CSS</li>
-            </ul>
-        </div>
-        <div class="rounded-lg p-8 card-hover">
-            <h3 class="text-2xl font-bold mb-6 highlight-text">Professional Skills</h3>
-            <ul class="space-y-3 text-text-secondary grid grid-cols-2 gap-x-4 gap-y-3">
-                <li class="flex items-center"><i class="fas fa-lightbulb w-6 text-center mr-3"></i>Problem Solving</li>
-                <li class="flex items-center"><i class="fas fa-tasks w-6 text-center mr-3"></i>Project Management</li>
-                <li class="flex items-center"><i class="fas fa-briefcase w-6 text-center mr-3"></i>Business Analysis</li>
-                <li class="flex items-center"><i class="fas fa-users w-6 text-center mr-3"></i>Leadership</li>
-            </ul>
-        </div>
-    </div>
-</div>
-</section>
-
-<section id="experience" class="py-20 md:py-32 slide-in-section">
-<h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
-Professional Experience
-</h2>
-<!-- Added grid-cols-1 lg:grid-cols-3 to accommodate 3 items, was md:grid-cols-2 -->
-<div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<!-- Technical Analyst card added back -->
-<div class="rounded-lg p-8 flex flex-col card-hover">
-<div class="flex-grow">
-<h3 class="text-xl font-bold mb-2 highlight-text">Technical Analyst</h3>
-<p class="text-sm text-gray-500 mb-2">Technical Analyst @ Proofile.in</p>
-<p class="text-text-secondary mb-4">Analyzed user engagement data using SQL to identify key trends and KPIs. Built interactive dashboards in Tableau and Power BI, presented data-driven insights to management, and collaborated on A/B testing to improve platform features.</p>
-</div>
-<div class="mt-4 flex flex-wrap gap-2">
-<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">SQL</span>
-<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Tableau</span>
-<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Power BI</span>
-<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Data Analysis</span>
-<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">A/B Testing</span>
-</div>
-</div>
-<!-- Existing new cards -->
-</div>
-<div class="rounded-lg p-8 flex flex-col card-hover">
-<div class="flex-grow">
-<h3 class="text-xl font-bold mb-2 highlight-text">Full-Stack Web Developer</h3>
-<p class="text-sm text-gray-500 mb-2">Freelance</p>
-<p class="text-text-secondary mb-4">Developed scalable full-stack applications for clients using Python, Go, React, and Kubernetes, managing the complete project lifecycle. Engineered an AI-powered Applicant Tracking System (ATS), showcasing skills in AI integration and automation, and implemented DevSecOps and CI/CD pipelines for efficient, secure deployments.</p>
-</div>
-<div class="mt-4 flex flex-wrap gap-2">
-<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">HTML</span>
-<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">React</span>
-<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">SQL</span>
-</div>
-</div>
-</div>
-</section>
-
-<section id="projects" class="py-20 md:py-32 slide-in-section">
-<h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
-My Projects
-</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="rounded-lg p-6 flex flex-col card-hover">
-<div class="flex-grow">
-<h3 class="text-xl font-bold mb-2 highlight-text">Early Crop Disease Detection</h3>
-<p class="text-sm text-gray-500 mb-2">Published Research Paper (IJFMR)</p>
-<p class="text-text-secondary mb-4">Designed a machine learning framework to identify crop diseases early, minimizing crop damage and optimizing yield for better agricultural productivity.</p>
-</div>
-<div class="mt-4 flex flex-wrap gap-2">
-<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
-<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
-</div>
-</div>
-<div class="rounded-lg p-6 flex flex-col card-hover">
-<div class="flex-grow">
-<h3 class="text-xl font-bold mb-2 highlight-text">Crack Detection in Pipelines</h3>
-<p class="text-sm text-gray-500 mb-2">Academic Project</p>
-<p class="text-text-secondary mb-4">Utilized advanced sensors and machine learning for the accurate, non-invasive detection of cracks in industrial pipelines.</p>
-</div>
-<div class="mt-4 flex flex-wrap gap-2">
-<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
-<span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Sensors</span>
-</div>
-</div>
-<div class="rounded-lg p-6 flex flex-col card-hover">
-<div class="flex-grow">
-<h3 class="text-xl font-bold mb-2 highlight-text">Tableau Data Visualizations</h3>
-<p class="text-sm text-gray-500 mb-2">Interactive Dashboards</p>
-<p class="text-text-secondary mb-4">A collection of interactive dashboards that transform complex datasets into clear, actionable insights. Click below to explore them all.</p>
-</div>
-<button id="view-tableau-btn" class="mt-4 font-semibold text-left transition-colors hover:opacity-80" style="color: var(--accent-color-blue);">
-Explore Visualizations &rarr;
-</button>
-</div>
-</div>
-</section>
-
-<section id="publications" class="py-20 md:py-32 slide-in-section">
-    <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
-        Publications
-    </h2>
-    <div class="max-w-4xl mx-auto">
-        <div class="rounded-lg p-8 flex flex-col md:flex-row items-center gap-8 card-hover">
-            <div class="flex-shrink-0 text-center">
-                <i class="fas fa-file-alt text-6xl md:text-7xl" style="color: var(--accent-color-blue);"></i>
-            </div>
-            <div class="flex-grow text-center md:text-left">
-                <h3 class="text-2xl font-bold mb-2 highlight-text">Machine Learning Framework for Early Detection of Crop Disease</h3>
-                <p class="text-sm text-gray-500 mb-3">
-                    International Journal for Multidisciplinary Research (IJFMR) &middot; May 14, 2024
+    <main class="container mx-auto px-4 pt-24 relative z-10">
+        <section id="home" class="min-h-screen flex items-center justify-center text-center -mt-20">
+            <div class="max-w-4xl px-4">
+                <span class="font-semibold block mb-2" style="color: var(--accent-color-blue);">Hi, my name is</span>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold my-4 highlight-text">Amith Naglapura</h1>
+                <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold text-text-secondary mt-4">I build data-driven solutions.</h2>
+                <p class="mt-8 max-w-2xl mx-auto text-lg text-text-secondary leading-relaxed">
+                    As a passionate technologist, I specialize in data analysis and creating data-driven applications. My expertise lies in transforming complex data into actionable insights and engineering solutions that bridge the gap between hardware and software.
                 </p>
-                <a href="https://www.ijfmr.com/research-paper.php?id=20240" target="_blank" rel="noopener noreferrer" class="btn-secondary font-bold py-2 px-5 rounded-full inline-block mt-2">
-                    Read Paper
+                <div class="mt-10 flex flex-wrap justify-center gap-4">
+                    <a href="#projects" class="btn-primary py-3 px-8 rounded-full shadow-lg shadow-blue-500/20">
+                        View My Work
+                    </a>
+                    <button id="open-ai-chat-btn-home" class="btn-secondary font-bold py-3 px-6 rounded-full inline-flex items-center">
+                        <i class="fas fa-robot mr-2"></i> Ask AI Assistant
+                    </button>
+                    <a href="https://github.com/AmithNaglapura" target="_blank" class="btn-secondary font-bold py-3 px-6 rounded-full">
+                        <i class="fab fa-github mr-2"></i> GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-20 md:py-32 slide-in-section">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
+                About Me
+            </h2>
+            <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16 max-w-6xl mx-auto">
+                <div class="md:w-1/2 lg:w-2/5 flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                        <img src="IMG-20251115-WA0003.jpg.jpeg"
+                             onerror="this.onerror=null;this.src='https://placehold.co/600x600/0d1117/c9d1d9?text=Amith+Naglapura';"
+                             alt="A portrait of Amith Naglapura"
+                             class="rounded-full shadow-2xl w-full h-full object-cover border-4 border-border-color transform hover:scale-105 transition-transform duration-500">
+                    </div>
+                </div>
+                <div class="md:w-1/2 lg:w-3/5">
+                    <p class="text-3xl mb-6 text-text-secondary font-bold">
+                        Hi, I’m Amith!
+                    </p>
+                    <p class="text-lg text-text-secondary text-justify leading-relaxed">
+                        I’m pursuing my <strong>MSc in Artificial Intelligence in Business</strong> at Queen’s University Belfast, where I explore how advanced AI technologies can solve real-world business challenges and drive innovation. Originally from Mysore, India, I hold a <strong>Bachelor of Engineering in Electronics and Communication</strong> from Vidyavardhaka College of Engineering. Starting with a foundation in hardware systems, my curiosity for the data behind them led me into data analysis and machine learning. Today, I combine my problem-solving skills and technical expertise to help businesses make smarter, data-driven decisions and turn ideas into lasting value.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="py-20 md:py-32 slide-in-section">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
+                Education
+            </h2>
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="rounded-lg p-8 flex flex-col card-hover">
+                    <div class="flex-grow flex items-center gap-6">
+                        <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 bg-white p-2 rounded-md flex items-center justify-center overflow-hidden">
+                             <img src="Queen's_University_Belfast_arms.svg.png" 
+                                  onerror="this.onerror=null;this.parentNode.innerHTML='<i class=\'fas fa-university text-3xl text-gray-800\'></i>';"
+                                  alt="QUB Logo" 
+                                  class="w-full h-full object-contain">
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold highlight-text">Master of Science</h3>
+                            <p class="text-md text-text-secondary">Queen's University Belfast</p>
+                            <p class="text-sm text-gray-500 mt-1">AI In Business | 2025 - 2026</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded-lg p-8 flex flex-col card-hover">
+                    <div class="flex-grow flex items-center gap-6">
+                        <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 bg-white p-2 rounded-md flex items-center justify-center overflow-hidden">
+                            <img src="vvce-logo.png" 
+                                 onerror="this.onerror=null;this.parentNode.innerHTML='<i class=\'fas fa-graduation-cap text-3xl text-gray-800\'></i>';"
+                                 alt="VVCE Logo" 
+                                 class="w-full h-full object-contain">
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold highlight-text">Bachelor of Engineering</h3>
+                            <p class="text-md text-text-secondary">Vidyavardhaka College of Engineering</p>
+                            <p class="text-sm text-gray-500 mt-1">Electronics & Communication | 2020 - 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-20 md:py-32 slide-in-section">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
+                Professional Skillset
+            </h2>
+            <div class="max-w-5xl mx-auto">
+                <div class="mb-16 p-8 rounded-lg card-hover border border-border-color">
+                    <h3 class="text-3xl font-bold text-center mb-8 highlight-text">Certifications</h3>
+                    <div class="mb-10 text-center">
+                        <a href="#" target="_blank" class="block">
+                             <img src="EMAIL-SIGNATURE_Level1.png"
+                                  onerror="this.onerror=null;this.src='https://placehold.co/700x150/0d1117/c9d1d9?text=Oracle+Certification+Banner';"
+                                  alt="Oracle Certification Banner"
+                                  class="mx-auto rounded-lg shadow-2xl border border-border-color transform hover:scale-105 transition-transform duration-300 w-full max-w-2xl">
+                        </a>
+                    </div>
+                    
+                    <div class="flex justify-center items-start flex-wrap gap-8 md:gap-16">
+                        <a href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=B535BD4296838BBD92EC08632A3BFA10F470B84E4F8D0022738A95CFA5CCED7E" target="_blank" class="text-center w-48 group">
+                            <div class="h-32 w-32 md:h-40 md:w-40 rounded-full mx-auto border-2 border-border-color transform group-hover:scale-110 transition-transform duration-300 flex items-center justify-center overflow-hidden p-4 bg-white/5">
+                                <img src="OCI25DSOCP.jpg"
+                                     onerror="this.onerror=null;this.src='https://placehold.co/160x160/161b22/fff8e7?text=OCI+Data';"
+                                     alt="OCI Data Science"
+                                     class="h-full w-full object-contain">
+                            </div>
+                            <p class="mt-4 font-semibold text-text-secondary text-sm group-hover:text-white transition-colors">OCI Data Science Professional</p>
+                        </a>
+
+                        <a href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=CE8517381AC5A3A738563AF8E8998E962E5A266C19196DE8D5392E9307C55C2A" target="_blank" class="text-center w-48 group">
+                            <div class="h-32 w-32 md:h-40 md:w-40 rounded-full mx-auto border-2 border-border-color transform group-hover:scale-110 transition-transform duration-300 flex items-center justify-center overflow-hidden p-4 bg-white/5">
+                                <img src="MYSQLHWIMPOCA.jpg"
+                                     onerror="this.onerror=null;this.src='https://placehold.co/160x160/161b22/fff8e7?text=MySQL';"
+                                     alt="MySQL HeatWave"
+                                     class="h-full w-full object-contain">
+                            </div>
+                            <p class="mt-4 font-semibold text-text-secondary text-sm group-hover:text-white transition-colors">MySQL HeatWave Associate</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="rounded-lg p-8 card-hover">
+                        <h3 class="text-2xl font-bold mb-6 highlight-text border-b border-gray-700 pb-2">Technical Skills</h3>
+                        <ul class="space-y-4 text-text-secondary">
+                            <li class="flex items-center"><i class="fas fa-chart-line w-8 text-center text-accent-color-blue"></i>Data Analysis</li>
+                            <li class="flex items-center"><i class="fas fa-brain w-8 text-center text-accent-color-blue"></i>Machine Learning</li>
+                            <li class="flex items-center"><i class="fas fa-chart-pie w-8 text-center text-accent-color-blue"></i>Tableau</li>
+                            <li class="flex items-center"><i class="fas fa-database w-8 text-center text-accent-color-blue"></i>SQL</li>
+                            <li class="flex items-center"><i class="fab fa-python w-8 text-center text-accent-color-blue"></i>Python</li>
+                            <li class="flex items-center"><i class="fas fa-microchip w-8 text-center text-accent-color-blue"></i>Embedded C, C++</li>
+                            <li class="flex items-center"><i class="fab fa-r-project w-8 text-center text-accent-color-blue"></i>R</li>
+                            <li class="flex items-center"><i class="fab fa-html5 w-8 text-center text-accent-color-blue"></i>HTML & CSS</li>
+                        </ul>
+                    </div>
+                    <div class="rounded-lg p-8 card-hover">
+                        <h3 class="text-2xl font-bold mb-6 highlight-text border-b border-gray-700 pb-2">Professional Skills</h3>
+                        <ul class="space-y-4 text-text-secondary">
+                            <li class="flex items-center"><i class="fas fa-lightbulb w-8 text-center text-accent-color-yellow"></i>Problem Solving</li>
+                            <li class="flex items-center"><i class="fas fa-tasks w-8 text-center text-accent-color-yellow"></i>Project Management</li>
+                            <li class="flex items-center"><i class="fas fa-briefcase w-8 text-center text-accent-color-yellow"></i>Business Analysis</li>
+                            <li class="flex items-center"><i class="fas fa-users w-8 text-center text-accent-color-yellow"></i>Leadership</li>
+                            <li class="flex items-center"><i class="fas fa-comments w-8 text-center text-accent-color-yellow"></i>Communication</li>
+                            <li class="flex items-center"><i class="fas fa-clock w-8 text-center text-accent-color-yellow"></i>Time Management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="py-20 md:py-32 slide-in-section">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
+                Professional Experience
+            </h2>
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="rounded-lg p-8 flex flex-col card-hover h-full">
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-bold mb-1 highlight-text">Technical Analyst</h3>
+                        <p class="text-sm text-accent-color-blue mb-4 font-semibold">Proofile.in</p>
+                        <p class="text-text-secondary mb-6 leading-relaxed">Analyzed user engagement data using SQL to identify key trends and KPIs. Built interactive dashboards in Tableau and Power BI, presented data-driven insights to management, and collaborated on A/B testing to improve platform features.</p>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2 pt-4 border-t border-gray-800">
+                        <span class="tag-blue text-xs font-semibold px-3 py-1 rounded-full">SQL</span>
+                        <span class="tag-blue text-xs font-semibold px-3 py-1 rounded-full">Tableau</span>
+                        <span class="tag-blue text-xs font-semibold px-3 py-1 rounded-full">Power BI</span>
+                        <span class="tag-blue text-xs font-semibold px-3 py-1 rounded-full">Data Analysis</span>
+                    </div>
+                </div>
+                
+                <div class="rounded-lg p-8 flex flex-col card-hover h-full">
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-bold mb-1 highlight-text">Full-Stack Web Developer</h3>
+                        <p class="text-sm text-accent-color-blue mb-4 font-semibold">Freelance</p>
+                        <p class="text-text-secondary mb-6 leading-relaxed">Developed scalable full-stack applications for clients using Python, Go, React, and Kubernetes. Engineered an AI-powered Applicant Tracking System (ATS), showcasing skills in AI integration and automation, and implemented DevSecOps and CI/CD pipelines.</p>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2 pt-4 border-t border-gray-800">
+                        <span class="tag-blue text-xs font-semibold px-3 py-1 rounded-full">React</span>
+                        <span class="tag-blue text-xs font-semibold px-3 py-1 rounded-full">Python</span>
+                        <span class="tag-blue text-xs font-semibold px-3 py-1 rounded-full">Kubernetes</span>
+                        <span class="tag-blue text-xs font-semibold px-3 py-1 rounded-full">CI/CD</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-20 md:py-32 slide-in-section">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
+                My Projects
+            </h2>
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="rounded-lg p-6 flex flex-col card-hover">
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-bold mb-2 highlight-text">Early Crop Disease Detection</h3>
+                        <p class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Research Project</p>
+                        <p class="text-text-secondary mb-4 text-sm leading-relaxed">Designed a machine learning framework to identify crop diseases early, minimizing crop damage and optimizing yield for better agricultural productivity.</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Machine Learning</span>
+                        <span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
+                    </div>
+                </div>
+                <div class="rounded-lg p-6 flex flex-col card-hover">
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-bold mb-2 highlight-text">Crack Detection in Pipelines</h3>
+                        <p class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Engineering Project</p>
+                        <p class="text-text-secondary mb-4 text-sm leading-relaxed">Utilized advanced sensors and machine learning for the accurate, non-invasive detection of cracks in industrial pipelines.</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">IoT</span>
+                        <span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Sensors</span>
+                        <span class="tag-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">ML</span>
+                    </div>
+                </div>
+                <div class="rounded-lg p-6 flex flex-col card-hover border-2 border-dashed border-gray-700 bg-transparent">
+                    <div class="flex-grow flex flex-col justify-center items-center text-center">
+                        <div class="bg-blue-500/20 p-4 rounded-full mb-4">
+                             <i class="fas fa-chart-bar text-3xl text-accent-color-blue"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 highlight-text">Tableau Visualizations</h3>
+                        <p class="text-text-secondary mb-6 text-sm">Explore my collection of interactive dashboards covering sales, trends, and more.</p>
+                        <button id="view-tableau-btn" class="btn-primary py-2 px-6 rounded-full text-sm">
+                            Open Gallery
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="publications" class="py-20 md:py-32 slide-in-section">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 highlight-text">
+                Publications
+            </h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="rounded-lg p-8 flex flex-col md:flex-row items-center gap-8 card-hover">
+                    <div class="flex-shrink-0 text-center">
+                        <i class="fas fa-file-alt text-6xl md:text-7xl" style="color: var(--accent-color-blue);"></i>
+                    </div>
+                    <div class="flex-grow text-center md:text-left">
+                        <h3 class="text-2xl font-bold mb-2 highlight-text">Machine Learning Framework for Early Detection of Crop Disease</h3>
+                        <p class="text-sm text-gray-500 mb-4 font-mono">
+                            International Journal for Multidisciplinary Research (IJFMR) &middot; May 2024
+                        </p>
+                        <p class="text-text-secondary mb-4">
+                            A comprehensive study on utilizing computer vision and predictive modeling to detect agricultural diseases at nascent stages.
+                        </p>
+                        <a href="https://www.ijfmr.com/research-paper.php?id=20240" target="_blank" rel="noopener noreferrer" class="btn-secondary font-bold py-2 px-5 rounded-full inline-flex items-center hover:bg-white hover:text-black">
+                            <i class="fas fa-external-link-alt mr-2"></i> Read Paper
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 md:py-32 text-center slide-in-section mb-20">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 highlight-text">Get In Touch</h2>
+            <p class="max-w-xl mx-auto text-lg mb-10 text-text-secondary">
+                I'm actively seeking roles where I can leverage my data analysis skills. You can reach out via email, and if you have any questions, feel free to ask my AI assistant!
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="mailto:amithnaglapura@gmail.com?subject=Connecting from your Portfolio" class="btn-primary font-bold py-4 px-8 rounded-full text-lg shadow-lg shadow-blue-500/30">
+                    <i class="fas fa-envelope mr-2"></i> Say Hello
+                </a>
+                <a href="https://www.linkedin.com/in/amithnaglaupra" target="_blank" class="btn-secondary font-bold py-4 px-8 rounded-full text-lg">
+                    <i class="fab fa-linkedin mr-2"></i> LinkedIn
                 </a>
             </div>
+        </section>
+    </main>
+
+    <footer class="py-8 text-center text-gray-500 relative z-10 bg-black/40 backdrop-blur-sm">
+        <div class="flex justify-center items-center space-x-8 mb-6">
+            <a href="https://www.linkedin.com/in/amithnaglaupra" target="_blank" class="text-3xl social-icon text-gray-400 hover:text-white transition-colors transform hover:scale-110">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/AmithNaglapura" target="_blank" class="text-3xl social-icon text-gray-400 hover:text-white transition-colors transform hover:scale-110">
+                <i class="fab fa-github"></i>
+            </a>
+             <a href="mailto:amithnaglapura@gmail.com" class="text-3xl social-icon text-gray-400 hover:text-white transition-colors transform hover:scale-110">
+                <i class="fas fa-envelope"></i>
+            </a>
         </div>
+        <p class="text-sm">Designed & Built by Amith Naglapura</p>
+        <p class="text-xs mt-2 opacity-70">&copy; <span id="current-year">2025</span>. All rights reserved.</p>
+    </footer>
+
+    <!-- Toasts -->
+    <div id="notification-toast" class="fixed top-24 right-4 z-[1001] p-4 rounded-lg shadow-lg text-white font-medium max-w-sm">
+        <p id="notification-text"></p>
     </div>
-</section>
 
-<section id="contact" class="py-20 md:py-32 text-center slide-in-section">
-    <h2 class="text-4xl md:text-5xl font-bold mb-4 highlight-text">Get In Touch</h2>
-    <p class="max-w-xl mx-auto text-lg mb-8 text-text-secondary">
-        I'm actively seeking roles where I can leverage my data analysis skills. You can reach out via email, and if you have any questions, feel free to ask my AI assistant in the section above!
-    </p>
-    <a href="mailto:amithnaglapura@gmail.com?subject=Connecting from your Portfolio" class="btn-primary font-bold py-4 px-8 rounded-full">
-        Say Hello
-    </a>
-</section>
-
-
-</main>
-
-<footer class="py-8 text-center text-gray-500 relative z-10">
-<div class="flex justify-center items-center space-x-6 mb-4">
-<a href="https://www.linkedin.com/in/amithnaglaupra" target="_blank" class="text-2xl social-icon text-gray-400 hover:text-white transition-colors">
-<i class="fab fa-linkedin"></i>
-</a>
-<a href="https://github.com/AmithNaglapura" target="_blank" class="text-2xl social-icon text-gray-400 hover:text-white transition-colors">
-<i class="fab fa-github"></i>
-</a>
-</div>
-<p>Designed & Built by Amith Naglapura</p>
-<p>&copy; <span id="current-year">2025</span>. All rights reserved.</p>
-</footer>
-
-<div id="notification-toast" class="fixed top-24 right-4 z-[1001] p-4 rounded-lg shadow-lg text-white">
-    <p id="notification-text"></p>
-</div>
-
-<div id="tableau-modal" class="modal-overlay hidden">
-<div class="modal-content glassmorphism rounded-lg">
-<span class="modal-close">&times;</span>
-<div class="flex justify-between items-center mb-8">
-    <h3 class="text-3xl font-bold text-center highlight-text">Tableau Visualizations</h3>
-</div>
-<div id="tableau-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    </div>
-</div>
-</div>
-
-<div id="ai-chat-modal" class="modal-overlay hidden">
-    <div id="ai-chat-container" class="modal-content glassmorphism rounded-lg max-w-lg w-full flex flex-col" style="height: 70vh;">
-        <div class="flex-shrink-0 flex justify-between items-center pb-4 border-b border-border-color">
-            <h3 class="text-xl font-bold highlight-text">✨ AI Portfolio Assistant</h3>
-            <span id="ai-chat-close" class="modal-close static text-2xl cursor-pointer">&times;</span>
-        </div>
-        <div id="chat-messages" class="flex-grow p-4 space-y-4 overflow-y-auto">
-            <div class="flex justify-start">
-                <div class="chat-bot-message rounded-lg p-3 max-w-xs lg:max-w-md">
-                    <p class="text-sm">Hello! I'm Amith's AI assistant. Feel free to ask me anything about his skills, projects, or experience.</p>
-                </div>
+    <!-- Tableau Modal -->
+    <div id="tableau-modal" class="modal-overlay hidden">
+        <div class="modal-content glassmorphism rounded-xl">
+            <span class="modal-close p-2 hover:bg-white/10 rounded-full"><i class="fas fa-times"></i></span>
+            <div class="flex flex-col items-center mb-8">
+                <h3 class="text-3xl font-bold highlight-text mb-2">Tableau Visualizations</h3>
+                <p class="text-text-secondary">Interactive dashboards powered by data.</p>
+            </div>
+            <div id="tableau-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Content injected by JS -->
             </div>
         </div>
-        <div id="chat-loading" class="hidden p-4 flex justify-center items-center">
-             <div class="spinner"></div>
-        </div>
-        <div class="flex-shrink-0 p-4 border-t border-border-color">
-            <form id="chat-form" class="flex gap-2">
-                <input type="text" id="chat-input" class="flex-grow bg-gray-800 border-border-color rounded-full shadow-sm py-2 px-4 focus:outline-none focus:ring-2 focus:ring-accent-color-blue" placeholder="Ask about a project..." style="color: var(--text-main);">
-                <button type="submit" class="btn-primary rounded-full w-12 h-12 flex-shrink-0 flex items-center justify-center">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </form>
+    </div>
+
+    <!-- AI Chat Modal -->
+    <div id="ai-chat-modal" class="modal-overlay hidden">
+        <div id="ai-chat-container" class="modal-content glassmorphism rounded-xl max-w-lg w-full flex flex-col" style="height: 70vh;">
+            <div class="flex-shrink-0 flex justify-between items-center pb-4 border-b border-border-color">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-yellow-300 flex items-center justify-center">
+                        <i class="fas fa-robot text-black text-sm"></i>
+                    </div>
+                    <h3 class="text-xl font-bold highlight-text">Portfolio AI</h3>
+                </div>
+                <span id="ai-chat-close" class="modal-close static text-2xl cursor-pointer hover:bg-white/10 rounded-full w-8 h-8 flex items-center justify-center transition-colors">&times;</span>
+            </div>
+            <div id="chat-messages" class="flex-grow p-4 space-y-4 overflow-y-auto bg-black/20">
+                <div class="flex justify-start">
+                    <div class="chat-bot-message rounded-lg p-3 max-w-[85%] rounded-tl-none">
+                        <p class="text-sm">Hello! I'm Amith's AI assistant. Ask me anything about his skills, projects, or experience.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="chat-loading" class="hidden p-4 flex justify-center items-center">
+                 <div class="spinner"></div>
+            </div>
+            <div class="flex-shrink-0 p-4 border-t border-border-color bg-black/30">
+                <form id="chat-form" class="flex gap-2">
+                    <input type="text" id="chat-input" class="flex-grow bg-gray-800 border border-border-color rounded-full shadow-inner py-3 px-5 focus:outline-none focus:ring-2 focus:ring-accent-color-blue focus:border-transparent transition-all" placeholder="Ask about a project..." style="color: var(--text-main);">
+                    <button type="submit" class="btn-primary rounded-full w-12 h-12 flex-shrink-0 flex items-center justify-center shadow-lg hover:shadow-blue-500/40">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    // --- GALAXY BACKGROUND ANIMATION ---
-    const canvas = document.getElementById('galaxy-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    const numParticles = 400;
-    function setCanvasSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    function createParticles() {
-        particles = [];
-        for (let i = 0; i < numParticles; i++) {
-            particles.push({
-                x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-                radius: Math.random() * 1.2 + 0.1,
-                // Star speed increased
-                speedX: (Math.random() - 0.5) * 0.3, 
-                speedY: (Math.random() - 0.5) * 0.3,
-                color: `rgba(255, 234, 0, ${0.3 + Math.random() * 0.5})`
-            });
+    <script>
+        // --- GALAXY BACKGROUND ANIMATION ---
+        const canvas = document.getElementById('galaxy-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const numParticles = 300; // Adjusted for performance
+        
+        function setCanvasSize() { 
+            canvas.width = window.innerWidth; 
+            canvas.height = window.innerHeight; 
         }
-    }
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-            p.x += p.speedX; p.y += p.speedY;
-            if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
-            if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
-            ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = p.color; ctx.fill();
-        });
-        requestAnimationFrame(animate);
-    }
-    window.addEventListener('resize', () => { setCanvasSize(); createParticles(); });
-    setCanvasSize(); createParticles(); animate();
-
-    // --- GENERAL UI INTERACTIONS ---
-    function setupUIInteractions() {
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-        mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
         
-        // Navbar background on scroll
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => navbar.classList.toggle('bg-black/50', window.scrollY > 50));
-        
-        // Animate sections on scroll
-        const sections = document.querySelectorAll('.slide-in-section');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); } });
-        }, { threshold: 0.1 });
-        sections.forEach(section => observer.observe(section));
-
-        // Set dynamic copyright year
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-    }
-    setupUIInteractions();
-    
-    // --- NOTIFICATION SYSTEM ---
-    const notificationToast = document.getElementById('notification-toast');
-    const notificationText = document.getElementById('notification-text');
-    let notificationTimeout;
-    function showNotification(message, type = 'success', duration = 3000) {
-        clearTimeout(notificationTimeout);
-        notificationText.textContent = message;
-        notificationToast.className = 'fixed top-24 right-4 z-[1001] p-4 rounded-lg shadow-lg text-white';
-        notificationToast.classList.add('show', type);
-        notificationTimeout = setTimeout(() => notificationToast.classList.remove('show'), duration);
-    }
-
-    // --- MODAL MANAGEMENT ---
-    const modals = {
-        tableau: document.getElementById('tableau-modal'),
-        aiChat: document.getElementById('ai-chat-modal')
-    };
-    const openModal = (modal) => modal.classList.remove('hidden');
-    const closeModal = (modal) => modal.classList.add('hidden');
-    Object.values(modals).forEach(modal => {
-        if (modal) {
-             modal.querySelector('.modal-close')?.addEventListener('click', () => closeModal(modal));
-             modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(modal); });
-        }
-    });
-     // Special handler for AI chat modal close button inside container
-    document.getElementById('ai-chat-close').addEventListener('click', () => closeModal(modals.aiChat));
-
-
-    // --- STATIC TABLEAU PROJECTS LOGIC ---
-    const viewTableauBtn = document.getElementById('view-tableau-btn');
-    const tableauProjectsContainer = document.getElementById('tableau-projects-container');
-
-    // To update your projects, edit this array
-    const tableauProjects = [
-        {
-            title: "US Superstore Sales Analysis (2015-2018)",
-            description: "This project analyzes US Superstore sales data from 2015 to 2018, uncovering key trends in sales performance, customer behavior, and regional profitability. The insights highlight opportunities for business growth and improved decision-making.",
-            url: "https://public.tableau.com/app/profile/amith.naglapura/viz/New_17549757803390/Dashboard1",
-            thumbnail: "superstore.jpeg" // Assumes image is in the same folder or a configured assets folder
-        },
-        {
-            title: "US Car Sales Dashboard",
-            description: "This project analyzes US car sales data for a single year, uncovering key trends in vehicle sales, customer preferences, and regional performance. The insights highlight opportunities for market growth, improved forecasting, and data-driven decision-making in the automotive industry.",
-            url: "https://public.tableau.com/app/profile/amith.naglapura/viz/car_sales_Dashboard/Dashboard1",
-            thumbnail: "car.jpg" // Assumes image is in the same folder or a configured assets folder
-        },
-        
-    ];
-
-    function renderTableauProjects() {
-        tableauProjectsContainer.innerHTML = '';
-        if (tableauProjects.length === 0) {
-            tableauProjectsContainer.innerHTML = `<p class="text-center text-gray-500 col-span-full p-8">No projects have been added yet.</p>`;
-        } else {
-            tableauProjects.forEach(project => {
-                const projectCard = document.createElement('div');
-                projectCard.className = 'relative rounded-lg flex flex-col h-full card-hover overflow-hidden';
-                projectCard.innerHTML = `
-                    <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="w-full h-auto object-cover aspect-video" onerror="this.onerror=null;this.src='https://placehold.co/600x338/161b22/fff8e7?text=Image+Not+Found';">
-                    <div class="p-4 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold highlight-text">${project.title}</h4>
-                        <p class="text-text-secondary my-2 text-sm flex-grow">${project.description}</p>
-                        <a href="${project.url}" target="_blank" class="font-semibold inline-block mt-2 self-start transition-colors hover:opacity-80" style="color: var(--accent-color-blue);">View on Tableau Public &rarr;</a>
-                    </div>
-                `;
-                tableauProjectsContainer.appendChild(projectCard);
-            });
-        }
-    }
-
-    viewTableauBtn.addEventListener('click', () => {
-        renderTableauProjects();
-        openModal(modals.tableau);
-    });
-
-    // --- AI CHATBOT LOGIC ---
-    const openAIChatBtnHome = document.getElementById('open-ai-chat-btn-home');
-    const chatMessagesContainer = document.getElementById('chat-messages');
-    const chatForm = document.getElementById('chat-form');
-    const chatInput = document.getElementById('chat-input');
-    const chatLoading = document.getElementById('chat-loading');
-
-    // Toggle chat modal
-    openAIChatBtnHome.addEventListener('click', () => openModal(modals.aiChat));
-
-    // Function to generate a context string from the portfolio content
-    function generatePortfolioContext() {
-        let context = "Portfolio Content:\n\n";
-        
-        const aboutText = document.querySelector('#about p.text-lg')?.innerText;
-        if(aboutText) context += `About Amith: ${aboutText}\n\n`;
-
-        const skills = [...document.querySelectorAll('#skills ul li')].map(li => li.innerText.trim()).join(', ');
-        if(skills) context += `Skills: ${skills}\n\n`;
-
-        const experiences = [...document.querySelectorAll('#experience .card-hover')].map(card => {
-            const title = card.querySelector('h3')?.innerText;
-            const company = card.querySelector('p.text-sm')?.innerText;
-            const desc = card.querySelector('p.text-text-secondary')?.innerText;
-            const tags = [...card.querySelectorAll('.tag-blue')].map(tag => tag.innerText).join(', ');
-            return `${title} at ${company}. Description: ${desc}. Technologies: ${tags}.`;
-        }).join('\n');
-        if(experiences) context += `Experience:\n${experiences}\n\n`;
-
-        const projects = [...document.querySelectorAll('#projects .card-hover')].map(card => {
-             const title = card.querySelector('h3')?.innerText;
-             const type = card.querySelector('p.text-sm')?.innerText;
-             const desc = card.querySelector('p.text-text-secondary')?.innerText;
-             const tags = [...card.querySelectorAll('.tag-blue')].map(tag => tag.innerText).join(', ');
-             if(title === 'Tableau Data Visualizations') return ''; // Skip generic card
-             return `${title} (${type}). Description: ${desc}. Key Areas: ${tags}.`;
-        }).filter(p => p).join('\n');
-        if(projects) context += `Projects:\n${projects}\n\n`;
-        
-        const publication = document.querySelector('#publications h3')?.innerText;
-        if(publication) context += `Publication: ${publication}\n\n`;
-
-        return context;
-    }
-
-
-    // Function to add a message to the chat UI
-    function addChatMessage(message, sender) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
-        
-        const messageBubble = document.createElement('div');
-        messageBubble.className = `rounded-lg p-3 max-w-xs lg:max-w-md ${sender === 'user' ? 'chat-user-message' : 'chat-bot-message'}`;
-        
-        const messageP = document.createElement('p');
-        messageP.className = 'text-sm';
-        messageP.textContent = message;
-
-        messageBubble.appendChild(messageP);
-        messageDiv.appendChild(messageBubble);
-        chatMessagesContainer.appendChild(messageDiv);
-        
-        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
-    }
-
-    // Handle chat form submission
-    chatForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const userMessage = chatInput.value.trim();
-        if (!userMessage) return;
-
-        addChatMessage(userMessage, 'user');
-        chatInput.value = '';
-        chatLoading.classList.remove('hidden');
-
-        try {
-            const botResponse = await callGeminiAPI(userMessage);
-            addChatMessage(botResponse, 'bot');
-        } catch (error) {
-            console.error('Error calling Gemini API:', error);
-            addChatMessage("Sorry, I'm having trouble connecting right now. Please try again later.", 'bot');
-        } finally {
-            chatLoading.classList.add('hidden');
-        }
-    });
-
-    async function callGeminiAPI(userQuery) {
-        // API Key corrected to be empty, and model name updated
-        const apiKey = "AIzaSyBb7dLaR4u6GA5mfck8TJw57Ji7U7vrVXU" // If you want to use models other than gemini-2.5-flash-preview-09-2025 or imagen-4.0-generate-001, provide an API key here. Otherwise, leave this as-is.
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-        const portfolioContext = generatePortfolioContext();
-        
-        const systemPrompt = `You are a friendly and professional AI assistant for Amith Naglapura's portfolio website. Your goal is to help recruiters and visitors learn about Amith.
-- Answer questions based *only* on the provided portfolio content.
-- If a question is outside the scope of the portfolio (e.g., "what is the meaning of life?"), politely decline to answer and steer the conversation back to Amith's skills and experience.
-- Keep your answers concise and professional.
-- Do not make up information. If you don't know the answer, say that the information is not in the portfolio.
-- You must answer in the third person (e.g., "Amith worked on...").
-\n\n${portfolioContext}`;
-
-        const payload = {
-            systemInstruction: {
-                parts: [{ text: systemPrompt }]
-            },
-            contents: [{ 
-                parts: [{ text: userQuery }] 
-            }],
-        };
-
-        let response;
-        let delay = 1000;
-        for (let i = 0; i < 5; i++) {
-            try {
-                response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+        function createParticles() {
+            particles = [];
+            for (let i = 0; i < numParticles; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width, 
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5 + 0.1,
+                    speedX: (Math.random() - 0.5) * 0.2, 
+                    speedY: (Math.random() - 0.5) * 0.2,
+                    color: `rgba(255, 234, 0, ${0.2 + Math.random() * 0.6})`
                 });
-                if (response.ok) {
-                    const result = await response.json();
-                    const candidate = result.candidates?.[0];
-                    if (candidate && candidate.content?.parts?.[0]?.text) {
-                        return candidate.content.parts[0].text;
-                    }
-                }
-            } catch (error) {
-                // This will be a silent retry, no need to log to console
             }
-            await new Promise(resolve => setTimeout(resolve, delay));
-            delay *= 2;
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.speedX; 
+                p.y += p.speedY;
+                
+                // Wrap around screen
+                if (p.x < 0) p.x = canvas.width; 
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height; 
+                if (p.y > canvas.height) p.y = 0;
+                
+                ctx.beginPath(); 
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color; 
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+        
+        window.addEventListener('resize', () => { 
+            setCanvasSize(); 
+            createParticles(); 
+        });
+        
+        setCanvasSize(); 
+        createParticles(); 
+        animate();
+
+        // --- GENERAL UI INTERACTIONS ---
+        function setupUIInteractions() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if(mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+                mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+            }
+            
+            // Navbar background on scroll
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 50) {
+                    navbar.classList.add('bg-black/80', 'backdrop-blur-md');
+                } else {
+                    navbar.classList.remove('bg-black/80', 'backdrop-blur-md');
+                }
+            });
+            
+            // Animate sections on scroll
+            const sections = document.querySelectorAll('.slide-in-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { 
+                    if (entry.isIntersecting) { 
+                        entry.target.classList.add('is-visible'); 
+                    } 
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+
+            // Set dynamic copyright year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        }
+        setupUIInteractions();
+        
+        // --- NOTIFICATION SYSTEM ---
+        const notificationToast = document.getElementById('notification-toast');
+        const notificationText = document.getElementById('notification-text');
+        let notificationTimeout;
+        
+        function showNotification(message, type = 'success', duration = 3000) {
+            clearTimeout(notificationTimeout);
+            notificationText.textContent = message;
+            
+            // Reset classes
+            notificationToast.className = 'fixed top-24 right-4 z-[1001] p-4 rounded-lg shadow-lg text-white font-medium max-w-sm transition-transform duration-300 transform translate-x-full';
+            
+            if(type === 'success') notificationToast.classList.add('bg-green-800', 'border', 'border-green-500');
+            else notificationToast.classList.add('bg-red-900', 'border', 'border-red-500');
+            
+            // Force reflow
+            void notificationToast.offsetWidth;
+            
+            notificationToast.classList.remove('translate-x-full');
+            
+            notificationTimeout = setTimeout(() => {
+                notificationToast.classList.add('translate-x-full');
+            }, duration);
         }
 
-        throw new Error('Failed to get a response from the Gemini API after several retries.');
-    }
+        // --- MODAL MANAGEMENT ---
+        const modals = {
+            tableau: document.getElementById('tableau-modal'),
+            aiChat: document.getElementById('ai-chat-modal')
+        };
+        
+        const openModal = (modal) => {
+            if(!modal) return;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        };
+        
+        const closeModal = (modal) => {
+            if(!modal) return;
+            modal.classList.add('hidden');
+            document.body.style.overflow = ''; // Restore scrolling
+        };
+        
+        Object.values(modals).forEach(modal => {
+            if (modal) {
+                 const closeBtn = modal.querySelector('.modal-close');
+                 if(closeBtn) closeBtn.addEventListener('click', () => closeModal(modal));
+                 modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(modal); });
+            }
+        });
+        
+         // Special handler for AI chat modal close button inside container
+        const aiChatClose = document.getElementById('ai-chat-close');
+        if(aiChatClose) aiChatClose.addEventListener('click', () => closeModal(modals.aiChat));
 
-</script>
+
+        // --- STATIC TABLEAU PROJECTS LOGIC ---
+        const viewTableauBtn = document.getElementById('view-tableau-btn');
+        const tableauProjectsContainer = document.getElementById('tableau-projects-container');
+
+        const tableauProjects = [
+            {
+                title: "US Superstore Sales Analysis",
+                description: "Analyzed 4 years of sales data to uncover key trends in performance, customer behavior, and profitability.",
+                url: "https://public.tableau.com/app/profile/amith.naglapura/viz/New_17549757803390/Dashboard1",
+                thumbnail: "superstore.jpeg"
+            },
+            {
+                title: "US Car Sales Dashboard",
+                description: "Vehicle sales analysis highlighting customer preferences, regional performance, and market growth opportunities.",
+                url: "https://public.tableau.com/app/profile/amith.naglapura/viz/car_sales_Dashboard/Dashboard1",
+                thumbnail: "car.jpg"
+            }
+        ];
+
+        function renderTableauProjects() {
+            tableauProjectsContainer.innerHTML = '';
+            if (tableauProjects.length === 0) {
+                tableauProjectsContainer.innerHTML = `<p class="text-center text-gray-500 col-span-full p-8">No projects have been added yet.</p>`;
+            } else {
+                tableauProjects.forEach(project => {
+                    const projectCard = document.createElement('div');
+                    projectCard.className = 'relative bg-card-bg border border-border-color rounded-lg flex flex-col h-full hover:border-accent-color-blue transition-colors overflow-hidden group';
+                    projectCard.innerHTML = `
+                        <div class="relative overflow-hidden aspect-video">
+                            <img src="${project.thumbnail}" alt="${project.title}" 
+                                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" 
+                                 onerror="this.onerror=null;this.src='https://placehold.co/600x338/161b22/fff8e7?text=Visualization';">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-white font-bold bg-accent-color-blue text-black px-4 py-2 rounded-full">View Dashboard</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex flex-col flex-grow">
+                            <h4 class="text-lg font-bold highlight-text mb-2">${project.title}</h4>
+                            <p class="text-text-secondary text-sm flex-grow mb-4 leading-relaxed">${project.description}</p>
+                            <a href="${project.url}" target="_blank" class="text-sm font-semibold inline-flex items-center text-accent-color-blue hover:text-white transition-colors">
+                                Open on Tableau Public <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    `;
+                    tableauProjectsContainer.appendChild(projectCard);
+                });
+            }
+        }
+
+        if(viewTableauBtn) {
+            viewTableauBtn.addEventListener('click', () => {
+                renderTableauProjects();
+                openModal(modals.tableau);
+            });
+        }
+
+        // --- AI CHATBOT LOGIC ---
+        const openAIChatBtnHome = document.getElementById('open-ai-chat-btn-home');
+        const chatMessagesContainer = document.getElementById('chat-messages');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatLoading = document.getElementById('chat-loading');
+
+        if(openAIChatBtnHome) {
+            openAIChatBtnHome.addEventListener('click', () => openModal(modals.aiChat));
+        }
+
+        // Function to generate a context string from the portfolio content
+        function generatePortfolioContext() {
+            let context = "Portfolio Content Summary:\n\n";
+            
+            const aboutText = document.querySelector('#about p.text-lg')?.innerText;
+            if(aboutText) context += `About Amith: ${aboutText}\n\n`;
+
+            const skills = [...document.querySelectorAll('#skills ul li')].map(li => li.innerText.trim()).join(', ');
+            if(skills) context += `Skills: ${skills}\n\n`;
+
+            const experiences = [...document.querySelectorAll('#experience .card-hover')].map(card => {
+                const title = card.querySelector('h3')?.innerText;
+                const company = card.querySelector('p.text-sm')?.innerText;
+                const desc = card.querySelector('p.text-text-secondary')?.innerText;
+                const tags = [...card.querySelectorAll('.tag-blue')].map(tag => tag.innerText).join(', ');
+                return `${title} at ${company}. Description: ${desc}. Tech Stack: ${tags}.`;
+            }).join('\n');
+            if(experiences) context += `Experience:\n${experiences}\n\n`;
+
+            const projects = [...document.querySelectorAll('#projects .card-hover')].map(card => {
+                 const title = card.querySelector('h3')?.innerText;
+                 const type = card.querySelector('.text-xs')?.innerText; 
+                 const desc = card.querySelector('p.text-text-secondary')?.innerText;
+                 if(title === 'Tableau Visualizations') return ''; 
+                 return `${title} (${type}). Description: ${desc}.`;
+            }).filter(p => p).join('\n');
+            if(projects) context += `Projects:\n${projects}\n\n`;
+            
+            return context;
+        }
+
+
+        // Function to add a message to the chat UI
+        function addChatMessage(message, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
+            
+            const messageBubble = document.createElement('div');
+            // Styling depends on sender
+            const bubbleClasses = sender === 'user' 
+                ? 'chat-user-message rounded-lg p-3 max-w-[85%] rounded-tr-none shadow-md' 
+                : 'chat-bot-message rounded-lg p-3 max-w-[85%] rounded-tl-none shadow-md';
+                
+            messageBubble.className = bubbleClasses;
+            
+            const messageP = document.createElement('p');
+            messageP.className = 'text-sm leading-relaxed whitespace-pre-wrap';
+            messageP.textContent = message;
+
+            messageBubble.appendChild(messageP);
+            messageDiv.appendChild(messageBubble);
+            chatMessagesContainer.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            chatMessagesContainer.scrollTo({
+                top: chatMessagesContainer.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        // Handle chat form submission
+        if(chatForm) {
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const userMessage = chatInput.value.trim();
+                if (!userMessage) return;
+
+                addChatMessage(userMessage, 'user');
+                chatInput.value = '';
+                chatInput.focus();
+                chatLoading.classList.remove('hidden');
+
+                try {
+                    const botResponse = await callGeminiAPI(userMessage);
+                    addChatMessage(botResponse, 'bot');
+                } catch (error) {
+                    console.error('Error calling Gemini API:', error);
+                    addChatMessage("Sorry, I'm having trouble connecting right now. Please try again later.", 'bot');
+                } finally {
+                    chatLoading.classList.add('hidden');
+                }
+            });
+        }
+
+        async function callGeminiAPI(userQuery) {
+            // Updated to empty string for execution environment injection
+            const apiKey = "AIzaSyBb7dLaR4u6GA5mfck8TJw57Ji7U7vrVXU"; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const portfolioContext = generatePortfolioContext();
+            
+            const systemPrompt = `You are a friendly and professional AI assistant for Amith Naglapura's portfolio website. 
+            - Answer questions based *only* on the provided portfolio content.
+            - If a question is unrelated to Amith's professional life, politely decline.
+            - Keep answers concise (under 3 sentences) unless asked for detail.
+            - Answer in the third person.
+            
+            ${portfolioContext}`;
+
+            const payload = {
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+                contents: [{ 
+                    parts: [{ text: userQuery }] 
+                }],
+            };
+
+            let response;
+            let delay = 1000;
+            // Simple exponential backoff retry logic
+            for (let i = 0; i < 3; i++) {
+                try {
+                    response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        const candidate = result.candidates?.[0];
+                        if (candidate && candidate.content?.parts?.[0]?.text) {
+                            return candidate.content.parts[0].text;
+                        }
+                    } else {
+                        // Handle specific error codes if needed, for now just retry
+                    }
+                } catch (error) {
+                   // silent retry
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay *= 2;
+            }
+
+            throw new Error('Failed to get a response from the Gemini API.');
+        }
+    </script>
 </body>
 </html>
